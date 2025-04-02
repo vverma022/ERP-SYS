@@ -1,20 +1,119 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-provider  = "postgresql"
-url       = env("DATABASE_URL")
-directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
-model User {
-   id String @unique @default(cuid())
-   name String 
+model approved_kpis {
+  id                Int           @id @default(autoincrement())
+  kpi_submission_id Int
+  approved_by       Int
+  approved_at       DateTime?     @default(now()) @db.Timestamp(0)
+  submitted_kpi     submitted_kpi @relation(fields: [kpi_submission_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "approved_kpis_ibfk_1")
+  users             users         @relation(fields: [approved_by], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "approved_kpis_ibfk_2")
+
+  @@index([approved_by], map: "approved_by")
+  @@index([kpi_submission_id], map: "kpi_submission_id")
+}
+
+model cce_kpis {
+  id                 Int             @id @default(autoincrement())
+  kpi_id             Int
+  kpi_coordinator_id Int?
+  custom_fields      Json?
+  kpi                kpi             @relation(fields: [kpi_id], references: [kpi_id], onDelete: Cascade, onUpdate: NoAction, map: "cce_kpis_ibfk_1")
+  users              users?          @relation(fields: [kpi_coordinator_id], references: [user_id], onUpdate: NoAction, map: "cce_kpis_ibfk_2")
+  submitted_kpi      submitted_kpi[]
+
+  @@index([kpi_coordinator_id], map: "kpi_coordinator_id")
+  @@index([kpi_id], map: "kpi_id")
+}
+
+model departments {
+  dept_id                          Int       @id
+  dept_name                        String    @unique(map: "dept_name") @db.VarChar(256)
+  hod_id                           Int?
+  created_at                       DateTime? @default(now()) @db.Timestamp(0)
+  users_departments_hod_idTousers  users?    @relation("departments_hod_idTousers", fields: [hod_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_departments_hod")
+  users_users_dept_idTodepartments users[]   @relation("users_dept_idTodepartments")
+
+  @@index([hod_id], map: "fk_departments_hod")
+}
+
+model kpi {
+  kpi_id      Int        @id
+  name        String     @unique(map: "name") @db.VarChar(255)
+  description String?    @db.Text
+  pillar_id   Int?
+  created_by  Int?
+  created_at  DateTime?  @default(now()) @db.Timestamp(0)
+  updated_at  DateTime?  @default(now()) @db.Timestamp(0)
+  cce_kpis    cce_kpis[]
+  users       users?     @relation(fields: [created_by], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_kpi_created_by")
+  pillars     pillars?   @relation(fields: [pillar_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_kpi_pillar")
+
+  @@index([created_by], map: "fk_kpi_created_by")
+  @@index([pillar_id], map: "fk_kpi_pillar")
+}
+
+model pillars {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique(map: "name") @db.VarChar(255)
+  description String?   @db.Text
+  created_at  DateTime? @default(now()) @db.Timestamp(0)
+  kpi         kpi[]
+}
+
+model submitted_kpi {
+  id            Int                   @id @default(autoincrement())
+  dept_KPI_id   Int
+  submitted_by  Int
+  data          Json
+  status        submitted_kpi_status? @default(pending)
+  remarks       String?               @db.Text
+  submitted_at  DateTime?             @default(now()) @db.Timestamp(0)
+  updated_at    DateTime?             @default(now()) @db.Timestamp(0)
+  approved_kpis approved_kpis[]
+  cce_kpis      cce_kpis              @relation(fields: [dept_KPI_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "submitted_kpi_ibfk_1")
+  users         users                 @relation(fields: [submitted_by], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "submitted_kpi_ibfk_2")
+
+  @@index([dept_KPI_id], map: "dept_KPI_id")
+  @@index([submitted_by], map: "submitted_by")
+}
+
+model users {
+  user_id                                Int             @id
+  user_name                              String          @db.Char(50)
+  email                                  String          @unique(map: "email") @db.VarChar(255)
+  password                               String          @db.Text
+  role                                   users_role
+  dept_id                                Int?
+  created_at                             DateTime?       @default(now()) @db.Timestamp(0)
+  approved_kpis                          approved_kpis[]
+  cce_kpis                               cce_kpis[]
+  departments_departments_hod_idTousers  departments[]   @relation("departments_hod_idTousers")
+  kpi                                    kpi[]
+  submitted_kpi                          submitted_kpi[]
+  departments_users_dept_idTodepartments departments?    @relation("users_dept_idTodepartments", fields: [dept_id], references: [dept_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_dept")
+
+  @@index([dept_id], map: "fk_users_dept")
+}
+
+enum users_role {
+  admin
+  qoc
+  hod
+  kpi_coordinator
+  faculty
+}
+
+enum submitted_kpi_status {
+  pending
+  reviewed
+  approved
+  rejected
 }
