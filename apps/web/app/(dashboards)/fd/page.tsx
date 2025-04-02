@@ -1,10 +1,11 @@
 "use client"
-import { LayoutDashboard, LineChart, Settings } from "lucide-react"
+import { DockIcon, Icon, LayoutDashboard, LineChart, Settings } from "lucide-react"
 
 import { DashboardContent } from "@/components/layout/dashboard-content"
 import { KpiManagement } from "@/components/layout/kpi-management"
 import { SettingsContent } from "@/components/layout/settings-content"
 import { AppLayout } from "@/components/layout/app-layout"
+import FormBuilder from "@/components/formbuilder/form-builder"
 
 // Define the sidebar navigation items
 const sidebarItems = [
@@ -27,6 +28,11 @@ const sidebarItems = [
     label: "Settings",
     id: "settings",
   },
+  {
+    icon: DockIcon,
+    label: "Forms",
+    id: "forms"
+  }
 ]
 
 export default function Home() {
@@ -39,6 +45,8 @@ export default function Home() {
         return <KpiManagement kpiType={activeSection} />
       case "settings":
         return <SettingsContent />
+        case "forms":
+        return <FormBuilder />
       default:
         return <DashboardContent />
     }
