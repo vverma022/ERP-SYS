@@ -16,19 +16,13 @@ export default function FormsPage() {
           <h1 className="text-3xl font-bold">Your Forms</h1>
           <p className="text-gray-600 mt-2">Manage and edit your created forms</p>
         </div>
-        <Link href="/">
-          <Button>
-            <PlusCircle className="mr-2 h-4 w-4" />
-            Create New Form
-          </Button>
-        </Link>
       </div>
 
       {forms.length === 0 ? (
-        <div className="text-center py-12 border rounded-lg bg-gray-50">
+        <div className="text-center py-12 border rounded-lg bg-secondary">
           <h3 className="text-lg font-medium mb-2">No forms created yet</h3>
-          <p className="text-gray-500 mb-6">Create your first form to get started</p>
-          <Link href="/">
+          <p className="mb-6">Create your first form to get started</p>
+          <Link href="/qoc/builder/create">
             <Button>
               <PlusCircle className="mr-2 h-4 w-4" />
               Create Form
@@ -44,7 +38,7 @@ export default function FormsPage() {
                 <CardDescription>Created on {new Date(form.createdAt).toLocaleDateString()}</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-500">{form.elements.length} elements</p>
+                <p className="text-sm">{form.elements.length} elements</p>
               </CardContent>
               <CardFooter className="flex justify-between">
                 <Link href={`/forms/${form.id}/edit`}>
@@ -61,4 +55,3 @@ export default function FormsPage() {
     </main>
   )
 }
-

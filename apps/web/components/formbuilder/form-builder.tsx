@@ -28,7 +28,6 @@ export default function FormBuilder({ initialForm }: { initialForm?: FormConfig 
     const { active } = event
     setActiveId(active.id as string)
 
-    // If dragging from sidebar, create a new element
     if (typeof active.id === "string" && active.id.includes("sidebar-")) {
       const elementType = active.id.replace("sidebar-", "") as FormElementType
       const newElement: FormElementInstance = {
@@ -51,10 +50,10 @@ export default function FormBuilder({ initialForm }: { initialForm?: FormConfig 
     setActiveId(null)
     setActiveElement(null)
 
-    // If dropped outside the canvas
+   
     if (!over) return
 
-    // If dragging from sidebar to canvas
+    
     if (typeof active.id === "string" && active.id.includes("sidebar-")) {
       const elementType = active.id.replace("sidebar-", "") as FormElementType
       const newElement: FormElementInstance = {

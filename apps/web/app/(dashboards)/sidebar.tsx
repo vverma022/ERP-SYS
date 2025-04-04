@@ -12,7 +12,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@workspace/ui/components/sidebar"
-import { Home , LayoutDashboard, LineChart, Settings , ChevronDown, ChevronRight} from "lucide-react";
+import { Home , LayoutDashboard, LineChart, Settings , ChevronDown, ChevronRight, Hammer, Check} from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { AppSidebarProps, SidebarItem } from "@/lib/types";
@@ -21,8 +21,10 @@ const sidebarConfig: Record<string, { title: string; items: SidebarItem[] }> = {
     qoc: {
       title: "QOC Dashboard",
       items: [
-        { icon: Home, label: "QOC Overview", id: "qoc-overview", path: "/" },
-        { icon: Settings, label: "QOC Settings", id: "qoc-settings", path: "/" },
+        { icon: Home, label: "Dashboard", id: "qoc-dashboard", path: "/qoc/" },
+        {icon: Hammer, label:"Build", id:"form-builder", path:"/qoc/builder"},
+        {icon: Check, label:"Review", id:"Review Submissions", path:"/qoc/review"},
+        { icon: Settings, label: "Settings", id: "qoc-settings", path: "/qoc/settings" },
       ],
     },
     faculty: {

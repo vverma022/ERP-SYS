@@ -52,7 +52,7 @@ export default function FormElementsSidebar() {
   ]
 
   return (
-    <Card className="w-full lg:w-64 h-fit">
+    <Card className="w-full lg:w-64 h-fit bg-accent-foreground">
       <CardHeader>
         <CardTitle>Form Elements</CardTitle>
       </CardHeader>
