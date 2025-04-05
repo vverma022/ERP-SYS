@@ -1,5 +1,4 @@
 import { BarChart3, BookOpen, CalendarIcon, FileText, LineChart, PieChart, Users } from "lucide-react"
-
 import { Button } from "@workspace/ui/components/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@workspace/ui/components/card"
 import { Progress } from "@workspace/ui/components/progress"
