@@ -124,8 +124,8 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
           </div>
           <div className="relative hidden bg-muted md:block">
             <img
-              src="/images/building.png"
-              alt="Building with golden dome"
+              src="Manipal.png"
+              alt="Manipal University Jaipur"
               className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2]"
             />
           </div>
