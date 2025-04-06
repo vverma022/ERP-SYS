@@ -10,7 +10,7 @@ import { Input } from "@workspace/ui/components/input"
 import { Label } from "@workspace/ui/components/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@workspace/ui/components/tabs"
 
-export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
+export default function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
   const [userType, setUserType] = useState("faculty")
 
   const handleSubmit = (e: React.FormEvent) => {
