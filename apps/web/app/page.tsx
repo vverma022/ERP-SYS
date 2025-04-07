@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+import Image from "next/image"
 
 import { useState } from "react"
 import { cn } from "@workspace/ui/lib/utils"
@@ -20,8 +21,8 @@ export default function LoginForm({ className, ...props }: React.ComponentProps<
   }
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card className="overflow-hidden">
+    <div className={cn("flex min-h-screen items-center justify-center p-4", className)} {...props}>
+      <Card className="w-full max-w-4xl overflow-hidden">
         <CardContent className="grid p-0 md:grid-cols-2">
           <div className="flex flex-col">
             <Tabs defaultValue="faculty" className="w-full" onValueChange={setUserType}>
@@ -122,11 +123,12 @@ export default function LoginForm({ className, ...props }: React.ComponentProps<
               </TabsContent>
             </Tabs>
           </div>
-          <div className="relative hidden bg-muted md:block">
-            <img
-              src="Manipal.png"
+          <div className="relative hidden h-full bg-muted md:block">
+          <Image
+              src="/images/Manipal.png"
               alt="Manipal University Jaipur"
-              className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2]"
+              fill
+              className="object-cover dark:brightness-[0.5]"
             />
           </div>
         </CardContent>
