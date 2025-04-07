@@ -8,112 +8,74 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model approved_kpis {
-  Approved_KPIs_id  Int           @id @default(autoincrement())
-  kpi_submission_id Int
-  approval_by       Int
-  approval_at       DateTime?     @default(now()) @db.Timestamp(0)
-  submitted_kpi     submitted_kpi @relation(fields: [kpi_submission_id], references: [Submitted_KPI_id], onDelete: Cascade, onUpdate: NoAction, map: "approved_kpis_ibfk_1")
-  users             users         @relation(fields: [approval_by], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "approved_kpis_ibfk_2")
-
-  @@index([approval_by], map: "approval_by")
-  @@index([kpi_submission_id], map: "kpi_submission_id")
-}
-
-model cce_kpis {
-  CCE_KPIs_id        Int             @id @default(autoincrement())
-  kpi_id             Int
-  kpi_coordinator_id Int?
-  custom_fields      Json?
-  kpi                kpi             @relation(fields: [kpi_id], references: [kpi_id], onDelete: Cascade, onUpdate: NoAction, map: "cce_kpis_ibfk_1")
-  users              users?          @relation(fields: [kpi_coordinator_id], references: [user_id], onUpdate: NoAction, map: "cce_kpis_ibfk_2")
-  submitted_kpi      submitted_kpi[]
-
-  @@index([kpi_coordinator_id], map: "kpi_coordinator_id")
-  @@index([kpi_id], map: "kpi_id")
-}
-
-model departments {
-  dept_id                          Int       @id
-  dept_name                        String    @unique(map: "dept_name") @db.VarChar(256)
-  hod_id                           Int?
-  dept_creation                    DateTime? @default(now()) @db.Timestamp(0)
-  users_departments_hod_idTousers  users?    @relation("departments_hod_idTousers", fields: [hod_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_departments_hod")
-  users_users_dept_idTodepartments users[]   @relation("users_dept_idTodepartments")
-
-  @@index([hod_id], map: "fk_departments_hod")
-}
-
-model kpi {
-  kpi_id          Int        @id
-  kpi_name        String     @unique(map: "kpi_name") @db.VarChar(255)
-  kpi_description String?    @db.Text
-  pillar_id       Int?
-  kpi_creator     Int?
-  kpi_creation    DateTime?  @default(now()) @db.Timestamp(0)
-  kpi_updation    DateTime?  @default(now()) @db.Timestamp(0)
-  cce_kpis        cce_kpis[]
-  users           users?     @relation(fields: [kpi_creator], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_kpi_creator")
-  pillars         pillars?   @relation(fields: [pillar_id], references: [pillar_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_kpi_pillar")
-
-  @@index([kpi_creator], map: "fk_kpi_creator")
-  @@index([pillar_id], map: "fk_kpi_pillar")
-}
-
-model pillars {
-  pillar_id          Int       @id
-  pillar_name        String    @unique(map: "pillar_name") @db.VarChar(255)
-  pillar_description String?   @db.Text
-  pillar_creation    DateTime? @default(now()) @db.Timestamp(0)
-  kpi                kpi[]
-}
-
-model submitted_kpi {
-  Submitted_KPI_id Int                   @id @default(autoincrement())
-  dept_KPI_id      Int
-  submitted_by     Int
-  data             Json
-  status           submitted_kpi_status? @default(pending)
-  remarks          String?               @db.Text
-  submitted_at     DateTime?             @default(now()) @db.Timestamp(0)
-  updated_at       DateTime?             @default(now()) @db.Timestamp(0)
-  approved_kpis    approved_kpis[]
-  cce_kpis         cce_kpis              @relation(fields: [dept_KPI_id], references: [CCE_KPIs_id], onDelete: Cascade, onUpdate: NoAction, map: "submitted_kpi_ibfk_1")
-  users            users                 @relation(fields: [submitted_by], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "submitted_kpi_ibfk_2")
-
-  @@index([dept_KPI_id], map: "dept_KPI_id")
-  @@index([submitted_by], map: "submitted_by")
-}
-
 model users {
-  user_id                                Int             @id
-  user_name                              String          @db.Char(50)
-  user_email                             String          @unique(map: "user_email") @db.VarChar(255)
-  user_password                          String          @db.Text
-  user_role                              users_user_role
-  dept_id                                Int?
-  user_creation                          DateTime?       @default(now()) @db.Timestamp(0)
-  approved_kpis                          approved_kpis[]
-  cce_kpis                               cce_kpis[]
-  departments_departments_hod_idTousers  departments[]   @relation("departments_hod_idTousers")
-  kpi                                    kpi[]
-  submitted_kpi                          submitted_kpi[]
-  departments_users_dept_idTodepartments departments?    @relation("users_dept_idTodepartments", fields: [dept_id], references: [dept_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_dept")
+  user_id         Int             @id @default(autoincrement()) // Primary key
+  user_name       String          @db.Char(50)                 // Name of the user
+  user_email      String          @unique(map: "user_email")   // Email (unique)
+  user_password   String          @db.Text                     // Password
+  user_role       String          @default("faculty")          // Role of the user (hod, faculty, coordinator)
+  dept_id         Int?                                         // Foreign key to departments
+  kpi             kpi[]                                        // Relation to kpi created by the user
+  departments     departments?    @relation("users_dept_idTodepartments", fields: [dept_id], references: [dept_id], onDelete: NoAction, onUpdate: NoAction)
 
   @@index([dept_id], map: "fk_users_dept")
 }
 
-enum submitted_kpi_status {
-  pending
-  reviewed
-  approved
-  rejected
+model departments {
+  dept_id         Int             @id @default(autoincrement()) // Primary key
+  dept_name       String          @unique(map: "dept_name")     // Department name (unique)
+  hod_id          Int?                                         // Foreign key to users (HOD)
+  dept_creation   DateTime?       @default(now()) @db.Timestamp(0) // Creation timestamp
+  hod_name        String?                                      // HOD name (for display purposes)
+  pillars         pillars[]                                    // Relation to pillars
+
+  users           users?          @relation("departments_hod_idTousers", fields: [hod_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([hod_id], map: "fk_departments_hod")
 }
 
-enum users_user_role {
-  admin
-  qoc
-  hod
-  kpi_coordinator
-  faculty
+model pillars {
+  pillar_id       Int             @id @default(autoincrement()) // Primary key
+  pillar_name     String          @unique(map: "pillar_name")   // Pillar name (unique)
+  pillar_creation DateTime?       @default(now()) @db.Timestamp(0) // Creation timestamp
+  created_by      Int                                         // Foreign key to users
+  assigned_kpi    assigned_kpi[]                              // Relation to assigned_kpi
+
+  users           users           @relation(fields: [created_by], references: [user_id], onDelete: Cascade)
+
+  @@index([created_by], map: "fk_pillars_created_by")
+}
+
+model assigned_kpi {
+  assigned_kpi_id Int             @id @default(autoincrement()) // Primary key
+  kpi_id          Int                                         // Foreign key to kpi
+  kpi_name        String          @db.VarChar(255)             // KPI name
+  kpi_status      String          @db.VarChar(50)              // Status of the KPI
+  added_date      DateTime?       @default(now()) @db.Timestamp(0) // Date when KPI was added
+  resolved_date   DateTime?                                    // Date when KPI was resolved
+  approved_by     Int?                                         // Foreign key to users (approver)
+
+  kpi             kpi             @relation(fields: [kpi_id], references: [kpi_id], onDelete: Cascade)
+  approver        users?          @relation(fields: [approved_by], references: [user_id], onDelete: Cascade)
+
+  @@index([kpi_id], map: "fk_assigned_kpi_kpi")
+  @@index([approved_by], map: "fk_assigned_kpi_approver")
+}
+
+model kpi {
+  kpi_id          Int             @id @default(autoincrement()) // Primary key
+  kpi_name        String          @unique(map: "kpi_name")      // KPI name (unique)
+  kpi_created_at  DateTime?       @default(now()) @db.Timestamp(0) // Creation timestamp
+  example         Json                                         // Example JSON field
+  assigned_kpis   assigned_kpi[]                               // Relation to assigned_kpi
+
+  @@index([kpi_name], map: "idx_kpi_name")
+}
+
+model qoc {
+  qoc_id       Int    @id @default(autoincrement()) // Primary key
+  qoc_name     String @db.VarChar(255)             // Name of the QOC
+  qoc_email    String @unique                      // Email (unique)
+  qoc_password String @db.Text                     // Password
+  qoc_role     String @db.VarChar(50)              // Role of the QOC
 }
