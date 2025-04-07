@@ -2,7 +2,6 @@
 
 import type React from "react"
 import Image from "next/image"
-
 import { useState } from "react"
 import { cn } from "@workspace/ui/lib/utils"
 import { Button } from "@workspace/ui/components/button"
@@ -10,13 +9,15 @@ import { Card, CardContent } from "@workspace/ui/components/card"
 import { Input } from "@workspace/ui/components/input"
 import { Label } from "@workspace/ui/components/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@workspace/ui/components/tabs"
+import { useRouter } from "next/navigation"
 
 export default function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
   const [userType, setUserType] = useState("faculty")
+  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle login based on userType
+    
     console.log(`Logging in as ${userType}`)
   }
 
@@ -61,8 +62,8 @@ export default function LoginForm({ className, ...props }: React.ComponentProps<
                       </div>
                       <Input id="qoac-password" type="password" required />
                     </div>
-                    <Button type="submit" className="w-full">
-                      Login as QOAC
+                    <Button type="button" className="w-full" onClick={() => router.push('/qoc')}>
+                    Login as QOAC
                     </Button>
                   </div>
                 </form>
@@ -115,7 +116,7 @@ export default function LoginForm({ className, ...props }: React.ComponentProps<
                       </div>
                       <Input id="faculty-password" type="password" required />
                     </div>
-                    <Button type="submit" className="w-full">
+                    <Button type="submit" className="w-full" onClick={() => router.push('/faculty')}>
                       Login as Faculty
                     </Button>
                   </div>
