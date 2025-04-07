@@ -54,6 +54,7 @@ model assigned_kpi {
   added_date      DateTime?       @default(now()) @db.Timestamp(0) // Date when KPI was added
   resolved_date   DateTime?                                    // Date when KPI was resolved
   approved_by     Int?                                         // Foreign key to users (approver)
+  comments        String?          @db.Text                    // Comments on the KPI
 
   kpi             kpi             @relation(fields: [kpi_id], references: [kpi_id], onDelete: Cascade)
   approver        users?          @relation(fields: [approved_by], references: [user_id], onDelete: Cascade)
