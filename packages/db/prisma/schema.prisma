@@ -67,7 +67,7 @@ model kpi {
   kpi_id          Int             @id @default(autoincrement()) // Primary key
   kpi_name        String          @unique(map: "kpi_name")      // KPI name (unique)
   kpi_created_at  DateTime?       @default(now()) @db.Timestamp(0) // Creation timestamp
-  example         Json                                         // Example JSON field
+  form_data         Json                                         // Example JSON field
   assigned_kpis   assigned_kpi[]                               // Relation to assigned_kpi
 
   @@index([kpi_name], map: "idx_kpi_name")
