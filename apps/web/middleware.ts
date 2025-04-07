@@ -1,9 +1,16 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
- 
-// This function can be marked `async` if using `await` inside
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
 export function middleware(request: NextRequest) {
-    return NextResponse.json({ message: `testing if it is working` });
+    // const isAuthenticated = request.cookies.get('authToken'); // Example: Check for an auth token in cookies
+
+    // if (!isAuthenticated) {
+    //     // Redirect to the login page if the user is not authenticated
+    //     return NextResponse.redirect(new URL('/login', request.url));
+    // }
+
+    // // Allow the request to proceed if authenticated
+    // return NextResponse.next();
 }
  
 
