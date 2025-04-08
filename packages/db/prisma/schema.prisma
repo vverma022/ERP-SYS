@@ -1,5 +1,12 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
 generator client {
   provider = "prisma-client-js"
+  output   = "../generated/client"
 }
 
 datasource db {
@@ -17,6 +24,9 @@ model users {
   dept_id         Int?                                         // Foreign key to departments
   kpi             kpi[]                                        // Relation to kpi created by the user
   departments     departments?    @relation("users_dept_idTodepartments", fields: [dept_id], references: [dept_id], onDelete: NoAction, onUpdate: NoAction)
+  pillars         pillars[]                                    // Relation to pillars created by the user
+  approved_kpis   assigned_kpi[]                              // Relation to assigned KPIs approved by the user
+  hod_departments departments[]   @relation("departments_hod_idTousers") // Relation to departments where the user is HOD
 
   @@index([dept_id], map: "fk_users_dept")
 }
@@ -28,8 +38,8 @@ model departments {
   dept_creation   DateTime?       @default(now()) @db.Timestamp(0) // Creation timestamp
   hod_name        String?                                      // HOD name (for display purposes)
   pillars         pillars[]                                    // Relation to pillars
-
   users           users?          @relation("departments_hod_idTousers", fields: [hod_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  users_in_dept   users[]         @relation("users_dept_idTodepartments") // Relation to users in the department
 
   @@index([hod_id], map: "fk_departments_hod")
 }
@@ -41,7 +51,6 @@ model pillars {
   created_by      Int                                         // Foreign key to users
   department_id   Int                                         // Foreign key to departments
   assigned_kpi    assigned_kpi[]                              // Relation to assigned_kpi
-
   users           users           @relation(fields: [created_by], references: [user_id], onDelete: Cascade)
   departments     departments     @relation(fields: [department_id], references: [dept_id], onDelete: Cascade)
 
@@ -59,7 +68,6 @@ model assigned_kpi {
   resolved_date   DateTime?                                    // Date when KPI was resolved
   approved_by     Int?                                         // Foreign key to users (approver)
   comments        String?          @db.Text                    // Comments on the KPI
-
   kpi             kpi             @relation(fields: [kpi_id], references: [kpi_id], onDelete: Cascade)
   pillars         pillars         @relation(fields: [pillar_id], references: [pillar_id], onDelete: Cascade)
   approver        users?          @relation(fields: [approved_by], references: [user_id], onDelete: Cascade)
@@ -76,6 +84,8 @@ model kpi {
   kpi_updated_at  DateTime?       @updatedAt                   // Automatically updates on record update
   form_data       Json                                         // Example JSON field
   assigned_kpis   assigned_kpi[]                               // Relation to assigned_kpi
+  user_id         Int?                                         // Foreign key to users
+  user            users?          @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
 
   @@index([kpi_name], map: "idx_kpi_name")
 }
