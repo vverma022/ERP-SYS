@@ -12,7 +12,9 @@ type Props = {
 const SidebarLayout = ({children}: Props) => {
   const [activeSection, setActiveSection] = useState<string | null>(null)
   const pathname = usePathname()
-  const showNotifications = !pathname.startsWith('/faculty')
+  const hideNotificationRoutes = ['/faculty']
+const showNotifications = !hideNotificationRoutes.some(route => pathname.startsWith(route))
+
 
   return (
     <SidebarProvider>
