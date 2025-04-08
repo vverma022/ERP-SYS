@@ -25,7 +25,7 @@ const mockSubmission = {
   ],
 }
 
-export function QOCSubmissionReview({ id }: { id: string }) {
+export default function QOCSubmissionReview({ id }: { id: string }) {
   const [feedback, setFeedback] = useState("")
   const [status, setStatus] = useState(mockSubmission.status)
 
