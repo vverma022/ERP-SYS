@@ -29,7 +29,10 @@ import { useTheme } from "next-themes"
 export function SettingsContent() {
   const { theme, setTheme } = useTheme()
   const pathname = usePathname()
-const isFacultyDashboard = pathname?.includes("/faculty")
+  const hiddenDarkModeRoutes = ["/faculty"];
+  const shouldShowDarkModeToggle = !hiddenDarkModeRoutes.some(route =>
+    pathname.startsWith(route)
+  );
 
   const [isDarkMode, setIsDarkMode] = useState(theme === "dark")
 
@@ -108,7 +111,7 @@ const isFacultyDashboard = pathname?.includes("/faculty")
               </div>
 
               <Separator />
-              {!isFacultyDashboard && (
+              {shouldShowDarkModeToggle && (
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="dark-mode">Dark Mode</Label>
@@ -117,7 +120,7 @@ const isFacultyDashboard = pathname?.includes("/faculty")
                 <Switch id="dark-mode" checked={isDarkMode} onCheckedChange={handleThemeChange} />
               </div>
               )}
-              {!isFacultyDashboard && (
+              {shouldShowDarkModeToggle && (
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="theme-select">Theme Preference</Label>
