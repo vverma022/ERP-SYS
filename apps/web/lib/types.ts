@@ -1,5 +1,23 @@
 import { LucideIcon } from "lucide-react"
 
+type ErrorName = 
+| 'PROCESSING_ERROR';
+
+export class ProcessError extends Error {
+  name: ErrorName;
+  message: string;
+  cause: Error | null;
+
+  constructor({name,message,cause} : {name: ErrorName; message: string; cause: any}) {
+    super(message);
+    this.name = name;
+    this.message = message;
+    this.cause = cause;
+  }
+}
+
+
+
 export type FormElementType =
   | "text"
   | "textarea"

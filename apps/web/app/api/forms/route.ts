@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@repo/db'; // Import Prisma client from the shared package
+import { prisma } from '@repo/db' // Import Prisma client from the shared package
 
 /* 
 For KPI's. Here we'll have the KPI's for creating the KPI's and Getting the KPI's.
@@ -13,6 +13,7 @@ export async function POST(request: Request): Promise<NextResponse> {
   try {
     // Parse the JSON body from the request
     const body = await request.json();
+    console.log('Request body:', body);
 
     // Extract relevant fields from the JSON
     const { id, title, elements, createdAt } = body;
