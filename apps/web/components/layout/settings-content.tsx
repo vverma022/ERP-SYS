@@ -1,4 +1,5 @@
 "use client"
+import { usePathname } from "next/navigation"
 
 import { useState } from "react"
 import { Button } from "@workspace/ui/components/button"
@@ -27,6 +28,9 @@ import { useTheme } from "next-themes"
 
 export function SettingsContent() {
   const { theme, setTheme } = useTheme()
+  const pathname = usePathname()
+const isFacultyDashboard = pathname?.includes("/faculty")
+
   const [isDarkMode, setIsDarkMode] = useState(theme === "dark")
 
   const handleSaveChanges = () => {
@@ -104,7 +108,7 @@ export function SettingsContent() {
               </div>
 
               <Separator />
-
+              {!isFacultyDashboard && (
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="dark-mode">Dark Mode</Label>
@@ -112,7 +116,8 @@ export function SettingsContent() {
                 </div>
                 <Switch id="dark-mode" checked={isDarkMode} onCheckedChange={handleThemeChange} />
               </div>
-
+              )}
+              {!isFacultyDashboard && (
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="theme-select">Theme Preference</Label>
@@ -135,7 +140,7 @@ export function SettingsContent() {
                   </SelectContent>
                 </Select>
               </div>
-
+              )}
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="auto-save">Auto Save</Label>
