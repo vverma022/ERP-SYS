@@ -154,19 +154,7 @@ export default function FormBuilder({ initialForm }: { initialForm?: FormConfig 
         updatedAt: new Date().toISOString(),
       };
   
-      saveForm(formData, {
-        onSuccess: () => {
-          toast("Form saved successfully", {
-            description: "Your form has been saved to the backend",
-          });
-        },
-        onError: (error) => {
-          toast("Error saving form", {
-            description: "There was an error saving your form. Please try again.",
-          });
-          console.error("Save form error:", error);
-        },
-      });
+      saveForm(formData);
     } catch (error) {
       console.error("Unexpected error in handleSaveForm:", error);
       toast("Unexpected Error", {
