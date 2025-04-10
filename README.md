@@ -1,31 +1,125 @@
-# shadcn/ui monorepo template
+# ERP-SYS
 
-This template is for creating a monorepo with shadcn/ui.
+A modern Enterprise Resource Planning (ERP) system built with **Next.js**, featuring a **monorepo structure** powered by **Turborepo**. This project includes a frontend application, a backend API server, and shared packages for UI components and database access.
 
-## Usage
+---
+
+## Project Structure
+
+```
+ERP-SYS/
+├── apps/
+│   ├── web/           # Frontend application (Next.js)
+│   └── server/        # Backend API server (Node.js/Express or similar)
+├── packages/          # Shared packages
+│   ├── ui/            # Shared UI components
+│   └── db/            # Shared database access (Prisma)
+```
+
+---
+
+## Features
+
+- **Frontend**: Built with Next.js 13+ using the App Router and React Server Components.
+- **Backend**: API server for handling business logic and database interactions.
+- **Database**: Prisma ORM with PostgreSQL.
+- **Authentication**: Powered by NextAuth.js (Auth.js).
+- **Monorepo**: Managed with Turborepo for efficient builds and dependency sharing.
+- **UI Components**: Shared UI components using `shadcn/ui` and Tailwind CSS.
+- **Drag-and-Drop**: Form builder with `@dnd-kit`.
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- **Node.js**: v18+ (LTS recommended)
+- **pnpm**: v8+ (for monorepo dependency management)
+
+---
+
+### Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/yourusername/ERP-SYS.git
+   cd ERP-SYS
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   pnpm install
+   ```
+
+3. **Set up environment variables**:
+   - Copy the example `.env` files:
+     ```bash
+     cp apps/web/.env.example apps/web/.env.local
+     cp apps/server/.env.example apps/server/.env
+     ```
+   - Update the `.env` files with your configuration (e.g., database URL, authentication secrets).
+
+4. **Set up the database**:
+   - Apply Prisma migrations:
+     ```bash
+     pnpm --filter db prisma migrate dev
+     ```
+   - (Optional) Open Prisma Studio to explore the database:
+     ```bash
+     pnpm --filter db prisma studio
+     ```
+
+5. **Start the development servers**:
+   - Start all apps:
+     ```bash
+     pnpm dev
+     ```
+   - Or start specific apps:
+     ```bash
+     pnpm --filter web dev
+     pnpm --filter server dev
+     ```
+
+---
+
+## Development
+
+### Adding UI Components
+
+To add new components from `shadcn/ui` to the frontend:
 
 ```bash
-pnpm dlx shadcn@latest init
+pnpm dlx shadcn@latest add [component-name] -c apps/web
 ```
 
-## Adding components
 
-To add components to your app, run the following command at the root of your `web` app:
+## Database
 
-```bash
-pnpm dlx shadcn@latest add button -c apps/web
-```
+- **ORM**: Prisma
+- **Database**: PostgreSQL
 
-This will place the ui components in the `packages/ui/src/components` directory.
+---
 
-## Tailwind
+## ER Diagram
 
-Your `tailwind.config.ts` and `globals.css` are already set up to use the components from the `ui` package.
 
-## Using components
+## Contributing
 
-To use the components in your app, import them from the `ui` package.
+1. Fork the repository.
+2. Create a new branch:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+3. Commit your changes:
+   ```bash
+   git commit -m "feat: add your feature"
+   ```
+4. Push to the branch:
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+5. Open a pull request.
 
-```tsx
-import { Button } from "@workspace/ui/components/button"
-```
+---
+
