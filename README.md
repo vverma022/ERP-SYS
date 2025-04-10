@@ -51,15 +51,7 @@ ERP-SYS/
    ```bash
    pnpm install
    ```
-
-3. **Set up environment variables**:
-   - Copy the example `.env` files:
-     ```bash
-     cp apps/web/.env.example apps/web/.env.local
-     cp apps/server/.env.example apps/server/.env
-     ```
-   - Update the `.env` files with your configuration (e.g., database URL, authentication secrets).
-
+   
 4. **Set up the database**:
    - Apply Prisma migrations:
      ```bash
