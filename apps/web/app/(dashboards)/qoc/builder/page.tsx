@@ -31,6 +31,12 @@ export default function FormsPage() {
           <h1 className="text-3xl font-bold">Your Forms</h1>
           <p className="text-gray-600 mt-2">Manage and edit your created forms</p>
         </div>
+        <Link href="/qoc/builder/create">
+            <Button>
+              <PlusCircle className="mr-2 h-4 w-4" />
+              Create Form
+            </Button>
+          </Link>
       </div>
 
       {forms?.length === 0 ? (
@@ -46,7 +52,8 @@ export default function FormsPage() {
         </div>
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {forms.map((form) => (
+          
+          {forms!.map((form) => (
             <Card key={form.id}>
               <CardHeader>
                 <CardTitle>{form.title}</CardTitle>

@@ -37,13 +37,13 @@ export function useSaveForm(): UseMutationResult<
   });
 }
 
-const fetchForms = async (): Promise<FormConfig> => {
+const fetchForms = async (): Promise<FormConfig[]> => {
   const response = await axios.get('/api/forms');
-  return response.data;
+  return response.data.kpis;
 };
 
 export function useFetchForms() {
-  return useQuery({
+  return useQuery<FormConfig[]>({
     queryKey: ['forms'],
     queryFn: fetchForms,
     staleTime: 5 * 60 * 1000,
