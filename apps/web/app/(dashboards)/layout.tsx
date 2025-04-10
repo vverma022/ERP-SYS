@@ -16,7 +16,7 @@ const SidebarLayout = ({children}: Props) => {
     <div className="flex h-screen w-full overflow-hidden bg-background">
        <MainAppSidebar activeSection={activeSection} setActiveSection={setActiveSection} />
       <div className="flex flex-1 flex-col overflow-hidden">
-      <Navbar />
+      <Navbar showNotifications={false} showHelp={false} />
         <main className="flex-1 overflow-y-auto p-4 md:p-6">
           {children}
         </main>
