@@ -188,7 +188,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\Arunabha\\Desktop\\Projects\\ERP-SYS\\packages\\db\\generated\\client",
+      "value": "/Users/vverma/Programming /ERP-SYS/packages/db/generated/client",
       "fromEnvVar": null
     },
     "config": {
@@ -197,12 +197,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "darwin-arm64",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\Arunabha\\Desktop\\Projects\\ERP-SYS\\packages\\db\\prisma\\schema.prisma",
+    "sourceFilePath": "/Users/vverma/Programming /ERP-SYS/packages/db/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
