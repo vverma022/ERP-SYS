@@ -148,7 +148,7 @@ export default function FormBuilder({ initialForm }: { initialForm?: FormConfig 
     try {
       const formData: FormConfig = {
         id: `form-${Date.now()}`,
-        title: formTitle || 'Untitled Form',
+        title: formTitle,
         elements,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
@@ -172,14 +172,17 @@ export default function FormBuilder({ initialForm }: { initialForm?: FormConfig 
     >
       <div className="mb-6">
         <Label htmlFor="form-title" className="text-lg font-medium mb-2 block">
-          Form Title
+          KPI TITLE
         </Label>
         <Input
           id="form-title"
-          value={formTitle}
-          onChange={(e) => setFormTitle(e.target.value)}
+          value={formTitle.replace('KPI', '')}
+          onChange={(e) => {
+            const numberValue = e.target.value.replace(/\D/g,' ');
+            setFormTitle(`KPI ${numberValue}`);}
+          } 
           className="text-lg font-medium"
-          placeholder="Enter form title"
+          placeholder="Enter KPI Number"
         />
       </div>
 
