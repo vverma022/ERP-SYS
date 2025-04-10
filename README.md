@@ -94,6 +94,7 @@ pnpm dlx shadcn@latest add [component-name] -c apps/web
 ---
 
 ## ER Diagram
+![Preview](ERP-SYS\apps\web\public\images\erd.png)
 
 
 ## Contributing
