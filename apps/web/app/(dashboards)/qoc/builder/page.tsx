@@ -1,13 +1,28 @@
+"use client"
 import { Button } from "@workspace/ui/components/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@workspace/ui/components/card"
 import Link from "next/link"
 import { PlusCircle } from "lucide-react"
+import { useFetchForms } from "@/hooks/forms"
 
 export default function FormsPage() {
-  // In a real app, you would fetch forms from your backend
-  const forms = [
-    // This would be populated from your database
-  ]
+  const {data: forms, isLoading, error } = useFetchForms();
+
+  if (isLoading) {
+    return (
+      <main className="container mx-auto py-8 px-4">
+        <p className="text-center text-gray-600">Loading forms...</p>
+      </main>
+    );
+  }
+
+  if (error) {
+    return (
+      <main className="container mx-auto py-8 px-4">
+        <p className="text-center text-red-600">Error loading forms: {error.message}</p>
+      </main>
+    );
+  }
 
   return (
     <main className="container mx-auto py-8 px-4">
@@ -18,7 +33,7 @@ export default function FormsPage() {
         </div>
       </div>
 
-      {forms.length === 0 ? (
+      {forms?.length === 0 ? (
         <div className="text-center py-12 border rounded-lg bg-secondary">
           <h3 className="text-lg font-medium mb-2">No forms created yet</h3>
           <p className="mb-6">Create your first form to get started</p>
