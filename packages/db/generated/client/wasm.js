@@ -138,19 +138,17 @@ exports.Prisma.PillarsScalarFieldEnum = {
   pillar_id: 'pillar_id',
   pillar_name: 'pillar_name',
   pillar_creation: 'pillar_creation',
-  created_by: 'created_by',
   department_id: 'department_id'
 };
 
 exports.Prisma.Assigned_kpiScalarFieldEnum = {
   assigned_kpi_id: 'assigned_kpi_id',
-  kpi_id: 'kpi_id',
   pillar_id: 'pillar_id',
   kpi_name: 'kpi_name',
   kpi_status: 'kpi_status',
+  form_data: 'form_data',
   added_date: 'added_date',
   resolved_date: 'resolved_date',
-  approved_by: 'approved_by',
   comments: 'comments'
 };
 
@@ -159,8 +157,7 @@ exports.Prisma.KpiScalarFieldEnum = {
   kpi_name: 'kpi_name',
   kpi_created_at: 'kpi_created_at',
   kpi_updated_at: 'kpi_updated_at',
-  form_data: 'form_data',
-  user_id: 'user_id'
+  form_data: 'form_data'
 };
 
 exports.Prisma.QocScalarFieldEnum = {
