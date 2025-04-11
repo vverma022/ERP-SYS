@@ -5,15 +5,6 @@ import type { ReactNode } from "react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@workspace/ui/components/avatar"
 import { Button } from "@workspace/ui/components/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@workspace/ui/components/dropdown-menu"
 import { Input } from "@workspace/ui/components/input"
 import { SidebarTrigger } from "@workspace/ui/components/sidebar"
 import { ThemeToggle } from "@workspace/ui/components/theme-toggle"
@@ -26,10 +17,6 @@ export interface NavbarProps {
   showHelp?: boolean
   userAvatar?: string
   userInitials?: string
-  userMenuItems?: {
-    label: string
-    onClick?: () => void
-  }[]
   leftContent?: ReactNode
   rightContent?: ReactNode
   onSearch?: (query: string) => void
@@ -43,14 +30,6 @@ export function Navbar({
   showHelp = true,
   userAvatar = "/placeholder.svg",
   userInitials = "JD",
-  userMenuItems = [
-    { label: "Profile" },
-    { label: "Settings" },
-    { label: "Preferences" },
-    { label: "Help" },
-    { label: "Keyboard shortcuts" },
-    { label: "Log out" },
-  ],
   leftContent,
   rightContent,
   onSearch,
@@ -105,28 +84,10 @@ export function Navbar({
           </Button>
         )}
 
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" className="rounded-full">
-              <Avatar className="h-8 w-8">
-                <AvatarImage src={userAvatar} alt="User" />
-                <AvatarFallback>{userInitials}</AvatarFallback>
-              </Avatar>
-              <span className="sr-only">User menu</span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              {userMenuItems.map((item, index) => (
-                <DropdownMenuItem key={index} onClick={item.onClick}>
-                  {item.label}
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Avatar className="h-8 w-8">
+          <AvatarImage src={userAvatar} alt="User" />
+          <AvatarFallback>{userInitials}</AvatarFallback>
+        </Avatar>
       </div>
     </header>
   )
