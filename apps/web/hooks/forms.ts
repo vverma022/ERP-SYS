@@ -1,9 +1,8 @@
 import { FormConfig, ProcessError } from '@/lib/types';
-import { useMutation, UseMutationResult } from '@tanstack/react-query';
+import { useMutation, UseMutationResult, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { toast } from 'sonner';
 
-// Define the Axios function
 const saveFormToBackend = async (formData: FormConfig): Promise<any> => {
     try {
       const response = await axios.post('/api/forms', formData);
@@ -17,24 +16,38 @@ const saveFormToBackend = async (formData: FormConfig): Promise<any> => {
     }
   };
 
-// Custom hook
 export function useSaveForm(): UseMutationResult<
-  any, // Replace with the actual return type of saveFormToBackend if known
+  any, 
   ProcessError,
   FormConfig
 > {
   return useMutation({
     mutationFn: saveFormToBackend,
     onSuccess: () => {
-      toast("Form saved successfully", {
+      toast.success("Form saved successfully", {
         description: "Your form has been saved to the backend",
       });
     },
     onError: (error: ProcessError) => {
-      toast("Error saving form", {
+      toast.error("Error saving form", {
         description: error.message,
       });
       console.error("Save form error:", error.name, error.cause);
     },
   });
 }
+
+const fetchForms = async (): Promise<FormConfig[]> => {
+  const response = await axios.get('/api/forms');
+  return response.data.kpis;
+};
+
+export function useFetchForms() {
+  return useQuery<FormConfig[]>({
+    queryKey: ['forms'],
+    queryFn: fetchForms,
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false
+  });
+}
+
