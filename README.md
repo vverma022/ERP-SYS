@@ -51,6 +51,20 @@ ERP-SYS/
    ```bash
    pnpm install
    ```
+
+3. **Set up environment variables**:
+   - Create a `.env` file in the `db` folder with the following template:
+     ```properties
+     DATABASE_URL="your-database-url"
+     DIRECT_URL="your-direct-database-url"
+     ```
+     - `DATABASE_URL`: The main connection string for your database.
+     - `DIRECT_URL`: A direct connection string for bypassing connection pooling (if applicable).
+   - Create a `.env` file in the `app/web` folder with the following template:
+     ```properties
+     DATABASE_URL="your-database-url"
+     DIRECT_URL="your-direct-database-url"
+     ```
    
 4. **Set up the database**:
    - Apply Prisma migrations:
@@ -65,7 +79,7 @@ ERP-SYS/
 5. **Start the development servers**:
    - Start all apps:
      ```bash
-     pnpm dev
+     pnpm run dev
      ```
    - Or start specific apps:
      ```bash
