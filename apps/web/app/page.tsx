@@ -11,18 +11,18 @@ import { Label } from "@workspace/ui/components/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@workspace/ui/components/tabs"
 import { useRouter } from "next/navigation"
 
-export default function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
+export default function LoginForm({ className }: { className?: string }) {
   const [userType, setUserType] = useState("faculty")
   const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     console.log(`Logging in as ${userType}`)
   }
 
   return (
-    <div className={cn("flex min-h-screen items-center justify-center p-4", className)} {...props}>
+    <div className={cn("flex min-h-screen items-center justify-center p-4", className)}>
       <Card className="w-full max-w-4xl overflow-hidden">
         <CardContent className="grid p-0 md:grid-cols-2">
           <div className="flex flex-col">
@@ -63,7 +63,7 @@ export default function LoginForm({ className, ...props }: React.ComponentProps<
                       <Input id="qoac-password" type="password" required />
                     </div>
                     <Button type="button" className="w-full" onClick={() => router.push('/qoc')}>
-                    Login as QOAC
+                      Login as QOAC
                     </Button>
                   </div>
                 </form>
@@ -124,12 +124,13 @@ export default function LoginForm({ className, ...props }: React.ComponentProps<
               </TabsContent>
             </Tabs>
           </div>
-          <div className="relative hidden h-full bg-muted md:block">
-          <Image
+          <div className="relative hidden h-full min-h-[300px] bg-muted md:block">
+            <Image
               src="/images/Manipal.png"
               alt="Manipal University Jaipur"
               fill
               className="object-cover dark:brightness-[0.5]"
+              priority
             />
           </div>
         </CardContent>

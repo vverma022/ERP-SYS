@@ -34,7 +34,7 @@ const sidebarConfig: Record<string, { title: string; items: SidebarItem[] }> = {
           icon: LayoutDashboard,
           label: "Dashboard",
           id: "dashboard",
-          path: "/faculty/", 
+          path: "/faculty/",
         },
         {
           icon: LineChart,
