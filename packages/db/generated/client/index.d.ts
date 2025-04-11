@@ -1320,75 +1320,17 @@ export namespace Prisma {
 
 
   /**
-   * Count Type UsersCountOutputType
-   */
-
-  export type UsersCountOutputType = {
-    kpi: number
-    pillars: number
-    approved_kpis: number
-    hod_departments: number
-  }
-
-  export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    kpi?: boolean | UsersCountOutputTypeCountKpiArgs
-    pillars?: boolean | UsersCountOutputTypeCountPillarsArgs
-    approved_kpis?: boolean | UsersCountOutputTypeCountApproved_kpisArgs
-    hod_departments?: boolean | UsersCountOutputTypeCountHod_departmentsArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * UsersCountOutputType without action
-   */
-  export type UsersCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UsersCountOutputType
-     */
-    select?: UsersCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * UsersCountOutputType without action
-   */
-  export type UsersCountOutputTypeCountKpiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: kpiWhereInput
-  }
-
-  /**
-   * UsersCountOutputType without action
-   */
-  export type UsersCountOutputTypeCountPillarsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: pillarsWhereInput
-  }
-
-  /**
-   * UsersCountOutputType without action
-   */
-  export type UsersCountOutputTypeCountApproved_kpisArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: assigned_kpiWhereInput
-  }
-
-  /**
-   * UsersCountOutputType without action
-   */
-  export type UsersCountOutputTypeCountHod_departmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: departmentsWhereInput
-  }
-
-
-  /**
    * Count Type DepartmentsCountOutputType
    */
 
   export type DepartmentsCountOutputType = {
     pillars: number
-    users_in_dept: number
+    members: number
   }
 
   export type DepartmentsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     pillars?: boolean | DepartmentsCountOutputTypeCountPillarsArgs
-    users_in_dept?: boolean | DepartmentsCountOutputTypeCountUsers_in_deptArgs
+    members?: boolean | DepartmentsCountOutputTypeCountMembersArgs
   }
 
   // Custom InputTypes
@@ -1412,7 +1354,7 @@ export namespace Prisma {
   /**
    * DepartmentsCountOutputType without action
    */
-  export type DepartmentsCountOutputTypeCountUsers_in_deptArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type DepartmentsCountOutputTypeCountMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: usersWhereInput
   }
 
@@ -1444,37 +1386,6 @@ export namespace Prisma {
    * PillarsCountOutputType without action
    */
   export type PillarsCountOutputTypeCountAssigned_kpiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: assigned_kpiWhereInput
-  }
-
-
-  /**
-   * Count Type KpiCountOutputType
-   */
-
-  export type KpiCountOutputType = {
-    assigned_kpis: number
-  }
-
-  export type KpiCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    assigned_kpis?: boolean | KpiCountOutputTypeCountAssigned_kpisArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * KpiCountOutputType without action
-   */
-  export type KpiCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the KpiCountOutputType
-     */
-    select?: KpiCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * KpiCountOutputType without action
-   */
-  export type KpiCountOutputTypeCountAssigned_kpisArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: assigned_kpiWhereInput
   }
 
@@ -1693,12 +1604,7 @@ export namespace Prisma {
     user_password?: boolean
     user_role?: boolean
     dept_id?: boolean
-    kpi?: boolean | users$kpiArgs<ExtArgs>
-    departments?: boolean | users$departmentsArgs<ExtArgs>
-    pillars?: boolean | users$pillarsArgs<ExtArgs>
-    approved_kpis?: boolean | users$approved_kpisArgs<ExtArgs>
-    hod_departments?: boolean | users$hod_departmentsArgs<ExtArgs>
-    _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
+    department?: boolean | users$departmentArgs<ExtArgs>
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1708,7 +1614,7 @@ export namespace Prisma {
     user_password?: boolean
     user_role?: boolean
     dept_id?: boolean
-    departments?: boolean | users$departmentsArgs<ExtArgs>
+    department?: boolean | users$departmentArgs<ExtArgs>
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1718,7 +1624,7 @@ export namespace Prisma {
     user_password?: boolean
     user_role?: boolean
     dept_id?: boolean
-    departments?: boolean | users$departmentsArgs<ExtArgs>
+    department?: boolean | users$departmentArgs<ExtArgs>
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectScalar = {
@@ -1732,28 +1638,19 @@ export namespace Prisma {
 
   export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "user_name" | "user_email" | "user_password" | "user_role" | "dept_id", ExtArgs["result"]["users"]>
   export type usersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    kpi?: boolean | users$kpiArgs<ExtArgs>
-    departments?: boolean | users$departmentsArgs<ExtArgs>
-    pillars?: boolean | users$pillarsArgs<ExtArgs>
-    approved_kpis?: boolean | users$approved_kpisArgs<ExtArgs>
-    hod_departments?: boolean | users$hod_departmentsArgs<ExtArgs>
-    _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
+    department?: boolean | users$departmentArgs<ExtArgs>
   }
   export type usersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    departments?: boolean | users$departmentsArgs<ExtArgs>
+    department?: boolean | users$departmentArgs<ExtArgs>
   }
   export type usersIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    departments?: boolean | users$departmentsArgs<ExtArgs>
+    department?: boolean | users$departmentArgs<ExtArgs>
   }
 
   export type $usersPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "users"
     objects: {
-      kpi: Prisma.$kpiPayload<ExtArgs>[]
-      departments: Prisma.$departmentsPayload<ExtArgs> | null
-      pillars: Prisma.$pillarsPayload<ExtArgs>[]
-      approved_kpis: Prisma.$assigned_kpiPayload<ExtArgs>[]
-      hod_departments: Prisma.$departmentsPayload<ExtArgs>[]
+      department: Prisma.$departmentsPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       user_id: number
@@ -2156,11 +2053,7 @@ export namespace Prisma {
    */
   export interface Prisma__usersClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    kpi<T extends users$kpiArgs<ExtArgs> = {}>(args?: Subset<T, users$kpiArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$kpiPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    departments<T extends users$departmentsArgs<ExtArgs> = {}>(args?: Subset<T, users$departmentsArgs<ExtArgs>>): Prisma__departmentsClient<$Result.GetResult<Prisma.$departmentsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    pillars<T extends users$pillarsArgs<ExtArgs> = {}>(args?: Subset<T, users$pillarsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$pillarsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    approved_kpis<T extends users$approved_kpisArgs<ExtArgs> = {}>(args?: Subset<T, users$approved_kpisArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$assigned_kpiPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    hod_departments<T extends users$hod_departmentsArgs<ExtArgs> = {}>(args?: Subset<T, users$hod_departmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$departmentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    department<T extends users$departmentArgs<ExtArgs> = {}>(args?: Subset<T, users$departmentArgs<ExtArgs>>): Prisma__departmentsClient<$Result.GetResult<Prisma.$departmentsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2592,33 +2485,9 @@ export namespace Prisma {
   }
 
   /**
-   * users.kpi
+   * users.department
    */
-  export type users$kpiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the kpi
-     */
-    select?: kpiSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the kpi
-     */
-    omit?: kpiOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: kpiInclude<ExtArgs> | null
-    where?: kpiWhereInput
-    orderBy?: kpiOrderByWithRelationInput | kpiOrderByWithRelationInput[]
-    cursor?: kpiWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: KpiScalarFieldEnum | KpiScalarFieldEnum[]
-  }
-
-  /**
-   * users.departments
-   */
-  export type users$departmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type users$departmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the departments
      */
@@ -2632,78 +2501,6 @@ export namespace Prisma {
      */
     include?: departmentsInclude<ExtArgs> | null
     where?: departmentsWhereInput
-  }
-
-  /**
-   * users.pillars
-   */
-  export type users$pillarsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the pillars
-     */
-    select?: pillarsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the pillars
-     */
-    omit?: pillarsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: pillarsInclude<ExtArgs> | null
-    where?: pillarsWhereInput
-    orderBy?: pillarsOrderByWithRelationInput | pillarsOrderByWithRelationInput[]
-    cursor?: pillarsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: PillarsScalarFieldEnum | PillarsScalarFieldEnum[]
-  }
-
-  /**
-   * users.approved_kpis
-   */
-  export type users$approved_kpisArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the assigned_kpi
-     */
-    select?: assigned_kpiSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the assigned_kpi
-     */
-    omit?: assigned_kpiOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: assigned_kpiInclude<ExtArgs> | null
-    where?: assigned_kpiWhereInput
-    orderBy?: assigned_kpiOrderByWithRelationInput | assigned_kpiOrderByWithRelationInput[]
-    cursor?: assigned_kpiWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Assigned_kpiScalarFieldEnum | Assigned_kpiScalarFieldEnum[]
-  }
-
-  /**
-   * users.hod_departments
-   */
-  export type users$hod_departmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the departments
-     */
-    select?: departmentsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the departments
-     */
-    omit?: departmentsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: departmentsInclude<ExtArgs> | null
-    where?: departmentsWhereInput
-    orderBy?: departmentsOrderByWithRelationInput | departmentsOrderByWithRelationInput[]
-    cursor?: departmentsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: DepartmentsScalarFieldEnum | DepartmentsScalarFieldEnum[]
   }
 
   /**
@@ -2928,8 +2725,7 @@ export namespace Prisma {
     dept_creation?: boolean
     hod_name?: boolean
     pillars?: boolean | departments$pillarsArgs<ExtArgs>
-    users?: boolean | departments$usersArgs<ExtArgs>
-    users_in_dept?: boolean | departments$users_in_deptArgs<ExtArgs>
+    members?: boolean | departments$membersArgs<ExtArgs>
     _count?: boolean | DepartmentsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["departments"]>
 
@@ -2939,7 +2735,6 @@ export namespace Prisma {
     hod_id?: boolean
     dept_creation?: boolean
     hod_name?: boolean
-    users?: boolean | departments$usersArgs<ExtArgs>
   }, ExtArgs["result"]["departments"]>
 
   export type departmentsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2948,7 +2743,6 @@ export namespace Prisma {
     hod_id?: boolean
     dept_creation?: boolean
     hod_name?: boolean
-    users?: boolean | departments$usersArgs<ExtArgs>
   }, ExtArgs["result"]["departments"]>
 
   export type departmentsSelectScalar = {
@@ -2962,23 +2756,17 @@ export namespace Prisma {
   export type departmentsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"dept_id" | "dept_name" | "hod_id" | "dept_creation" | "hod_name", ExtArgs["result"]["departments"]>
   export type departmentsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     pillars?: boolean | departments$pillarsArgs<ExtArgs>
-    users?: boolean | departments$usersArgs<ExtArgs>
-    users_in_dept?: boolean | departments$users_in_deptArgs<ExtArgs>
+    members?: boolean | departments$membersArgs<ExtArgs>
     _count?: boolean | DepartmentsCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type departmentsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    users?: boolean | departments$usersArgs<ExtArgs>
-  }
-  export type departmentsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    users?: boolean | departments$usersArgs<ExtArgs>
-  }
+  export type departmentsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type departmentsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $departmentsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "departments"
     objects: {
       pillars: Prisma.$pillarsPayload<ExtArgs>[]
-      users: Prisma.$usersPayload<ExtArgs> | null
-      users_in_dept: Prisma.$usersPayload<ExtArgs>[]
+      members: Prisma.$usersPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       dept_id: number
@@ -3381,8 +3169,7 @@ export namespace Prisma {
   export interface Prisma__departmentsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     pillars<T extends departments$pillarsArgs<ExtArgs> = {}>(args?: Subset<T, departments$pillarsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$pillarsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    users<T extends departments$usersArgs<ExtArgs> = {}>(args?: Subset<T, departments$usersArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    users_in_dept<T extends departments$users_in_deptArgs<ExtArgs> = {}>(args?: Subset<T, departments$users_in_deptArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    members<T extends departments$membersArgs<ExtArgs> = {}>(args?: Subset<T, departments$membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3666,10 +3453,6 @@ export namespace Prisma {
      */
     data: departmentsCreateManyInput | departmentsCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: departmentsIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3740,10 +3523,6 @@ export namespace Prisma {
      * Limit how many departments to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: departmentsIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3837,28 +3616,9 @@ export namespace Prisma {
   }
 
   /**
-   * departments.users
+   * departments.members
    */
-  export type departments$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the users
-     */
-    select?: usersSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the users
-     */
-    omit?: usersOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: usersInclude<ExtArgs> | null
-    where?: usersWhereInput
-  }
-
-  /**
-   * departments.users_in_dept
-   */
-  export type departments$users_in_deptArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type departments$membersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the users
      */
@@ -3912,13 +3672,11 @@ export namespace Prisma {
 
   export type PillarsAvgAggregateOutputType = {
     pillar_id: number | null
-    created_by: number | null
     department_id: number | null
   }
 
   export type PillarsSumAggregateOutputType = {
     pillar_id: number | null
-    created_by: number | null
     department_id: number | null
   }
 
@@ -3926,7 +3684,6 @@ export namespace Prisma {
     pillar_id: number | null
     pillar_name: string | null
     pillar_creation: Date | null
-    created_by: number | null
     department_id: number | null
   }
 
@@ -3934,7 +3691,6 @@ export namespace Prisma {
     pillar_id: number | null
     pillar_name: string | null
     pillar_creation: Date | null
-    created_by: number | null
     department_id: number | null
   }
 
@@ -3942,7 +3698,6 @@ export namespace Prisma {
     pillar_id: number
     pillar_name: number
     pillar_creation: number
-    created_by: number
     department_id: number
     _all: number
   }
@@ -3950,13 +3705,11 @@ export namespace Prisma {
 
   export type PillarsAvgAggregateInputType = {
     pillar_id?: true
-    created_by?: true
     department_id?: true
   }
 
   export type PillarsSumAggregateInputType = {
     pillar_id?: true
-    created_by?: true
     department_id?: true
   }
 
@@ -3964,7 +3717,6 @@ export namespace Prisma {
     pillar_id?: true
     pillar_name?: true
     pillar_creation?: true
-    created_by?: true
     department_id?: true
   }
 
@@ -3972,7 +3724,6 @@ export namespace Prisma {
     pillar_id?: true
     pillar_name?: true
     pillar_creation?: true
-    created_by?: true
     department_id?: true
   }
 
@@ -3980,7 +3731,6 @@ export namespace Prisma {
     pillar_id?: true
     pillar_name?: true
     pillar_creation?: true
-    created_by?: true
     department_id?: true
     _all?: true
   }
@@ -4075,7 +3825,6 @@ export namespace Prisma {
     pillar_id: number
     pillar_name: string
     pillar_creation: Date | null
-    created_by: number
     department_id: number
     _count: PillarsCountAggregateOutputType | null
     _avg: PillarsAvgAggregateOutputType | null
@@ -4102,11 +3851,9 @@ export namespace Prisma {
     pillar_id?: boolean
     pillar_name?: boolean
     pillar_creation?: boolean
-    created_by?: boolean
     department_id?: boolean
     assigned_kpi?: boolean | pillars$assigned_kpiArgs<ExtArgs>
-    users?: boolean | usersDefaultArgs<ExtArgs>
-    departments?: boolean | departmentsDefaultArgs<ExtArgs>
+    department?: boolean | departmentsDefaultArgs<ExtArgs>
     _count?: boolean | PillarsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pillars"]>
 
@@ -4114,58 +3861,48 @@ export namespace Prisma {
     pillar_id?: boolean
     pillar_name?: boolean
     pillar_creation?: boolean
-    created_by?: boolean
     department_id?: boolean
-    users?: boolean | usersDefaultArgs<ExtArgs>
-    departments?: boolean | departmentsDefaultArgs<ExtArgs>
+    department?: boolean | departmentsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pillars"]>
 
   export type pillarsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     pillar_id?: boolean
     pillar_name?: boolean
     pillar_creation?: boolean
-    created_by?: boolean
     department_id?: boolean
-    users?: boolean | usersDefaultArgs<ExtArgs>
-    departments?: boolean | departmentsDefaultArgs<ExtArgs>
+    department?: boolean | departmentsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pillars"]>
 
   export type pillarsSelectScalar = {
     pillar_id?: boolean
     pillar_name?: boolean
     pillar_creation?: boolean
-    created_by?: boolean
     department_id?: boolean
   }
 
-  export type pillarsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"pillar_id" | "pillar_name" | "pillar_creation" | "created_by" | "department_id", ExtArgs["result"]["pillars"]>
+  export type pillarsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"pillar_id" | "pillar_name" | "pillar_creation" | "department_id", ExtArgs["result"]["pillars"]>
   export type pillarsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     assigned_kpi?: boolean | pillars$assigned_kpiArgs<ExtArgs>
-    users?: boolean | usersDefaultArgs<ExtArgs>
-    departments?: boolean | departmentsDefaultArgs<ExtArgs>
+    department?: boolean | departmentsDefaultArgs<ExtArgs>
     _count?: boolean | PillarsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type pillarsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    users?: boolean | usersDefaultArgs<ExtArgs>
-    departments?: boolean | departmentsDefaultArgs<ExtArgs>
+    department?: boolean | departmentsDefaultArgs<ExtArgs>
   }
   export type pillarsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    users?: boolean | usersDefaultArgs<ExtArgs>
-    departments?: boolean | departmentsDefaultArgs<ExtArgs>
+    department?: boolean | departmentsDefaultArgs<ExtArgs>
   }
 
   export type $pillarsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "pillars"
     objects: {
       assigned_kpi: Prisma.$assigned_kpiPayload<ExtArgs>[]
-      users: Prisma.$usersPayload<ExtArgs>
-      departments: Prisma.$departmentsPayload<ExtArgs>
+      department: Prisma.$departmentsPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       pillar_id: number
       pillar_name: string
       pillar_creation: Date | null
-      created_by: number
       department_id: number
     }, ExtArgs["result"]["pillars"]>
     composites: {}
@@ -4562,8 +4299,7 @@ export namespace Prisma {
   export interface Prisma__pillarsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     assigned_kpi<T extends pillars$assigned_kpiArgs<ExtArgs> = {}>(args?: Subset<T, pillars$assigned_kpiArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$assigned_kpiPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    users<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    departments<T extends departmentsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, departmentsDefaultArgs<ExtArgs>>): Prisma__departmentsClient<$Result.GetResult<Prisma.$departmentsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    department<T extends departmentsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, departmentsDefaultArgs<ExtArgs>>): Prisma__departmentsClient<$Result.GetResult<Prisma.$departmentsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4596,7 +4332,6 @@ export namespace Prisma {
     readonly pillar_id: FieldRef<"pillars", 'Int'>
     readonly pillar_name: FieldRef<"pillars", 'String'>
     readonly pillar_creation: FieldRef<"pillars", 'DateTime'>
-    readonly created_by: FieldRef<"pillars", 'Int'>
     readonly department_id: FieldRef<"pillars", 'Int'>
   }
     
@@ -5050,51 +4785,42 @@ export namespace Prisma {
 
   export type Assigned_kpiAvgAggregateOutputType = {
     assigned_kpi_id: number | null
-    kpi_id: number | null
     pillar_id: number | null
-    approved_by: number | null
   }
 
   export type Assigned_kpiSumAggregateOutputType = {
     assigned_kpi_id: number | null
-    kpi_id: number | null
     pillar_id: number | null
-    approved_by: number | null
   }
 
   export type Assigned_kpiMinAggregateOutputType = {
     assigned_kpi_id: number | null
-    kpi_id: number | null
     pillar_id: number | null
     kpi_name: string | null
     kpi_status: string | null
     added_date: Date | null
     resolved_date: Date | null
-    approved_by: number | null
     comments: string | null
   }
 
   export type Assigned_kpiMaxAggregateOutputType = {
     assigned_kpi_id: number | null
-    kpi_id: number | null
     pillar_id: number | null
     kpi_name: string | null
     kpi_status: string | null
     added_date: Date | null
     resolved_date: Date | null
-    approved_by: number | null
     comments: string | null
   }
 
   export type Assigned_kpiCountAggregateOutputType = {
     assigned_kpi_id: number
-    kpi_id: number
     pillar_id: number
     kpi_name: number
     kpi_status: number
+    form_data: number
     added_date: number
     resolved_date: number
-    approved_by: number
     comments: number
     _all: number
   }
@@ -5102,51 +4828,42 @@ export namespace Prisma {
 
   export type Assigned_kpiAvgAggregateInputType = {
     assigned_kpi_id?: true
-    kpi_id?: true
     pillar_id?: true
-    approved_by?: true
   }
 
   export type Assigned_kpiSumAggregateInputType = {
     assigned_kpi_id?: true
-    kpi_id?: true
     pillar_id?: true
-    approved_by?: true
   }
 
   export type Assigned_kpiMinAggregateInputType = {
     assigned_kpi_id?: true
-    kpi_id?: true
     pillar_id?: true
     kpi_name?: true
     kpi_status?: true
     added_date?: true
     resolved_date?: true
-    approved_by?: true
     comments?: true
   }
 
   export type Assigned_kpiMaxAggregateInputType = {
     assigned_kpi_id?: true
-    kpi_id?: true
     pillar_id?: true
     kpi_name?: true
     kpi_status?: true
     added_date?: true
     resolved_date?: true
-    approved_by?: true
     comments?: true
   }
 
   export type Assigned_kpiCountAggregateInputType = {
     assigned_kpi_id?: true
-    kpi_id?: true
     pillar_id?: true
     kpi_name?: true
     kpi_status?: true
+    form_data?: true
     added_date?: true
     resolved_date?: true
-    approved_by?: true
     comments?: true
     _all?: true
   }
@@ -5239,13 +4956,12 @@ export namespace Prisma {
 
   export type Assigned_kpiGroupByOutputType = {
     assigned_kpi_id: number
-    kpi_id: number
     pillar_id: number
     kpi_name: string
     kpi_status: string
+    form_data: JsonValue
     added_date: Date | null
     resolved_date: Date | null
-    approved_by: number | null
     comments: string | null
     _count: Assigned_kpiCountAggregateOutputType | null
     _avg: Assigned_kpiAvgAggregateOutputType | null
@@ -5270,94 +4986,75 @@ export namespace Prisma {
 
   export type assigned_kpiSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     assigned_kpi_id?: boolean
-    kpi_id?: boolean
     pillar_id?: boolean
     kpi_name?: boolean
     kpi_status?: boolean
+    form_data?: boolean
     added_date?: boolean
     resolved_date?: boolean
-    approved_by?: boolean
     comments?: boolean
-    kpi?: boolean | kpiDefaultArgs<ExtArgs>
-    pillars?: boolean | pillarsDefaultArgs<ExtArgs>
-    approver?: boolean | assigned_kpi$approverArgs<ExtArgs>
+    pillar?: boolean | pillarsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["assigned_kpi"]>
 
   export type assigned_kpiSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     assigned_kpi_id?: boolean
-    kpi_id?: boolean
     pillar_id?: boolean
     kpi_name?: boolean
     kpi_status?: boolean
+    form_data?: boolean
     added_date?: boolean
     resolved_date?: boolean
-    approved_by?: boolean
     comments?: boolean
-    kpi?: boolean | kpiDefaultArgs<ExtArgs>
-    pillars?: boolean | pillarsDefaultArgs<ExtArgs>
-    approver?: boolean | assigned_kpi$approverArgs<ExtArgs>
+    pillar?: boolean | pillarsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["assigned_kpi"]>
 
   export type assigned_kpiSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     assigned_kpi_id?: boolean
-    kpi_id?: boolean
     pillar_id?: boolean
     kpi_name?: boolean
     kpi_status?: boolean
+    form_data?: boolean
     added_date?: boolean
     resolved_date?: boolean
-    approved_by?: boolean
     comments?: boolean
-    kpi?: boolean | kpiDefaultArgs<ExtArgs>
-    pillars?: boolean | pillarsDefaultArgs<ExtArgs>
-    approver?: boolean | assigned_kpi$approverArgs<ExtArgs>
+    pillar?: boolean | pillarsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["assigned_kpi"]>
 
   export type assigned_kpiSelectScalar = {
     assigned_kpi_id?: boolean
-    kpi_id?: boolean
     pillar_id?: boolean
     kpi_name?: boolean
     kpi_status?: boolean
+    form_data?: boolean
     added_date?: boolean
     resolved_date?: boolean
-    approved_by?: boolean
     comments?: boolean
   }
 
-  export type assigned_kpiOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"assigned_kpi_id" | "kpi_id" | "pillar_id" | "kpi_name" | "kpi_status" | "added_date" | "resolved_date" | "approved_by" | "comments", ExtArgs["result"]["assigned_kpi"]>
+  export type assigned_kpiOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"assigned_kpi_id" | "pillar_id" | "kpi_name" | "kpi_status" | "form_data" | "added_date" | "resolved_date" | "comments", ExtArgs["result"]["assigned_kpi"]>
   export type assigned_kpiInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    kpi?: boolean | kpiDefaultArgs<ExtArgs>
-    pillars?: boolean | pillarsDefaultArgs<ExtArgs>
-    approver?: boolean | assigned_kpi$approverArgs<ExtArgs>
+    pillar?: boolean | pillarsDefaultArgs<ExtArgs>
   }
   export type assigned_kpiIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    kpi?: boolean | kpiDefaultArgs<ExtArgs>
-    pillars?: boolean | pillarsDefaultArgs<ExtArgs>
-    approver?: boolean | assigned_kpi$approverArgs<ExtArgs>
+    pillar?: boolean | pillarsDefaultArgs<ExtArgs>
   }
   export type assigned_kpiIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    kpi?: boolean | kpiDefaultArgs<ExtArgs>
-    pillars?: boolean | pillarsDefaultArgs<ExtArgs>
-    approver?: boolean | assigned_kpi$approverArgs<ExtArgs>
+    pillar?: boolean | pillarsDefaultArgs<ExtArgs>
   }
 
   export type $assigned_kpiPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "assigned_kpi"
     objects: {
-      kpi: Prisma.$kpiPayload<ExtArgs>
-      pillars: Prisma.$pillarsPayload<ExtArgs>
-      approver: Prisma.$usersPayload<ExtArgs> | null
+      pillar: Prisma.$pillarsPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       assigned_kpi_id: number
-      kpi_id: number
       pillar_id: number
       kpi_name: string
       kpi_status: string
+      form_data: Prisma.JsonValue
       added_date: Date | null
       resolved_date: Date | null
-      approved_by: number | null
       comments: string | null
     }, ExtArgs["result"]["assigned_kpi"]>
     composites: {}
@@ -5753,9 +5450,7 @@ export namespace Prisma {
    */
   export interface Prisma__assigned_kpiClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    kpi<T extends kpiDefaultArgs<ExtArgs> = {}>(args?: Subset<T, kpiDefaultArgs<ExtArgs>>): Prisma__kpiClient<$Result.GetResult<Prisma.$kpiPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    pillars<T extends pillarsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, pillarsDefaultArgs<ExtArgs>>): Prisma__pillarsClient<$Result.GetResult<Prisma.$pillarsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    approver<T extends assigned_kpi$approverArgs<ExtArgs> = {}>(args?: Subset<T, assigned_kpi$approverArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    pillar<T extends pillarsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, pillarsDefaultArgs<ExtArgs>>): Prisma__pillarsClient<$Result.GetResult<Prisma.$pillarsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5786,13 +5481,12 @@ export namespace Prisma {
    */ 
   interface assigned_kpiFieldRefs {
     readonly assigned_kpi_id: FieldRef<"assigned_kpi", 'Int'>
-    readonly kpi_id: FieldRef<"assigned_kpi", 'Int'>
     readonly pillar_id: FieldRef<"assigned_kpi", 'Int'>
     readonly kpi_name: FieldRef<"assigned_kpi", 'String'>
     readonly kpi_status: FieldRef<"assigned_kpi", 'String'>
+    readonly form_data: FieldRef<"assigned_kpi", 'Json'>
     readonly added_date: FieldRef<"assigned_kpi", 'DateTime'>
     readonly resolved_date: FieldRef<"assigned_kpi", 'DateTime'>
-    readonly approved_by: FieldRef<"assigned_kpi", 'Int'>
     readonly comments: FieldRef<"assigned_kpi", 'String'>
   }
     
@@ -6190,25 +5884,6 @@ export namespace Prisma {
   }
 
   /**
-   * assigned_kpi.approver
-   */
-  export type assigned_kpi$approverArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the users
-     */
-    select?: usersSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the users
-     */
-    omit?: usersOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: usersInclude<ExtArgs> | null
-    where?: usersWhereInput
-  }
-
-  /**
    * assigned_kpi without action
    */
   export type assigned_kpiDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6241,12 +5916,10 @@ export namespace Prisma {
 
   export type KpiAvgAggregateOutputType = {
     kpi_id: number | null
-    user_id: number | null
   }
 
   export type KpiSumAggregateOutputType = {
     kpi_id: number | null
-    user_id: number | null
   }
 
   export type KpiMinAggregateOutputType = {
@@ -6254,7 +5927,6 @@ export namespace Prisma {
     kpi_name: string | null
     kpi_created_at: Date | null
     kpi_updated_at: Date | null
-    user_id: number | null
   }
 
   export type KpiMaxAggregateOutputType = {
@@ -6262,7 +5934,6 @@ export namespace Prisma {
     kpi_name: string | null
     kpi_created_at: Date | null
     kpi_updated_at: Date | null
-    user_id: number | null
   }
 
   export type KpiCountAggregateOutputType = {
@@ -6271,19 +5942,16 @@ export namespace Prisma {
     kpi_created_at: number
     kpi_updated_at: number
     form_data: number
-    user_id: number
     _all: number
   }
 
 
   export type KpiAvgAggregateInputType = {
     kpi_id?: true
-    user_id?: true
   }
 
   export type KpiSumAggregateInputType = {
     kpi_id?: true
-    user_id?: true
   }
 
   export type KpiMinAggregateInputType = {
@@ -6291,7 +5959,6 @@ export namespace Prisma {
     kpi_name?: true
     kpi_created_at?: true
     kpi_updated_at?: true
-    user_id?: true
   }
 
   export type KpiMaxAggregateInputType = {
@@ -6299,7 +5966,6 @@ export namespace Prisma {
     kpi_name?: true
     kpi_created_at?: true
     kpi_updated_at?: true
-    user_id?: true
   }
 
   export type KpiCountAggregateInputType = {
@@ -6308,7 +5974,6 @@ export namespace Prisma {
     kpi_created_at?: true
     kpi_updated_at?: true
     form_data?: true
-    user_id?: true
     _all?: true
   }
 
@@ -6404,7 +6069,6 @@ export namespace Prisma {
     kpi_created_at: Date | null
     kpi_updated_at: Date | null
     form_data: JsonValue
-    user_id: number | null
     _count: KpiCountAggregateOutputType | null
     _avg: KpiAvgAggregateOutputType | null
     _sum: KpiSumAggregateOutputType | null
@@ -6432,10 +6096,6 @@ export namespace Prisma {
     kpi_created_at?: boolean
     kpi_updated_at?: boolean
     form_data?: boolean
-    user_id?: boolean
-    assigned_kpis?: boolean | kpi$assigned_kpisArgs<ExtArgs>
-    user?: boolean | kpi$userArgs<ExtArgs>
-    _count?: boolean | KpiCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["kpi"]>
 
   export type kpiSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6444,8 +6104,6 @@ export namespace Prisma {
     kpi_created_at?: boolean
     kpi_updated_at?: boolean
     form_data?: boolean
-    user_id?: boolean
-    user?: boolean | kpi$userArgs<ExtArgs>
   }, ExtArgs["result"]["kpi"]>
 
   export type kpiSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6454,8 +6112,6 @@ export namespace Prisma {
     kpi_created_at?: boolean
     kpi_updated_at?: boolean
     form_data?: boolean
-    user_id?: boolean
-    user?: boolean | kpi$userArgs<ExtArgs>
   }, ExtArgs["result"]["kpi"]>
 
   export type kpiSelectScalar = {
@@ -6464,35 +6120,19 @@ export namespace Prisma {
     kpi_created_at?: boolean
     kpi_updated_at?: boolean
     form_data?: boolean
-    user_id?: boolean
   }
 
-  export type kpiOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"kpi_id" | "kpi_name" | "kpi_created_at" | "kpi_updated_at" | "form_data" | "user_id", ExtArgs["result"]["kpi"]>
-  export type kpiInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    assigned_kpis?: boolean | kpi$assigned_kpisArgs<ExtArgs>
-    user?: boolean | kpi$userArgs<ExtArgs>
-    _count?: boolean | KpiCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type kpiIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | kpi$userArgs<ExtArgs>
-  }
-  export type kpiIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | kpi$userArgs<ExtArgs>
-  }
+  export type kpiOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"kpi_id" | "kpi_name" | "kpi_created_at" | "kpi_updated_at" | "form_data", ExtArgs["result"]["kpi"]>
 
   export type $kpiPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "kpi"
-    objects: {
-      assigned_kpis: Prisma.$assigned_kpiPayload<ExtArgs>[]
-      user: Prisma.$usersPayload<ExtArgs> | null
-    }
+    objects: {}
     scalars: $Extensions.GetPayloadResult<{
       kpi_id: number
       kpi_name: string
       kpi_created_at: Date | null
       kpi_updated_at: Date | null
       form_data: Prisma.JsonValue
-      user_id: number | null
     }, ExtArgs["result"]["kpi"]>
     composites: {}
   }
@@ -6887,8 +6527,6 @@ export namespace Prisma {
    */
   export interface Prisma__kpiClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    assigned_kpis<T extends kpi$assigned_kpisArgs<ExtArgs> = {}>(args?: Subset<T, kpi$assigned_kpisArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$assigned_kpiPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    user<T extends kpi$userArgs<ExtArgs> = {}>(args?: Subset<T, kpi$userArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6923,7 +6561,6 @@ export namespace Prisma {
     readonly kpi_created_at: FieldRef<"kpi", 'DateTime'>
     readonly kpi_updated_at: FieldRef<"kpi", 'DateTime'>
     readonly form_data: FieldRef<"kpi", 'Json'>
-    readonly user_id: FieldRef<"kpi", 'Int'>
   }
     
 
@@ -6940,10 +6577,6 @@ export namespace Prisma {
      * Omit specific fields from the kpi
      */
     omit?: kpiOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: kpiInclude<ExtArgs> | null
     /**
      * Filter, which kpi to fetch.
      */
@@ -6963,10 +6596,6 @@ export namespace Prisma {
      */
     omit?: kpiOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: kpiInclude<ExtArgs> | null
-    /**
      * Filter, which kpi to fetch.
      */
     where: kpiWhereUniqueInput
@@ -6984,10 +6613,6 @@ export namespace Prisma {
      * Omit specific fields from the kpi
      */
     omit?: kpiOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: kpiInclude<ExtArgs> | null
     /**
      * Filter, which kpi to fetch.
      */
@@ -7037,10 +6662,6 @@ export namespace Prisma {
      */
     omit?: kpiOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: kpiInclude<ExtArgs> | null
-    /**
      * Filter, which kpi to fetch.
      */
     where?: kpiWhereInput
@@ -7089,10 +6710,6 @@ export namespace Prisma {
      */
     omit?: kpiOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: kpiInclude<ExtArgs> | null
-    /**
      * Filter, which kpis to fetch.
      */
     where?: kpiWhereInput
@@ -7136,10 +6753,6 @@ export namespace Prisma {
      */
     omit?: kpiOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: kpiInclude<ExtArgs> | null
-    /**
      * The data needed to create a kpi.
      */
     data: XOR<kpiCreateInput, kpiUncheckedCreateInput>
@@ -7173,10 +6786,6 @@ export namespace Prisma {
      */
     data: kpiCreateManyInput | kpiCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: kpiIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -7191,10 +6800,6 @@ export namespace Prisma {
      * Omit specific fields from the kpi
      */
     omit?: kpiOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: kpiInclude<ExtArgs> | null
     /**
      * The data needed to update a kpi.
      */
@@ -7247,10 +6852,6 @@ export namespace Prisma {
      * Limit how many kpis to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: kpiIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -7265,10 +6866,6 @@ export namespace Prisma {
      * Omit specific fields from the kpi
      */
     omit?: kpiOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: kpiInclude<ExtArgs> | null
     /**
      * The filter to search for the kpi to update in case it exists.
      */
@@ -7296,10 +6893,6 @@ export namespace Prisma {
      */
     omit?: kpiOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: kpiInclude<ExtArgs> | null
-    /**
      * Filter which kpi to delete.
      */
     where: kpiWhereUniqueInput
@@ -7320,49 +6913,6 @@ export namespace Prisma {
   }
 
   /**
-   * kpi.assigned_kpis
-   */
-  export type kpi$assigned_kpisArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the assigned_kpi
-     */
-    select?: assigned_kpiSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the assigned_kpi
-     */
-    omit?: assigned_kpiOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: assigned_kpiInclude<ExtArgs> | null
-    where?: assigned_kpiWhereInput
-    orderBy?: assigned_kpiOrderByWithRelationInput | assigned_kpiOrderByWithRelationInput[]
-    cursor?: assigned_kpiWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Assigned_kpiScalarFieldEnum | Assigned_kpiScalarFieldEnum[]
-  }
-
-  /**
-   * kpi.user
-   */
-  export type kpi$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the users
-     */
-    select?: usersSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the users
-     */
-    omit?: usersOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: usersInclude<ExtArgs> | null
-    where?: usersWhereInput
-  }
-
-  /**
    * kpi without action
    */
   export type kpiDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7374,10 +6924,6 @@ export namespace Prisma {
      * Omit specific fields from the kpi
      */
     omit?: kpiOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: kpiInclude<ExtArgs> | null
   }
 
 
@@ -8451,7 +7997,6 @@ export namespace Prisma {
     pillar_id: 'pillar_id',
     pillar_name: 'pillar_name',
     pillar_creation: 'pillar_creation',
-    created_by: 'created_by',
     department_id: 'department_id'
   };
 
@@ -8460,13 +8005,12 @@ export namespace Prisma {
 
   export const Assigned_kpiScalarFieldEnum: {
     assigned_kpi_id: 'assigned_kpi_id',
-    kpi_id: 'kpi_id',
     pillar_id: 'pillar_id',
     kpi_name: 'kpi_name',
     kpi_status: 'kpi_status',
+    form_data: 'form_data',
     added_date: 'added_date',
     resolved_date: 'resolved_date',
-    approved_by: 'approved_by',
     comments: 'comments'
   };
 
@@ -8478,8 +8022,7 @@ export namespace Prisma {
     kpi_name: 'kpi_name',
     kpi_created_at: 'kpi_created_at',
     kpi_updated_at: 'kpi_updated_at',
-    form_data: 'form_data',
-    user_id: 'user_id'
+    form_data: 'form_data'
   };
 
   export type KpiScalarFieldEnum = (typeof KpiScalarFieldEnum)[keyof typeof KpiScalarFieldEnum]
@@ -8624,11 +8167,7 @@ export namespace Prisma {
     user_password?: StringFilter<"users"> | string
     user_role?: StringFilter<"users"> | string
     dept_id?: IntNullableFilter<"users"> | number | null
-    kpi?: KpiListRelationFilter
-    departments?: XOR<DepartmentsNullableScalarRelationFilter, departmentsWhereInput> | null
-    pillars?: PillarsListRelationFilter
-    approved_kpis?: Assigned_kpiListRelationFilter
-    hod_departments?: DepartmentsListRelationFilter
+    department?: XOR<DepartmentsNullableScalarRelationFilter, departmentsWhereInput> | null
   }
 
   export type usersOrderByWithRelationInput = {
@@ -8638,11 +8177,7 @@ export namespace Prisma {
     user_password?: SortOrder
     user_role?: SortOrder
     dept_id?: SortOrderInput | SortOrder
-    kpi?: kpiOrderByRelationAggregateInput
-    departments?: departmentsOrderByWithRelationInput
-    pillars?: pillarsOrderByRelationAggregateInput
-    approved_kpis?: assigned_kpiOrderByRelationAggregateInput
-    hod_departments?: departmentsOrderByRelationAggregateInput
+    department?: departmentsOrderByWithRelationInput
   }
 
   export type usersWhereUniqueInput = Prisma.AtLeast<{
@@ -8655,11 +8190,7 @@ export namespace Prisma {
     user_password?: StringFilter<"users"> | string
     user_role?: StringFilter<"users"> | string
     dept_id?: IntNullableFilter<"users"> | number | null
-    kpi?: KpiListRelationFilter
-    departments?: XOR<DepartmentsNullableScalarRelationFilter, departmentsWhereInput> | null
-    pillars?: PillarsListRelationFilter
-    approved_kpis?: Assigned_kpiListRelationFilter
-    hod_departments?: DepartmentsListRelationFilter
+    department?: XOR<DepartmentsNullableScalarRelationFilter, departmentsWhereInput> | null
   }, "user_id" | "user_email">
 
   export type usersOrderByWithAggregationInput = {
@@ -8698,8 +8229,7 @@ export namespace Prisma {
     dept_creation?: DateTimeNullableFilter<"departments"> | Date | string | null
     hod_name?: StringNullableFilter<"departments"> | string | null
     pillars?: PillarsListRelationFilter
-    users?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
-    users_in_dept?: UsersListRelationFilter
+    members?: UsersListRelationFilter
   }
 
   export type departmentsOrderByWithRelationInput = {
@@ -8709,8 +8239,7 @@ export namespace Prisma {
     dept_creation?: SortOrderInput | SortOrder
     hod_name?: SortOrderInput | SortOrder
     pillars?: pillarsOrderByRelationAggregateInput
-    users?: usersOrderByWithRelationInput
-    users_in_dept?: usersOrderByRelationAggregateInput
+    members?: usersOrderByRelationAggregateInput
   }
 
   export type departmentsWhereUniqueInput = Prisma.AtLeast<{
@@ -8723,8 +8252,7 @@ export namespace Prisma {
     dept_creation?: DateTimeNullableFilter<"departments"> | Date | string | null
     hod_name?: StringNullableFilter<"departments"> | string | null
     pillars?: PillarsListRelationFilter
-    users?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
-    users_in_dept?: UsersListRelationFilter
+    members?: UsersListRelationFilter
   }, "dept_id" | "dept_name">
 
   export type departmentsOrderByWithAggregationInput = {
@@ -8758,43 +8286,37 @@ export namespace Prisma {
     pillar_id?: IntFilter<"pillars"> | number
     pillar_name?: StringFilter<"pillars"> | string
     pillar_creation?: DateTimeNullableFilter<"pillars"> | Date | string | null
-    created_by?: IntFilter<"pillars"> | number
     department_id?: IntFilter<"pillars"> | number
     assigned_kpi?: Assigned_kpiListRelationFilter
-    users?: XOR<UsersScalarRelationFilter, usersWhereInput>
-    departments?: XOR<DepartmentsScalarRelationFilter, departmentsWhereInput>
+    department?: XOR<DepartmentsScalarRelationFilter, departmentsWhereInput>
   }
 
   export type pillarsOrderByWithRelationInput = {
     pillar_id?: SortOrder
     pillar_name?: SortOrder
     pillar_creation?: SortOrderInput | SortOrder
-    created_by?: SortOrder
     department_id?: SortOrder
     assigned_kpi?: assigned_kpiOrderByRelationAggregateInput
-    users?: usersOrderByWithRelationInput
-    departments?: departmentsOrderByWithRelationInput
+    department?: departmentsOrderByWithRelationInput
   }
 
   export type pillarsWhereUniqueInput = Prisma.AtLeast<{
     pillar_id?: number
-    pillar_name?: string
+    pillar_name_department_id?: pillarsPillar_nameDepartment_idCompoundUniqueInput
     AND?: pillarsWhereInput | pillarsWhereInput[]
     OR?: pillarsWhereInput[]
     NOT?: pillarsWhereInput | pillarsWhereInput[]
+    pillar_name?: StringFilter<"pillars"> | string
     pillar_creation?: DateTimeNullableFilter<"pillars"> | Date | string | null
-    created_by?: IntFilter<"pillars"> | number
     department_id?: IntFilter<"pillars"> | number
     assigned_kpi?: Assigned_kpiListRelationFilter
-    users?: XOR<UsersScalarRelationFilter, usersWhereInput>
-    departments?: XOR<DepartmentsScalarRelationFilter, departmentsWhereInput>
-  }, "pillar_id" | "pillar_name">
+    department?: XOR<DepartmentsScalarRelationFilter, departmentsWhereInput>
+  }, "pillar_id" | "pillar_name_department_id">
 
   export type pillarsOrderByWithAggregationInput = {
     pillar_id?: SortOrder
     pillar_name?: SortOrder
     pillar_creation?: SortOrderInput | SortOrder
-    created_by?: SortOrder
     department_id?: SortOrder
     _count?: pillarsCountOrderByAggregateInput
     _avg?: pillarsAvgOrderByAggregateInput
@@ -8810,7 +8332,6 @@ export namespace Prisma {
     pillar_id?: IntWithAggregatesFilter<"pillars"> | number
     pillar_name?: StringWithAggregatesFilter<"pillars"> | string
     pillar_creation?: DateTimeNullableWithAggregatesFilter<"pillars"> | Date | string | null
-    created_by?: IntWithAggregatesFilter<"pillars"> | number
     department_id?: IntWithAggregatesFilter<"pillars"> | number
   }
 
@@ -8819,32 +8340,26 @@ export namespace Prisma {
     OR?: assigned_kpiWhereInput[]
     NOT?: assigned_kpiWhereInput | assigned_kpiWhereInput[]
     assigned_kpi_id?: IntFilter<"assigned_kpi"> | number
-    kpi_id?: IntFilter<"assigned_kpi"> | number
     pillar_id?: IntFilter<"assigned_kpi"> | number
     kpi_name?: StringFilter<"assigned_kpi"> | string
     kpi_status?: StringFilter<"assigned_kpi"> | string
+    form_data?: JsonFilter<"assigned_kpi">
     added_date?: DateTimeNullableFilter<"assigned_kpi"> | Date | string | null
     resolved_date?: DateTimeNullableFilter<"assigned_kpi"> | Date | string | null
-    approved_by?: IntNullableFilter<"assigned_kpi"> | number | null
     comments?: StringNullableFilter<"assigned_kpi"> | string | null
-    kpi?: XOR<KpiScalarRelationFilter, kpiWhereInput>
-    pillars?: XOR<PillarsScalarRelationFilter, pillarsWhereInput>
-    approver?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
+    pillar?: XOR<PillarsScalarRelationFilter, pillarsWhereInput>
   }
 
   export type assigned_kpiOrderByWithRelationInput = {
     assigned_kpi_id?: SortOrder
-    kpi_id?: SortOrder
     pillar_id?: SortOrder
     kpi_name?: SortOrder
     kpi_status?: SortOrder
+    form_data?: SortOrder
     added_date?: SortOrderInput | SortOrder
     resolved_date?: SortOrderInput | SortOrder
-    approved_by?: SortOrderInput | SortOrder
     comments?: SortOrderInput | SortOrder
-    kpi?: kpiOrderByWithRelationInput
-    pillars?: pillarsOrderByWithRelationInput
-    approver?: usersOrderByWithRelationInput
+    pillar?: pillarsOrderByWithRelationInput
   }
 
   export type assigned_kpiWhereUniqueInput = Prisma.AtLeast<{
@@ -8852,28 +8367,24 @@ export namespace Prisma {
     AND?: assigned_kpiWhereInput | assigned_kpiWhereInput[]
     OR?: assigned_kpiWhereInput[]
     NOT?: assigned_kpiWhereInput | assigned_kpiWhereInput[]
-    kpi_id?: IntFilter<"assigned_kpi"> | number
     pillar_id?: IntFilter<"assigned_kpi"> | number
     kpi_name?: StringFilter<"assigned_kpi"> | string
     kpi_status?: StringFilter<"assigned_kpi"> | string
+    form_data?: JsonFilter<"assigned_kpi">
     added_date?: DateTimeNullableFilter<"assigned_kpi"> | Date | string | null
     resolved_date?: DateTimeNullableFilter<"assigned_kpi"> | Date | string | null
-    approved_by?: IntNullableFilter<"assigned_kpi"> | number | null
     comments?: StringNullableFilter<"assigned_kpi"> | string | null
-    kpi?: XOR<KpiScalarRelationFilter, kpiWhereInput>
-    pillars?: XOR<PillarsScalarRelationFilter, pillarsWhereInput>
-    approver?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
+    pillar?: XOR<PillarsScalarRelationFilter, pillarsWhereInput>
   }, "assigned_kpi_id">
 
   export type assigned_kpiOrderByWithAggregationInput = {
     assigned_kpi_id?: SortOrder
-    kpi_id?: SortOrder
     pillar_id?: SortOrder
     kpi_name?: SortOrder
     kpi_status?: SortOrder
+    form_data?: SortOrder
     added_date?: SortOrderInput | SortOrder
     resolved_date?: SortOrderInput | SortOrder
-    approved_by?: SortOrderInput | SortOrder
     comments?: SortOrderInput | SortOrder
     _count?: assigned_kpiCountOrderByAggregateInput
     _avg?: assigned_kpiAvgOrderByAggregateInput
@@ -8887,13 +8398,12 @@ export namespace Prisma {
     OR?: assigned_kpiScalarWhereWithAggregatesInput[]
     NOT?: assigned_kpiScalarWhereWithAggregatesInput | assigned_kpiScalarWhereWithAggregatesInput[]
     assigned_kpi_id?: IntWithAggregatesFilter<"assigned_kpi"> | number
-    kpi_id?: IntWithAggregatesFilter<"assigned_kpi"> | number
     pillar_id?: IntWithAggregatesFilter<"assigned_kpi"> | number
     kpi_name?: StringWithAggregatesFilter<"assigned_kpi"> | string
     kpi_status?: StringWithAggregatesFilter<"assigned_kpi"> | string
+    form_data?: JsonWithAggregatesFilter<"assigned_kpi">
     added_date?: DateTimeNullableWithAggregatesFilter<"assigned_kpi"> | Date | string | null
     resolved_date?: DateTimeNullableWithAggregatesFilter<"assigned_kpi"> | Date | string | null
-    approved_by?: IntNullableWithAggregatesFilter<"assigned_kpi"> | number | null
     comments?: StringNullableWithAggregatesFilter<"assigned_kpi"> | string | null
   }
 
@@ -8906,9 +8416,6 @@ export namespace Prisma {
     kpi_created_at?: DateTimeNullableFilter<"kpi"> | Date | string | null
     kpi_updated_at?: DateTimeNullableFilter<"kpi"> | Date | string | null
     form_data?: JsonFilter<"kpi">
-    user_id?: IntNullableFilter<"kpi"> | number | null
-    assigned_kpis?: Assigned_kpiListRelationFilter
-    user?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
   }
 
   export type kpiOrderByWithRelationInput = {
@@ -8917,9 +8424,6 @@ export namespace Prisma {
     kpi_created_at?: SortOrderInput | SortOrder
     kpi_updated_at?: SortOrderInput | SortOrder
     form_data?: SortOrder
-    user_id?: SortOrderInput | SortOrder
-    assigned_kpis?: assigned_kpiOrderByRelationAggregateInput
-    user?: usersOrderByWithRelationInput
   }
 
   export type kpiWhereUniqueInput = Prisma.AtLeast<{
@@ -8931,9 +8435,6 @@ export namespace Prisma {
     kpi_created_at?: DateTimeNullableFilter<"kpi"> | Date | string | null
     kpi_updated_at?: DateTimeNullableFilter<"kpi"> | Date | string | null
     form_data?: JsonFilter<"kpi">
-    user_id?: IntNullableFilter<"kpi"> | number | null
-    assigned_kpis?: Assigned_kpiListRelationFilter
-    user?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
   }, "kpi_id" | "kpi_name">
 
   export type kpiOrderByWithAggregationInput = {
@@ -8942,7 +8443,6 @@ export namespace Prisma {
     kpi_created_at?: SortOrderInput | SortOrder
     kpi_updated_at?: SortOrderInput | SortOrder
     form_data?: SortOrder
-    user_id?: SortOrderInput | SortOrder
     _count?: kpiCountOrderByAggregateInput
     _avg?: kpiAvgOrderByAggregateInput
     _max?: kpiMaxOrderByAggregateInput
@@ -8959,7 +8459,6 @@ export namespace Prisma {
     kpi_created_at?: DateTimeNullableWithAggregatesFilter<"kpi"> | Date | string | null
     kpi_updated_at?: DateTimeNullableWithAggregatesFilter<"kpi"> | Date | string | null
     form_data?: JsonWithAggregatesFilter<"kpi">
-    user_id?: IntNullableWithAggregatesFilter<"kpi"> | number | null
   }
 
   export type qocWhereInput = {
@@ -9021,11 +8520,7 @@ export namespace Prisma {
     user_email: string
     user_password: string
     user_role?: string
-    kpi?: kpiCreateNestedManyWithoutUserInput
-    departments?: departmentsCreateNestedOneWithoutUsers_in_deptInput
-    pillars?: pillarsCreateNestedManyWithoutUsersInput
-    approved_kpis?: assigned_kpiCreateNestedManyWithoutApproverInput
-    hod_departments?: departmentsCreateNestedManyWithoutUsersInput
+    department?: departmentsCreateNestedOneWithoutMembersInput
   }
 
   export type usersUncheckedCreateInput = {
@@ -9035,10 +8530,6 @@ export namespace Prisma {
     user_password: string
     user_role?: string
     dept_id?: number | null
-    kpi?: kpiUncheckedCreateNestedManyWithoutUserInput
-    pillars?: pillarsUncheckedCreateNestedManyWithoutUsersInput
-    approved_kpis?: assigned_kpiUncheckedCreateNestedManyWithoutApproverInput
-    hod_departments?: departmentsUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type usersUpdateInput = {
@@ -9046,11 +8537,7 @@ export namespace Prisma {
     user_email?: StringFieldUpdateOperationsInput | string
     user_password?: StringFieldUpdateOperationsInput | string
     user_role?: StringFieldUpdateOperationsInput | string
-    kpi?: kpiUpdateManyWithoutUserNestedInput
-    departments?: departmentsUpdateOneWithoutUsers_in_deptNestedInput
-    pillars?: pillarsUpdateManyWithoutUsersNestedInput
-    approved_kpis?: assigned_kpiUpdateManyWithoutApproverNestedInput
-    hod_departments?: departmentsUpdateManyWithoutUsersNestedInput
+    department?: departmentsUpdateOneWithoutMembersNestedInput
   }
 
   export type usersUncheckedUpdateInput = {
@@ -9060,10 +8547,6 @@ export namespace Prisma {
     user_password?: StringFieldUpdateOperationsInput | string
     user_role?: StringFieldUpdateOperationsInput | string
     dept_id?: NullableIntFieldUpdateOperationsInput | number | null
-    kpi?: kpiUncheckedUpdateManyWithoutUserNestedInput
-    pillars?: pillarsUncheckedUpdateManyWithoutUsersNestedInput
-    approved_kpis?: assigned_kpiUncheckedUpdateManyWithoutApproverNestedInput
-    hod_departments?: departmentsUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type usersCreateManyInput = {
@@ -9093,11 +8576,11 @@ export namespace Prisma {
 
   export type departmentsCreateInput = {
     dept_name: string
+    hod_id?: number | null
     dept_creation?: Date | string | null
     hod_name?: string | null
-    pillars?: pillarsCreateNestedManyWithoutDepartmentsInput
-    users?: usersCreateNestedOneWithoutHod_departmentsInput
-    users_in_dept?: usersCreateNestedManyWithoutDepartmentsInput
+    pillars?: pillarsCreateNestedManyWithoutDepartmentInput
+    members?: usersCreateNestedManyWithoutDepartmentInput
   }
 
   export type departmentsUncheckedCreateInput = {
@@ -9106,17 +8589,17 @@ export namespace Prisma {
     hod_id?: number | null
     dept_creation?: Date | string | null
     hod_name?: string | null
-    pillars?: pillarsUncheckedCreateNestedManyWithoutDepartmentsInput
-    users_in_dept?: usersUncheckedCreateNestedManyWithoutDepartmentsInput
+    pillars?: pillarsUncheckedCreateNestedManyWithoutDepartmentInput
+    members?: usersUncheckedCreateNestedManyWithoutDepartmentInput
   }
 
   export type departmentsUpdateInput = {
     dept_name?: StringFieldUpdateOperationsInput | string
+    hod_id?: NullableIntFieldUpdateOperationsInput | number | null
     dept_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     hod_name?: NullableStringFieldUpdateOperationsInput | string | null
-    pillars?: pillarsUpdateManyWithoutDepartmentsNestedInput
-    users?: usersUpdateOneWithoutHod_departmentsNestedInput
-    users_in_dept?: usersUpdateManyWithoutDepartmentsNestedInput
+    pillars?: pillarsUpdateManyWithoutDepartmentNestedInput
+    members?: usersUpdateManyWithoutDepartmentNestedInput
   }
 
   export type departmentsUncheckedUpdateInput = {
@@ -9125,8 +8608,8 @@ export namespace Prisma {
     hod_id?: NullableIntFieldUpdateOperationsInput | number | null
     dept_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     hod_name?: NullableStringFieldUpdateOperationsInput | string | null
-    pillars?: pillarsUncheckedUpdateManyWithoutDepartmentsNestedInput
-    users_in_dept?: usersUncheckedUpdateManyWithoutDepartmentsNestedInput
+    pillars?: pillarsUncheckedUpdateManyWithoutDepartmentNestedInput
+    members?: usersUncheckedUpdateManyWithoutDepartmentNestedInput
   }
 
   export type departmentsCreateManyInput = {
@@ -9139,6 +8622,7 @@ export namespace Prisma {
 
   export type departmentsUpdateManyMutationInput = {
     dept_name?: StringFieldUpdateOperationsInput | string
+    hod_id?: NullableIntFieldUpdateOperationsInput | number | null
     dept_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     hod_name?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -9154,42 +8638,37 @@ export namespace Prisma {
   export type pillarsCreateInput = {
     pillar_name: string
     pillar_creation?: Date | string | null
-    assigned_kpi?: assigned_kpiCreateNestedManyWithoutPillarsInput
-    users: usersCreateNestedOneWithoutPillarsInput
-    departments: departmentsCreateNestedOneWithoutPillarsInput
+    assigned_kpi?: assigned_kpiCreateNestedManyWithoutPillarInput
+    department: departmentsCreateNestedOneWithoutPillarsInput
   }
 
   export type pillarsUncheckedCreateInput = {
     pillar_id?: number
     pillar_name: string
     pillar_creation?: Date | string | null
-    created_by: number
     department_id: number
-    assigned_kpi?: assigned_kpiUncheckedCreateNestedManyWithoutPillarsInput
+    assigned_kpi?: assigned_kpiUncheckedCreateNestedManyWithoutPillarInput
   }
 
   export type pillarsUpdateInput = {
     pillar_name?: StringFieldUpdateOperationsInput | string
     pillar_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    assigned_kpi?: assigned_kpiUpdateManyWithoutPillarsNestedInput
-    users?: usersUpdateOneRequiredWithoutPillarsNestedInput
-    departments?: departmentsUpdateOneRequiredWithoutPillarsNestedInput
+    assigned_kpi?: assigned_kpiUpdateManyWithoutPillarNestedInput
+    department?: departmentsUpdateOneRequiredWithoutPillarsNestedInput
   }
 
   export type pillarsUncheckedUpdateInput = {
     pillar_id?: IntFieldUpdateOperationsInput | number
     pillar_name?: StringFieldUpdateOperationsInput | string
     pillar_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_by?: IntFieldUpdateOperationsInput | number
     department_id?: IntFieldUpdateOperationsInput | number
-    assigned_kpi?: assigned_kpiUncheckedUpdateManyWithoutPillarsNestedInput
+    assigned_kpi?: assigned_kpiUncheckedUpdateManyWithoutPillarNestedInput
   }
 
   export type pillarsCreateManyInput = {
     pillar_id?: number
     pillar_name: string
     pillar_creation?: Date | string | null
-    created_by: number
     department_id: number
   }
 
@@ -9202,71 +8681,66 @@ export namespace Prisma {
     pillar_id?: IntFieldUpdateOperationsInput | number
     pillar_name?: StringFieldUpdateOperationsInput | string
     pillar_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_by?: IntFieldUpdateOperationsInput | number
     department_id?: IntFieldUpdateOperationsInput | number
   }
 
   export type assigned_kpiCreateInput = {
     kpi_name: string
     kpi_status: string
+    form_data: JsonNullValueInput | InputJsonValue
     added_date?: Date | string | null
     resolved_date?: Date | string | null
     comments?: string | null
-    kpi: kpiCreateNestedOneWithoutAssigned_kpisInput
-    pillars: pillarsCreateNestedOneWithoutAssigned_kpiInput
-    approver?: usersCreateNestedOneWithoutApproved_kpisInput
+    pillar: pillarsCreateNestedOneWithoutAssigned_kpiInput
   }
 
   export type assigned_kpiUncheckedCreateInput = {
     assigned_kpi_id?: number
-    kpi_id: number
     pillar_id: number
     kpi_name: string
     kpi_status: string
+    form_data: JsonNullValueInput | InputJsonValue
     added_date?: Date | string | null
     resolved_date?: Date | string | null
-    approved_by?: number | null
     comments?: string | null
   }
 
   export type assigned_kpiUpdateInput = {
     kpi_name?: StringFieldUpdateOperationsInput | string
     kpi_status?: StringFieldUpdateOperationsInput | string
+    form_data?: JsonNullValueInput | InputJsonValue
     added_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resolved_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
-    kpi?: kpiUpdateOneRequiredWithoutAssigned_kpisNestedInput
-    pillars?: pillarsUpdateOneRequiredWithoutAssigned_kpiNestedInput
-    approver?: usersUpdateOneWithoutApproved_kpisNestedInput
+    pillar?: pillarsUpdateOneRequiredWithoutAssigned_kpiNestedInput
   }
 
   export type assigned_kpiUncheckedUpdateInput = {
     assigned_kpi_id?: IntFieldUpdateOperationsInput | number
-    kpi_id?: IntFieldUpdateOperationsInput | number
     pillar_id?: IntFieldUpdateOperationsInput | number
     kpi_name?: StringFieldUpdateOperationsInput | string
     kpi_status?: StringFieldUpdateOperationsInput | string
+    form_data?: JsonNullValueInput | InputJsonValue
     added_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resolved_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    approved_by?: NullableIntFieldUpdateOperationsInput | number | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type assigned_kpiCreateManyInput = {
     assigned_kpi_id?: number
-    kpi_id: number
     pillar_id: number
     kpi_name: string
     kpi_status: string
+    form_data: JsonNullValueInput | InputJsonValue
     added_date?: Date | string | null
     resolved_date?: Date | string | null
-    approved_by?: number | null
     comments?: string | null
   }
 
   export type assigned_kpiUpdateManyMutationInput = {
     kpi_name?: StringFieldUpdateOperationsInput | string
     kpi_status?: StringFieldUpdateOperationsInput | string
+    form_data?: JsonNullValueInput | InputJsonValue
     added_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resolved_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9274,13 +8748,12 @@ export namespace Prisma {
 
   export type assigned_kpiUncheckedUpdateManyInput = {
     assigned_kpi_id?: IntFieldUpdateOperationsInput | number
-    kpi_id?: IntFieldUpdateOperationsInput | number
     pillar_id?: IntFieldUpdateOperationsInput | number
     kpi_name?: StringFieldUpdateOperationsInput | string
     kpi_status?: StringFieldUpdateOperationsInput | string
+    form_data?: JsonNullValueInput | InputJsonValue
     added_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resolved_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    approved_by?: NullableIntFieldUpdateOperationsInput | number | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -9289,8 +8762,6 @@ export namespace Prisma {
     kpi_created_at?: Date | string | null
     kpi_updated_at?: Date | string | null
     form_data: JsonNullValueInput | InputJsonValue
-    assigned_kpis?: assigned_kpiCreateNestedManyWithoutKpiInput
-    user?: usersCreateNestedOneWithoutKpiInput
   }
 
   export type kpiUncheckedCreateInput = {
@@ -9299,8 +8770,6 @@ export namespace Prisma {
     kpi_created_at?: Date | string | null
     kpi_updated_at?: Date | string | null
     form_data: JsonNullValueInput | InputJsonValue
-    user_id?: number | null
-    assigned_kpis?: assigned_kpiUncheckedCreateNestedManyWithoutKpiInput
   }
 
   export type kpiUpdateInput = {
@@ -9308,8 +8777,6 @@ export namespace Prisma {
     kpi_created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kpi_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     form_data?: JsonNullValueInput | InputJsonValue
-    assigned_kpis?: assigned_kpiUpdateManyWithoutKpiNestedInput
-    user?: usersUpdateOneWithoutKpiNestedInput
   }
 
   export type kpiUncheckedUpdateInput = {
@@ -9318,8 +8785,6 @@ export namespace Prisma {
     kpi_created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kpi_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     form_data?: JsonNullValueInput | InputJsonValue
-    user_id?: NullableIntFieldUpdateOperationsInput | number | null
-    assigned_kpis?: assigned_kpiUncheckedUpdateManyWithoutKpiNestedInput
   }
 
   export type kpiCreateManyInput = {
@@ -9328,7 +8793,6 @@ export namespace Prisma {
     kpi_created_at?: Date | string | null
     kpi_updated_at?: Date | string | null
     form_data: JsonNullValueInput | InputJsonValue
-    user_id?: number | null
   }
 
   export type kpiUpdateManyMutationInput = {
@@ -9344,7 +8808,6 @@ export namespace Prisma {
     kpi_created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kpi_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     form_data?: JsonNullValueInput | InputJsonValue
-    user_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type qocCreateInput = {
@@ -9437,54 +8900,14 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type KpiListRelationFilter = {
-    every?: kpiWhereInput
-    some?: kpiWhereInput
-    none?: kpiWhereInput
-  }
-
   export type DepartmentsNullableScalarRelationFilter = {
     is?: departmentsWhereInput | null
     isNot?: departmentsWhereInput | null
   }
 
-  export type PillarsListRelationFilter = {
-    every?: pillarsWhereInput
-    some?: pillarsWhereInput
-    none?: pillarsWhereInput
-  }
-
-  export type Assigned_kpiListRelationFilter = {
-    every?: assigned_kpiWhereInput
-    some?: assigned_kpiWhereInput
-    none?: assigned_kpiWhereInput
-  }
-
-  export type DepartmentsListRelationFilter = {
-    every?: departmentsWhereInput
-    some?: departmentsWhereInput
-    none?: departmentsWhereInput
-  }
-
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
-  }
-
-  export type kpiOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type pillarsOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type assigned_kpiOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type departmentsOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type usersCountOrderByAggregateInput = {
@@ -9600,15 +9023,20 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type UsersNullableScalarRelationFilter = {
-    is?: usersWhereInput | null
-    isNot?: usersWhereInput | null
+  export type PillarsListRelationFilter = {
+    every?: pillarsWhereInput
+    some?: pillarsWhereInput
+    none?: pillarsWhereInput
   }
 
   export type UsersListRelationFilter = {
     every?: usersWhereInput
     some?: usersWhereInput
     none?: usersWhereInput
+  }
+
+  export type pillarsOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type usersOrderByRelationAggregateInput = {
@@ -9681,9 +9109,10 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type UsersScalarRelationFilter = {
-    is?: usersWhereInput
-    isNot?: usersWhereInput
+  export type Assigned_kpiListRelationFilter = {
+    every?: assigned_kpiWhereInput
+    some?: assigned_kpiWhereInput
+    none?: assigned_kpiWhereInput
   }
 
   export type DepartmentsScalarRelationFilter = {
@@ -9691,17 +9120,24 @@ export namespace Prisma {
     isNot?: departmentsWhereInput
   }
 
+  export type assigned_kpiOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type pillarsPillar_nameDepartment_idCompoundUniqueInput = {
+    pillar_name: string
+    department_id: number
+  }
+
   export type pillarsCountOrderByAggregateInput = {
     pillar_id?: SortOrder
     pillar_name?: SortOrder
     pillar_creation?: SortOrder
-    created_by?: SortOrder
     department_id?: SortOrder
   }
 
   export type pillarsAvgOrderByAggregateInput = {
     pillar_id?: SortOrder
-    created_by?: SortOrder
     department_id?: SortOrder
   }
 
@@ -9709,7 +9145,6 @@ export namespace Prisma {
     pillar_id?: SortOrder
     pillar_name?: SortOrder
     pillar_creation?: SortOrder
-    created_by?: SortOrder
     department_id?: SortOrder
   }
 
@@ -9717,74 +9152,12 @@ export namespace Prisma {
     pillar_id?: SortOrder
     pillar_name?: SortOrder
     pillar_creation?: SortOrder
-    created_by?: SortOrder
     department_id?: SortOrder
   }
 
   export type pillarsSumOrderByAggregateInput = {
     pillar_id?: SortOrder
-    created_by?: SortOrder
     department_id?: SortOrder
-  }
-
-  export type KpiScalarRelationFilter = {
-    is?: kpiWhereInput
-    isNot?: kpiWhereInput
-  }
-
-  export type PillarsScalarRelationFilter = {
-    is?: pillarsWhereInput
-    isNot?: pillarsWhereInput
-  }
-
-  export type assigned_kpiCountOrderByAggregateInput = {
-    assigned_kpi_id?: SortOrder
-    kpi_id?: SortOrder
-    pillar_id?: SortOrder
-    kpi_name?: SortOrder
-    kpi_status?: SortOrder
-    added_date?: SortOrder
-    resolved_date?: SortOrder
-    approved_by?: SortOrder
-    comments?: SortOrder
-  }
-
-  export type assigned_kpiAvgOrderByAggregateInput = {
-    assigned_kpi_id?: SortOrder
-    kpi_id?: SortOrder
-    pillar_id?: SortOrder
-    approved_by?: SortOrder
-  }
-
-  export type assigned_kpiMaxOrderByAggregateInput = {
-    assigned_kpi_id?: SortOrder
-    kpi_id?: SortOrder
-    pillar_id?: SortOrder
-    kpi_name?: SortOrder
-    kpi_status?: SortOrder
-    added_date?: SortOrder
-    resolved_date?: SortOrder
-    approved_by?: SortOrder
-    comments?: SortOrder
-  }
-
-  export type assigned_kpiMinOrderByAggregateInput = {
-    assigned_kpi_id?: SortOrder
-    kpi_id?: SortOrder
-    pillar_id?: SortOrder
-    kpi_name?: SortOrder
-    kpi_status?: SortOrder
-    added_date?: SortOrder
-    resolved_date?: SortOrder
-    approved_by?: SortOrder
-    comments?: SortOrder
-  }
-
-  export type assigned_kpiSumOrderByAggregateInput = {
-    assigned_kpi_id?: SortOrder
-    kpi_id?: SortOrder
-    pillar_id?: SortOrder
-    approved_by?: SortOrder
   }
   export type JsonFilter<$PrismaModel = never> = 
     | PatchUndefined<
@@ -9810,39 +9183,50 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type kpiCountOrderByAggregateInput = {
-    kpi_id?: SortOrder
+  export type PillarsScalarRelationFilter = {
+    is?: pillarsWhereInput
+    isNot?: pillarsWhereInput
+  }
+
+  export type assigned_kpiCountOrderByAggregateInput = {
+    assigned_kpi_id?: SortOrder
+    pillar_id?: SortOrder
     kpi_name?: SortOrder
-    kpi_created_at?: SortOrder
-    kpi_updated_at?: SortOrder
+    kpi_status?: SortOrder
     form_data?: SortOrder
-    user_id?: SortOrder
+    added_date?: SortOrder
+    resolved_date?: SortOrder
+    comments?: SortOrder
   }
 
-  export type kpiAvgOrderByAggregateInput = {
-    kpi_id?: SortOrder
-    user_id?: SortOrder
+  export type assigned_kpiAvgOrderByAggregateInput = {
+    assigned_kpi_id?: SortOrder
+    pillar_id?: SortOrder
   }
 
-  export type kpiMaxOrderByAggregateInput = {
-    kpi_id?: SortOrder
+  export type assigned_kpiMaxOrderByAggregateInput = {
+    assigned_kpi_id?: SortOrder
+    pillar_id?: SortOrder
     kpi_name?: SortOrder
-    kpi_created_at?: SortOrder
-    kpi_updated_at?: SortOrder
-    user_id?: SortOrder
+    kpi_status?: SortOrder
+    added_date?: SortOrder
+    resolved_date?: SortOrder
+    comments?: SortOrder
   }
 
-  export type kpiMinOrderByAggregateInput = {
-    kpi_id?: SortOrder
+  export type assigned_kpiMinOrderByAggregateInput = {
+    assigned_kpi_id?: SortOrder
+    pillar_id?: SortOrder
     kpi_name?: SortOrder
-    kpi_created_at?: SortOrder
-    kpi_updated_at?: SortOrder
-    user_id?: SortOrder
+    kpi_status?: SortOrder
+    added_date?: SortOrder
+    resolved_date?: SortOrder
+    comments?: SortOrder
   }
 
-  export type kpiSumOrderByAggregateInput = {
-    kpi_id?: SortOrder
-    user_id?: SortOrder
+  export type assigned_kpiSumOrderByAggregateInput = {
+    assigned_kpi_id?: SortOrder
+    pillar_id?: SortOrder
   }
   export type JsonWithAggregatesFilter<$PrismaModel = never> = 
     | PatchUndefined<
@@ -9869,6 +9253,36 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedJsonFilter<$PrismaModel>
     _max?: NestedJsonFilter<$PrismaModel>
+  }
+
+  export type kpiCountOrderByAggregateInput = {
+    kpi_id?: SortOrder
+    kpi_name?: SortOrder
+    kpi_created_at?: SortOrder
+    kpi_updated_at?: SortOrder
+    form_data?: SortOrder
+  }
+
+  export type kpiAvgOrderByAggregateInput = {
+    kpi_id?: SortOrder
+  }
+
+  export type kpiMaxOrderByAggregateInput = {
+    kpi_id?: SortOrder
+    kpi_name?: SortOrder
+    kpi_created_at?: SortOrder
+    kpi_updated_at?: SortOrder
+  }
+
+  export type kpiMinOrderByAggregateInput = {
+    kpi_id?: SortOrder
+    kpi_name?: SortOrder
+    kpi_created_at?: SortOrder
+    kpi_updated_at?: SortOrder
+  }
+
+  export type kpiSumOrderByAggregateInput = {
+    kpi_id?: SortOrder
   }
 
   export type qocCountOrderByAggregateInput = {
@@ -9903,136 +9317,24 @@ export namespace Prisma {
     qoc_id?: SortOrder
   }
 
-  export type kpiCreateNestedManyWithoutUserInput = {
-    create?: XOR<kpiCreateWithoutUserInput, kpiUncheckedCreateWithoutUserInput> | kpiCreateWithoutUserInput[] | kpiUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: kpiCreateOrConnectWithoutUserInput | kpiCreateOrConnectWithoutUserInput[]
-    createMany?: kpiCreateManyUserInputEnvelope
-    connect?: kpiWhereUniqueInput | kpiWhereUniqueInput[]
-  }
-
-  export type departmentsCreateNestedOneWithoutUsers_in_deptInput = {
-    create?: XOR<departmentsCreateWithoutUsers_in_deptInput, departmentsUncheckedCreateWithoutUsers_in_deptInput>
-    connectOrCreate?: departmentsCreateOrConnectWithoutUsers_in_deptInput
+  export type departmentsCreateNestedOneWithoutMembersInput = {
+    create?: XOR<departmentsCreateWithoutMembersInput, departmentsUncheckedCreateWithoutMembersInput>
+    connectOrCreate?: departmentsCreateOrConnectWithoutMembersInput
     connect?: departmentsWhereUniqueInput
-  }
-
-  export type pillarsCreateNestedManyWithoutUsersInput = {
-    create?: XOR<pillarsCreateWithoutUsersInput, pillarsUncheckedCreateWithoutUsersInput> | pillarsCreateWithoutUsersInput[] | pillarsUncheckedCreateWithoutUsersInput[]
-    connectOrCreate?: pillarsCreateOrConnectWithoutUsersInput | pillarsCreateOrConnectWithoutUsersInput[]
-    createMany?: pillarsCreateManyUsersInputEnvelope
-    connect?: pillarsWhereUniqueInput | pillarsWhereUniqueInput[]
-  }
-
-  export type assigned_kpiCreateNestedManyWithoutApproverInput = {
-    create?: XOR<assigned_kpiCreateWithoutApproverInput, assigned_kpiUncheckedCreateWithoutApproverInput> | assigned_kpiCreateWithoutApproverInput[] | assigned_kpiUncheckedCreateWithoutApproverInput[]
-    connectOrCreate?: assigned_kpiCreateOrConnectWithoutApproverInput | assigned_kpiCreateOrConnectWithoutApproverInput[]
-    createMany?: assigned_kpiCreateManyApproverInputEnvelope
-    connect?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
-  }
-
-  export type departmentsCreateNestedManyWithoutUsersInput = {
-    create?: XOR<departmentsCreateWithoutUsersInput, departmentsUncheckedCreateWithoutUsersInput> | departmentsCreateWithoutUsersInput[] | departmentsUncheckedCreateWithoutUsersInput[]
-    connectOrCreate?: departmentsCreateOrConnectWithoutUsersInput | departmentsCreateOrConnectWithoutUsersInput[]
-    createMany?: departmentsCreateManyUsersInputEnvelope
-    connect?: departmentsWhereUniqueInput | departmentsWhereUniqueInput[]
-  }
-
-  export type kpiUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<kpiCreateWithoutUserInput, kpiUncheckedCreateWithoutUserInput> | kpiCreateWithoutUserInput[] | kpiUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: kpiCreateOrConnectWithoutUserInput | kpiCreateOrConnectWithoutUserInput[]
-    createMany?: kpiCreateManyUserInputEnvelope
-    connect?: kpiWhereUniqueInput | kpiWhereUniqueInput[]
-  }
-
-  export type pillarsUncheckedCreateNestedManyWithoutUsersInput = {
-    create?: XOR<pillarsCreateWithoutUsersInput, pillarsUncheckedCreateWithoutUsersInput> | pillarsCreateWithoutUsersInput[] | pillarsUncheckedCreateWithoutUsersInput[]
-    connectOrCreate?: pillarsCreateOrConnectWithoutUsersInput | pillarsCreateOrConnectWithoutUsersInput[]
-    createMany?: pillarsCreateManyUsersInputEnvelope
-    connect?: pillarsWhereUniqueInput | pillarsWhereUniqueInput[]
-  }
-
-  export type assigned_kpiUncheckedCreateNestedManyWithoutApproverInput = {
-    create?: XOR<assigned_kpiCreateWithoutApproverInput, assigned_kpiUncheckedCreateWithoutApproverInput> | assigned_kpiCreateWithoutApproverInput[] | assigned_kpiUncheckedCreateWithoutApproverInput[]
-    connectOrCreate?: assigned_kpiCreateOrConnectWithoutApproverInput | assigned_kpiCreateOrConnectWithoutApproverInput[]
-    createMany?: assigned_kpiCreateManyApproverInputEnvelope
-    connect?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
-  }
-
-  export type departmentsUncheckedCreateNestedManyWithoutUsersInput = {
-    create?: XOR<departmentsCreateWithoutUsersInput, departmentsUncheckedCreateWithoutUsersInput> | departmentsCreateWithoutUsersInput[] | departmentsUncheckedCreateWithoutUsersInput[]
-    connectOrCreate?: departmentsCreateOrConnectWithoutUsersInput | departmentsCreateOrConnectWithoutUsersInput[]
-    createMany?: departmentsCreateManyUsersInputEnvelope
-    connect?: departmentsWhereUniqueInput | departmentsWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
 
-  export type kpiUpdateManyWithoutUserNestedInput = {
-    create?: XOR<kpiCreateWithoutUserInput, kpiUncheckedCreateWithoutUserInput> | kpiCreateWithoutUserInput[] | kpiUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: kpiCreateOrConnectWithoutUserInput | kpiCreateOrConnectWithoutUserInput[]
-    upsert?: kpiUpsertWithWhereUniqueWithoutUserInput | kpiUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: kpiCreateManyUserInputEnvelope
-    set?: kpiWhereUniqueInput | kpiWhereUniqueInput[]
-    disconnect?: kpiWhereUniqueInput | kpiWhereUniqueInput[]
-    delete?: kpiWhereUniqueInput | kpiWhereUniqueInput[]
-    connect?: kpiWhereUniqueInput | kpiWhereUniqueInput[]
-    update?: kpiUpdateWithWhereUniqueWithoutUserInput | kpiUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: kpiUpdateManyWithWhereWithoutUserInput | kpiUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: kpiScalarWhereInput | kpiScalarWhereInput[]
-  }
-
-  export type departmentsUpdateOneWithoutUsers_in_deptNestedInput = {
-    create?: XOR<departmentsCreateWithoutUsers_in_deptInput, departmentsUncheckedCreateWithoutUsers_in_deptInput>
-    connectOrCreate?: departmentsCreateOrConnectWithoutUsers_in_deptInput
-    upsert?: departmentsUpsertWithoutUsers_in_deptInput
+  export type departmentsUpdateOneWithoutMembersNestedInput = {
+    create?: XOR<departmentsCreateWithoutMembersInput, departmentsUncheckedCreateWithoutMembersInput>
+    connectOrCreate?: departmentsCreateOrConnectWithoutMembersInput
+    upsert?: departmentsUpsertWithoutMembersInput
     disconnect?: departmentsWhereInput | boolean
     delete?: departmentsWhereInput | boolean
     connect?: departmentsWhereUniqueInput
-    update?: XOR<XOR<departmentsUpdateToOneWithWhereWithoutUsers_in_deptInput, departmentsUpdateWithoutUsers_in_deptInput>, departmentsUncheckedUpdateWithoutUsers_in_deptInput>
-  }
-
-  export type pillarsUpdateManyWithoutUsersNestedInput = {
-    create?: XOR<pillarsCreateWithoutUsersInput, pillarsUncheckedCreateWithoutUsersInput> | pillarsCreateWithoutUsersInput[] | pillarsUncheckedCreateWithoutUsersInput[]
-    connectOrCreate?: pillarsCreateOrConnectWithoutUsersInput | pillarsCreateOrConnectWithoutUsersInput[]
-    upsert?: pillarsUpsertWithWhereUniqueWithoutUsersInput | pillarsUpsertWithWhereUniqueWithoutUsersInput[]
-    createMany?: pillarsCreateManyUsersInputEnvelope
-    set?: pillarsWhereUniqueInput | pillarsWhereUniqueInput[]
-    disconnect?: pillarsWhereUniqueInput | pillarsWhereUniqueInput[]
-    delete?: pillarsWhereUniqueInput | pillarsWhereUniqueInput[]
-    connect?: pillarsWhereUniqueInput | pillarsWhereUniqueInput[]
-    update?: pillarsUpdateWithWhereUniqueWithoutUsersInput | pillarsUpdateWithWhereUniqueWithoutUsersInput[]
-    updateMany?: pillarsUpdateManyWithWhereWithoutUsersInput | pillarsUpdateManyWithWhereWithoutUsersInput[]
-    deleteMany?: pillarsScalarWhereInput | pillarsScalarWhereInput[]
-  }
-
-  export type assigned_kpiUpdateManyWithoutApproverNestedInput = {
-    create?: XOR<assigned_kpiCreateWithoutApproverInput, assigned_kpiUncheckedCreateWithoutApproverInput> | assigned_kpiCreateWithoutApproverInput[] | assigned_kpiUncheckedCreateWithoutApproverInput[]
-    connectOrCreate?: assigned_kpiCreateOrConnectWithoutApproverInput | assigned_kpiCreateOrConnectWithoutApproverInput[]
-    upsert?: assigned_kpiUpsertWithWhereUniqueWithoutApproverInput | assigned_kpiUpsertWithWhereUniqueWithoutApproverInput[]
-    createMany?: assigned_kpiCreateManyApproverInputEnvelope
-    set?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
-    disconnect?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
-    delete?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
-    connect?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
-    update?: assigned_kpiUpdateWithWhereUniqueWithoutApproverInput | assigned_kpiUpdateWithWhereUniqueWithoutApproverInput[]
-    updateMany?: assigned_kpiUpdateManyWithWhereWithoutApproverInput | assigned_kpiUpdateManyWithWhereWithoutApproverInput[]
-    deleteMany?: assigned_kpiScalarWhereInput | assigned_kpiScalarWhereInput[]
-  }
-
-  export type departmentsUpdateManyWithoutUsersNestedInput = {
-    create?: XOR<departmentsCreateWithoutUsersInput, departmentsUncheckedCreateWithoutUsersInput> | departmentsCreateWithoutUsersInput[] | departmentsUncheckedCreateWithoutUsersInput[]
-    connectOrCreate?: departmentsCreateOrConnectWithoutUsersInput | departmentsCreateOrConnectWithoutUsersInput[]
-    upsert?: departmentsUpsertWithWhereUniqueWithoutUsersInput | departmentsUpsertWithWhereUniqueWithoutUsersInput[]
-    createMany?: departmentsCreateManyUsersInputEnvelope
-    set?: departmentsWhereUniqueInput | departmentsWhereUniqueInput[]
-    disconnect?: departmentsWhereUniqueInput | departmentsWhereUniqueInput[]
-    delete?: departmentsWhereUniqueInput | departmentsWhereUniqueInput[]
-    connect?: departmentsWhereUniqueInput | departmentsWhereUniqueInput[]
-    update?: departmentsUpdateWithWhereUniqueWithoutUsersInput | departmentsUpdateWithWhereUniqueWithoutUsersInput[]
-    updateMany?: departmentsUpdateManyWithWhereWithoutUsersInput | departmentsUpdateManyWithWhereWithoutUsersInput[]
-    deleteMany?: departmentsScalarWhereInput | departmentsScalarWhereInput[]
+    update?: XOR<XOR<departmentsUpdateToOneWithWhereWithoutMembersInput, departmentsUpdateWithoutMembersInput>, departmentsUncheckedUpdateWithoutMembersInput>
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -10051,93 +9353,31 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type kpiUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<kpiCreateWithoutUserInput, kpiUncheckedCreateWithoutUserInput> | kpiCreateWithoutUserInput[] | kpiUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: kpiCreateOrConnectWithoutUserInput | kpiCreateOrConnectWithoutUserInput[]
-    upsert?: kpiUpsertWithWhereUniqueWithoutUserInput | kpiUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: kpiCreateManyUserInputEnvelope
-    set?: kpiWhereUniqueInput | kpiWhereUniqueInput[]
-    disconnect?: kpiWhereUniqueInput | kpiWhereUniqueInput[]
-    delete?: kpiWhereUniqueInput | kpiWhereUniqueInput[]
-    connect?: kpiWhereUniqueInput | kpiWhereUniqueInput[]
-    update?: kpiUpdateWithWhereUniqueWithoutUserInput | kpiUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: kpiUpdateManyWithWhereWithoutUserInput | kpiUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: kpiScalarWhereInput | kpiScalarWhereInput[]
-  }
-
-  export type pillarsUncheckedUpdateManyWithoutUsersNestedInput = {
-    create?: XOR<pillarsCreateWithoutUsersInput, pillarsUncheckedCreateWithoutUsersInput> | pillarsCreateWithoutUsersInput[] | pillarsUncheckedCreateWithoutUsersInput[]
-    connectOrCreate?: pillarsCreateOrConnectWithoutUsersInput | pillarsCreateOrConnectWithoutUsersInput[]
-    upsert?: pillarsUpsertWithWhereUniqueWithoutUsersInput | pillarsUpsertWithWhereUniqueWithoutUsersInput[]
-    createMany?: pillarsCreateManyUsersInputEnvelope
-    set?: pillarsWhereUniqueInput | pillarsWhereUniqueInput[]
-    disconnect?: pillarsWhereUniqueInput | pillarsWhereUniqueInput[]
-    delete?: pillarsWhereUniqueInput | pillarsWhereUniqueInput[]
-    connect?: pillarsWhereUniqueInput | pillarsWhereUniqueInput[]
-    update?: pillarsUpdateWithWhereUniqueWithoutUsersInput | pillarsUpdateWithWhereUniqueWithoutUsersInput[]
-    updateMany?: pillarsUpdateManyWithWhereWithoutUsersInput | pillarsUpdateManyWithWhereWithoutUsersInput[]
-    deleteMany?: pillarsScalarWhereInput | pillarsScalarWhereInput[]
-  }
-
-  export type assigned_kpiUncheckedUpdateManyWithoutApproverNestedInput = {
-    create?: XOR<assigned_kpiCreateWithoutApproverInput, assigned_kpiUncheckedCreateWithoutApproverInput> | assigned_kpiCreateWithoutApproverInput[] | assigned_kpiUncheckedCreateWithoutApproverInput[]
-    connectOrCreate?: assigned_kpiCreateOrConnectWithoutApproverInput | assigned_kpiCreateOrConnectWithoutApproverInput[]
-    upsert?: assigned_kpiUpsertWithWhereUniqueWithoutApproverInput | assigned_kpiUpsertWithWhereUniqueWithoutApproverInput[]
-    createMany?: assigned_kpiCreateManyApproverInputEnvelope
-    set?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
-    disconnect?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
-    delete?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
-    connect?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
-    update?: assigned_kpiUpdateWithWhereUniqueWithoutApproverInput | assigned_kpiUpdateWithWhereUniqueWithoutApproverInput[]
-    updateMany?: assigned_kpiUpdateManyWithWhereWithoutApproverInput | assigned_kpiUpdateManyWithWhereWithoutApproverInput[]
-    deleteMany?: assigned_kpiScalarWhereInput | assigned_kpiScalarWhereInput[]
-  }
-
-  export type departmentsUncheckedUpdateManyWithoutUsersNestedInput = {
-    create?: XOR<departmentsCreateWithoutUsersInput, departmentsUncheckedCreateWithoutUsersInput> | departmentsCreateWithoutUsersInput[] | departmentsUncheckedCreateWithoutUsersInput[]
-    connectOrCreate?: departmentsCreateOrConnectWithoutUsersInput | departmentsCreateOrConnectWithoutUsersInput[]
-    upsert?: departmentsUpsertWithWhereUniqueWithoutUsersInput | departmentsUpsertWithWhereUniqueWithoutUsersInput[]
-    createMany?: departmentsCreateManyUsersInputEnvelope
-    set?: departmentsWhereUniqueInput | departmentsWhereUniqueInput[]
-    disconnect?: departmentsWhereUniqueInput | departmentsWhereUniqueInput[]
-    delete?: departmentsWhereUniqueInput | departmentsWhereUniqueInput[]
-    connect?: departmentsWhereUniqueInput | departmentsWhereUniqueInput[]
-    update?: departmentsUpdateWithWhereUniqueWithoutUsersInput | departmentsUpdateWithWhereUniqueWithoutUsersInput[]
-    updateMany?: departmentsUpdateManyWithWhereWithoutUsersInput | departmentsUpdateManyWithWhereWithoutUsersInput[]
-    deleteMany?: departmentsScalarWhereInput | departmentsScalarWhereInput[]
-  }
-
-  export type pillarsCreateNestedManyWithoutDepartmentsInput = {
-    create?: XOR<pillarsCreateWithoutDepartmentsInput, pillarsUncheckedCreateWithoutDepartmentsInput> | pillarsCreateWithoutDepartmentsInput[] | pillarsUncheckedCreateWithoutDepartmentsInput[]
-    connectOrCreate?: pillarsCreateOrConnectWithoutDepartmentsInput | pillarsCreateOrConnectWithoutDepartmentsInput[]
-    createMany?: pillarsCreateManyDepartmentsInputEnvelope
+  export type pillarsCreateNestedManyWithoutDepartmentInput = {
+    create?: XOR<pillarsCreateWithoutDepartmentInput, pillarsUncheckedCreateWithoutDepartmentInput> | pillarsCreateWithoutDepartmentInput[] | pillarsUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: pillarsCreateOrConnectWithoutDepartmentInput | pillarsCreateOrConnectWithoutDepartmentInput[]
+    createMany?: pillarsCreateManyDepartmentInputEnvelope
     connect?: pillarsWhereUniqueInput | pillarsWhereUniqueInput[]
   }
 
-  export type usersCreateNestedOneWithoutHod_departmentsInput = {
-    create?: XOR<usersCreateWithoutHod_departmentsInput, usersUncheckedCreateWithoutHod_departmentsInput>
-    connectOrCreate?: usersCreateOrConnectWithoutHod_departmentsInput
-    connect?: usersWhereUniqueInput
-  }
-
-  export type usersCreateNestedManyWithoutDepartmentsInput = {
-    create?: XOR<usersCreateWithoutDepartmentsInput, usersUncheckedCreateWithoutDepartmentsInput> | usersCreateWithoutDepartmentsInput[] | usersUncheckedCreateWithoutDepartmentsInput[]
-    connectOrCreate?: usersCreateOrConnectWithoutDepartmentsInput | usersCreateOrConnectWithoutDepartmentsInput[]
-    createMany?: usersCreateManyDepartmentsInputEnvelope
+  export type usersCreateNestedManyWithoutDepartmentInput = {
+    create?: XOR<usersCreateWithoutDepartmentInput, usersUncheckedCreateWithoutDepartmentInput> | usersCreateWithoutDepartmentInput[] | usersUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: usersCreateOrConnectWithoutDepartmentInput | usersCreateOrConnectWithoutDepartmentInput[]
+    createMany?: usersCreateManyDepartmentInputEnvelope
     connect?: usersWhereUniqueInput | usersWhereUniqueInput[]
   }
 
-  export type pillarsUncheckedCreateNestedManyWithoutDepartmentsInput = {
-    create?: XOR<pillarsCreateWithoutDepartmentsInput, pillarsUncheckedCreateWithoutDepartmentsInput> | pillarsCreateWithoutDepartmentsInput[] | pillarsUncheckedCreateWithoutDepartmentsInput[]
-    connectOrCreate?: pillarsCreateOrConnectWithoutDepartmentsInput | pillarsCreateOrConnectWithoutDepartmentsInput[]
-    createMany?: pillarsCreateManyDepartmentsInputEnvelope
+  export type pillarsUncheckedCreateNestedManyWithoutDepartmentInput = {
+    create?: XOR<pillarsCreateWithoutDepartmentInput, pillarsUncheckedCreateWithoutDepartmentInput> | pillarsCreateWithoutDepartmentInput[] | pillarsUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: pillarsCreateOrConnectWithoutDepartmentInput | pillarsCreateOrConnectWithoutDepartmentInput[]
+    createMany?: pillarsCreateManyDepartmentInputEnvelope
     connect?: pillarsWhereUniqueInput | pillarsWhereUniqueInput[]
   }
 
-  export type usersUncheckedCreateNestedManyWithoutDepartmentsInput = {
-    create?: XOR<usersCreateWithoutDepartmentsInput, usersUncheckedCreateWithoutDepartmentsInput> | usersCreateWithoutDepartmentsInput[] | usersUncheckedCreateWithoutDepartmentsInput[]
-    connectOrCreate?: usersCreateOrConnectWithoutDepartmentsInput | usersCreateOrConnectWithoutDepartmentsInput[]
-    createMany?: usersCreateManyDepartmentsInputEnvelope
+  export type usersUncheckedCreateNestedManyWithoutDepartmentInput = {
+    create?: XOR<usersCreateWithoutDepartmentInput, usersUncheckedCreateWithoutDepartmentInput> | usersCreateWithoutDepartmentInput[] | usersUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: usersCreateOrConnectWithoutDepartmentInput | usersCreateOrConnectWithoutDepartmentInput[]
+    createMany?: usersCreateManyDepartmentInputEnvelope
     connect?: usersWhereUniqueInput | usersWhereUniqueInput[]
   }
 
@@ -10149,83 +9389,67 @@ export namespace Prisma {
     set?: string | null
   }
 
-  export type pillarsUpdateManyWithoutDepartmentsNestedInput = {
-    create?: XOR<pillarsCreateWithoutDepartmentsInput, pillarsUncheckedCreateWithoutDepartmentsInput> | pillarsCreateWithoutDepartmentsInput[] | pillarsUncheckedCreateWithoutDepartmentsInput[]
-    connectOrCreate?: pillarsCreateOrConnectWithoutDepartmentsInput | pillarsCreateOrConnectWithoutDepartmentsInput[]
-    upsert?: pillarsUpsertWithWhereUniqueWithoutDepartmentsInput | pillarsUpsertWithWhereUniqueWithoutDepartmentsInput[]
-    createMany?: pillarsCreateManyDepartmentsInputEnvelope
+  export type pillarsUpdateManyWithoutDepartmentNestedInput = {
+    create?: XOR<pillarsCreateWithoutDepartmentInput, pillarsUncheckedCreateWithoutDepartmentInput> | pillarsCreateWithoutDepartmentInput[] | pillarsUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: pillarsCreateOrConnectWithoutDepartmentInput | pillarsCreateOrConnectWithoutDepartmentInput[]
+    upsert?: pillarsUpsertWithWhereUniqueWithoutDepartmentInput | pillarsUpsertWithWhereUniqueWithoutDepartmentInput[]
+    createMany?: pillarsCreateManyDepartmentInputEnvelope
     set?: pillarsWhereUniqueInput | pillarsWhereUniqueInput[]
     disconnect?: pillarsWhereUniqueInput | pillarsWhereUniqueInput[]
     delete?: pillarsWhereUniqueInput | pillarsWhereUniqueInput[]
     connect?: pillarsWhereUniqueInput | pillarsWhereUniqueInput[]
-    update?: pillarsUpdateWithWhereUniqueWithoutDepartmentsInput | pillarsUpdateWithWhereUniqueWithoutDepartmentsInput[]
-    updateMany?: pillarsUpdateManyWithWhereWithoutDepartmentsInput | pillarsUpdateManyWithWhereWithoutDepartmentsInput[]
+    update?: pillarsUpdateWithWhereUniqueWithoutDepartmentInput | pillarsUpdateWithWhereUniqueWithoutDepartmentInput[]
+    updateMany?: pillarsUpdateManyWithWhereWithoutDepartmentInput | pillarsUpdateManyWithWhereWithoutDepartmentInput[]
     deleteMany?: pillarsScalarWhereInput | pillarsScalarWhereInput[]
   }
 
-  export type usersUpdateOneWithoutHod_departmentsNestedInput = {
-    create?: XOR<usersCreateWithoutHod_departmentsInput, usersUncheckedCreateWithoutHod_departmentsInput>
-    connectOrCreate?: usersCreateOrConnectWithoutHod_departmentsInput
-    upsert?: usersUpsertWithoutHod_departmentsInput
-    disconnect?: usersWhereInput | boolean
-    delete?: usersWhereInput | boolean
-    connect?: usersWhereUniqueInput
-    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutHod_departmentsInput, usersUpdateWithoutHod_departmentsInput>, usersUncheckedUpdateWithoutHod_departmentsInput>
-  }
-
-  export type usersUpdateManyWithoutDepartmentsNestedInput = {
-    create?: XOR<usersCreateWithoutDepartmentsInput, usersUncheckedCreateWithoutDepartmentsInput> | usersCreateWithoutDepartmentsInput[] | usersUncheckedCreateWithoutDepartmentsInput[]
-    connectOrCreate?: usersCreateOrConnectWithoutDepartmentsInput | usersCreateOrConnectWithoutDepartmentsInput[]
-    upsert?: usersUpsertWithWhereUniqueWithoutDepartmentsInput | usersUpsertWithWhereUniqueWithoutDepartmentsInput[]
-    createMany?: usersCreateManyDepartmentsInputEnvelope
+  export type usersUpdateManyWithoutDepartmentNestedInput = {
+    create?: XOR<usersCreateWithoutDepartmentInput, usersUncheckedCreateWithoutDepartmentInput> | usersCreateWithoutDepartmentInput[] | usersUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: usersCreateOrConnectWithoutDepartmentInput | usersCreateOrConnectWithoutDepartmentInput[]
+    upsert?: usersUpsertWithWhereUniqueWithoutDepartmentInput | usersUpsertWithWhereUniqueWithoutDepartmentInput[]
+    createMany?: usersCreateManyDepartmentInputEnvelope
     set?: usersWhereUniqueInput | usersWhereUniqueInput[]
     disconnect?: usersWhereUniqueInput | usersWhereUniqueInput[]
     delete?: usersWhereUniqueInput | usersWhereUniqueInput[]
     connect?: usersWhereUniqueInput | usersWhereUniqueInput[]
-    update?: usersUpdateWithWhereUniqueWithoutDepartmentsInput | usersUpdateWithWhereUniqueWithoutDepartmentsInput[]
-    updateMany?: usersUpdateManyWithWhereWithoutDepartmentsInput | usersUpdateManyWithWhereWithoutDepartmentsInput[]
+    update?: usersUpdateWithWhereUniqueWithoutDepartmentInput | usersUpdateWithWhereUniqueWithoutDepartmentInput[]
+    updateMany?: usersUpdateManyWithWhereWithoutDepartmentInput | usersUpdateManyWithWhereWithoutDepartmentInput[]
     deleteMany?: usersScalarWhereInput | usersScalarWhereInput[]
   }
 
-  export type pillarsUncheckedUpdateManyWithoutDepartmentsNestedInput = {
-    create?: XOR<pillarsCreateWithoutDepartmentsInput, pillarsUncheckedCreateWithoutDepartmentsInput> | pillarsCreateWithoutDepartmentsInput[] | pillarsUncheckedCreateWithoutDepartmentsInput[]
-    connectOrCreate?: pillarsCreateOrConnectWithoutDepartmentsInput | pillarsCreateOrConnectWithoutDepartmentsInput[]
-    upsert?: pillarsUpsertWithWhereUniqueWithoutDepartmentsInput | pillarsUpsertWithWhereUniqueWithoutDepartmentsInput[]
-    createMany?: pillarsCreateManyDepartmentsInputEnvelope
+  export type pillarsUncheckedUpdateManyWithoutDepartmentNestedInput = {
+    create?: XOR<pillarsCreateWithoutDepartmentInput, pillarsUncheckedCreateWithoutDepartmentInput> | pillarsCreateWithoutDepartmentInput[] | pillarsUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: pillarsCreateOrConnectWithoutDepartmentInput | pillarsCreateOrConnectWithoutDepartmentInput[]
+    upsert?: pillarsUpsertWithWhereUniqueWithoutDepartmentInput | pillarsUpsertWithWhereUniqueWithoutDepartmentInput[]
+    createMany?: pillarsCreateManyDepartmentInputEnvelope
     set?: pillarsWhereUniqueInput | pillarsWhereUniqueInput[]
     disconnect?: pillarsWhereUniqueInput | pillarsWhereUniqueInput[]
     delete?: pillarsWhereUniqueInput | pillarsWhereUniqueInput[]
     connect?: pillarsWhereUniqueInput | pillarsWhereUniqueInput[]
-    update?: pillarsUpdateWithWhereUniqueWithoutDepartmentsInput | pillarsUpdateWithWhereUniqueWithoutDepartmentsInput[]
-    updateMany?: pillarsUpdateManyWithWhereWithoutDepartmentsInput | pillarsUpdateManyWithWhereWithoutDepartmentsInput[]
+    update?: pillarsUpdateWithWhereUniqueWithoutDepartmentInput | pillarsUpdateWithWhereUniqueWithoutDepartmentInput[]
+    updateMany?: pillarsUpdateManyWithWhereWithoutDepartmentInput | pillarsUpdateManyWithWhereWithoutDepartmentInput[]
     deleteMany?: pillarsScalarWhereInput | pillarsScalarWhereInput[]
   }
 
-  export type usersUncheckedUpdateManyWithoutDepartmentsNestedInput = {
-    create?: XOR<usersCreateWithoutDepartmentsInput, usersUncheckedCreateWithoutDepartmentsInput> | usersCreateWithoutDepartmentsInput[] | usersUncheckedCreateWithoutDepartmentsInput[]
-    connectOrCreate?: usersCreateOrConnectWithoutDepartmentsInput | usersCreateOrConnectWithoutDepartmentsInput[]
-    upsert?: usersUpsertWithWhereUniqueWithoutDepartmentsInput | usersUpsertWithWhereUniqueWithoutDepartmentsInput[]
-    createMany?: usersCreateManyDepartmentsInputEnvelope
+  export type usersUncheckedUpdateManyWithoutDepartmentNestedInput = {
+    create?: XOR<usersCreateWithoutDepartmentInput, usersUncheckedCreateWithoutDepartmentInput> | usersCreateWithoutDepartmentInput[] | usersUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: usersCreateOrConnectWithoutDepartmentInput | usersCreateOrConnectWithoutDepartmentInput[]
+    upsert?: usersUpsertWithWhereUniqueWithoutDepartmentInput | usersUpsertWithWhereUniqueWithoutDepartmentInput[]
+    createMany?: usersCreateManyDepartmentInputEnvelope
     set?: usersWhereUniqueInput | usersWhereUniqueInput[]
     disconnect?: usersWhereUniqueInput | usersWhereUniqueInput[]
     delete?: usersWhereUniqueInput | usersWhereUniqueInput[]
     connect?: usersWhereUniqueInput | usersWhereUniqueInput[]
-    update?: usersUpdateWithWhereUniqueWithoutDepartmentsInput | usersUpdateWithWhereUniqueWithoutDepartmentsInput[]
-    updateMany?: usersUpdateManyWithWhereWithoutDepartmentsInput | usersUpdateManyWithWhereWithoutDepartmentsInput[]
+    update?: usersUpdateWithWhereUniqueWithoutDepartmentInput | usersUpdateWithWhereUniqueWithoutDepartmentInput[]
+    updateMany?: usersUpdateManyWithWhereWithoutDepartmentInput | usersUpdateManyWithWhereWithoutDepartmentInput[]
     deleteMany?: usersScalarWhereInput | usersScalarWhereInput[]
   }
 
-  export type assigned_kpiCreateNestedManyWithoutPillarsInput = {
-    create?: XOR<assigned_kpiCreateWithoutPillarsInput, assigned_kpiUncheckedCreateWithoutPillarsInput> | assigned_kpiCreateWithoutPillarsInput[] | assigned_kpiUncheckedCreateWithoutPillarsInput[]
-    connectOrCreate?: assigned_kpiCreateOrConnectWithoutPillarsInput | assigned_kpiCreateOrConnectWithoutPillarsInput[]
-    createMany?: assigned_kpiCreateManyPillarsInputEnvelope
+  export type assigned_kpiCreateNestedManyWithoutPillarInput = {
+    create?: XOR<assigned_kpiCreateWithoutPillarInput, assigned_kpiUncheckedCreateWithoutPillarInput> | assigned_kpiCreateWithoutPillarInput[] | assigned_kpiUncheckedCreateWithoutPillarInput[]
+    connectOrCreate?: assigned_kpiCreateOrConnectWithoutPillarInput | assigned_kpiCreateOrConnectWithoutPillarInput[]
+    createMany?: assigned_kpiCreateManyPillarInputEnvelope
     connect?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
-  }
-
-  export type usersCreateNestedOneWithoutPillarsInput = {
-    create?: XOR<usersCreateWithoutPillarsInput, usersUncheckedCreateWithoutPillarsInput>
-    connectOrCreate?: usersCreateOrConnectWithoutPillarsInput
-    connect?: usersWhereUniqueInput
   }
 
   export type departmentsCreateNestedOneWithoutPillarsInput = {
@@ -10234,33 +9458,25 @@ export namespace Prisma {
     connect?: departmentsWhereUniqueInput
   }
 
-  export type assigned_kpiUncheckedCreateNestedManyWithoutPillarsInput = {
-    create?: XOR<assigned_kpiCreateWithoutPillarsInput, assigned_kpiUncheckedCreateWithoutPillarsInput> | assigned_kpiCreateWithoutPillarsInput[] | assigned_kpiUncheckedCreateWithoutPillarsInput[]
-    connectOrCreate?: assigned_kpiCreateOrConnectWithoutPillarsInput | assigned_kpiCreateOrConnectWithoutPillarsInput[]
-    createMany?: assigned_kpiCreateManyPillarsInputEnvelope
+  export type assigned_kpiUncheckedCreateNestedManyWithoutPillarInput = {
+    create?: XOR<assigned_kpiCreateWithoutPillarInput, assigned_kpiUncheckedCreateWithoutPillarInput> | assigned_kpiCreateWithoutPillarInput[] | assigned_kpiUncheckedCreateWithoutPillarInput[]
+    connectOrCreate?: assigned_kpiCreateOrConnectWithoutPillarInput | assigned_kpiCreateOrConnectWithoutPillarInput[]
+    createMany?: assigned_kpiCreateManyPillarInputEnvelope
     connect?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
   }
 
-  export type assigned_kpiUpdateManyWithoutPillarsNestedInput = {
-    create?: XOR<assigned_kpiCreateWithoutPillarsInput, assigned_kpiUncheckedCreateWithoutPillarsInput> | assigned_kpiCreateWithoutPillarsInput[] | assigned_kpiUncheckedCreateWithoutPillarsInput[]
-    connectOrCreate?: assigned_kpiCreateOrConnectWithoutPillarsInput | assigned_kpiCreateOrConnectWithoutPillarsInput[]
-    upsert?: assigned_kpiUpsertWithWhereUniqueWithoutPillarsInput | assigned_kpiUpsertWithWhereUniqueWithoutPillarsInput[]
-    createMany?: assigned_kpiCreateManyPillarsInputEnvelope
+  export type assigned_kpiUpdateManyWithoutPillarNestedInput = {
+    create?: XOR<assigned_kpiCreateWithoutPillarInput, assigned_kpiUncheckedCreateWithoutPillarInput> | assigned_kpiCreateWithoutPillarInput[] | assigned_kpiUncheckedCreateWithoutPillarInput[]
+    connectOrCreate?: assigned_kpiCreateOrConnectWithoutPillarInput | assigned_kpiCreateOrConnectWithoutPillarInput[]
+    upsert?: assigned_kpiUpsertWithWhereUniqueWithoutPillarInput | assigned_kpiUpsertWithWhereUniqueWithoutPillarInput[]
+    createMany?: assigned_kpiCreateManyPillarInputEnvelope
     set?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
     disconnect?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
     delete?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
     connect?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
-    update?: assigned_kpiUpdateWithWhereUniqueWithoutPillarsInput | assigned_kpiUpdateWithWhereUniqueWithoutPillarsInput[]
-    updateMany?: assigned_kpiUpdateManyWithWhereWithoutPillarsInput | assigned_kpiUpdateManyWithWhereWithoutPillarsInput[]
+    update?: assigned_kpiUpdateWithWhereUniqueWithoutPillarInput | assigned_kpiUpdateWithWhereUniqueWithoutPillarInput[]
+    updateMany?: assigned_kpiUpdateManyWithWhereWithoutPillarInput | assigned_kpiUpdateManyWithWhereWithoutPillarInput[]
     deleteMany?: assigned_kpiScalarWhereInput | assigned_kpiScalarWhereInput[]
-  }
-
-  export type usersUpdateOneRequiredWithoutPillarsNestedInput = {
-    create?: XOR<usersCreateWithoutPillarsInput, usersUncheckedCreateWithoutPillarsInput>
-    connectOrCreate?: usersCreateOrConnectWithoutPillarsInput
-    upsert?: usersUpsertWithoutPillarsInput
-    connect?: usersWhereUniqueInput
-    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutPillarsInput, usersUpdateWithoutPillarsInput>, usersUncheckedUpdateWithoutPillarsInput>
   }
 
   export type departmentsUpdateOneRequiredWithoutPillarsNestedInput = {
@@ -10271,24 +9487,18 @@ export namespace Prisma {
     update?: XOR<XOR<departmentsUpdateToOneWithWhereWithoutPillarsInput, departmentsUpdateWithoutPillarsInput>, departmentsUncheckedUpdateWithoutPillarsInput>
   }
 
-  export type assigned_kpiUncheckedUpdateManyWithoutPillarsNestedInput = {
-    create?: XOR<assigned_kpiCreateWithoutPillarsInput, assigned_kpiUncheckedCreateWithoutPillarsInput> | assigned_kpiCreateWithoutPillarsInput[] | assigned_kpiUncheckedCreateWithoutPillarsInput[]
-    connectOrCreate?: assigned_kpiCreateOrConnectWithoutPillarsInput | assigned_kpiCreateOrConnectWithoutPillarsInput[]
-    upsert?: assigned_kpiUpsertWithWhereUniqueWithoutPillarsInput | assigned_kpiUpsertWithWhereUniqueWithoutPillarsInput[]
-    createMany?: assigned_kpiCreateManyPillarsInputEnvelope
+  export type assigned_kpiUncheckedUpdateManyWithoutPillarNestedInput = {
+    create?: XOR<assigned_kpiCreateWithoutPillarInput, assigned_kpiUncheckedCreateWithoutPillarInput> | assigned_kpiCreateWithoutPillarInput[] | assigned_kpiUncheckedCreateWithoutPillarInput[]
+    connectOrCreate?: assigned_kpiCreateOrConnectWithoutPillarInput | assigned_kpiCreateOrConnectWithoutPillarInput[]
+    upsert?: assigned_kpiUpsertWithWhereUniqueWithoutPillarInput | assigned_kpiUpsertWithWhereUniqueWithoutPillarInput[]
+    createMany?: assigned_kpiCreateManyPillarInputEnvelope
     set?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
     disconnect?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
     delete?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
     connect?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
-    update?: assigned_kpiUpdateWithWhereUniqueWithoutPillarsInput | assigned_kpiUpdateWithWhereUniqueWithoutPillarsInput[]
-    updateMany?: assigned_kpiUpdateManyWithWhereWithoutPillarsInput | assigned_kpiUpdateManyWithWhereWithoutPillarsInput[]
+    update?: assigned_kpiUpdateWithWhereUniqueWithoutPillarInput | assigned_kpiUpdateWithWhereUniqueWithoutPillarInput[]
+    updateMany?: assigned_kpiUpdateManyWithWhereWithoutPillarInput | assigned_kpiUpdateManyWithWhereWithoutPillarInput[]
     deleteMany?: assigned_kpiScalarWhereInput | assigned_kpiScalarWhereInput[]
-  }
-
-  export type kpiCreateNestedOneWithoutAssigned_kpisInput = {
-    create?: XOR<kpiCreateWithoutAssigned_kpisInput, kpiUncheckedCreateWithoutAssigned_kpisInput>
-    connectOrCreate?: kpiCreateOrConnectWithoutAssigned_kpisInput
-    connect?: kpiWhereUniqueInput
   }
 
   export type pillarsCreateNestedOneWithoutAssigned_kpiInput = {
@@ -10297,94 +9507,12 @@ export namespace Prisma {
     connect?: pillarsWhereUniqueInput
   }
 
-  export type usersCreateNestedOneWithoutApproved_kpisInput = {
-    create?: XOR<usersCreateWithoutApproved_kpisInput, usersUncheckedCreateWithoutApproved_kpisInput>
-    connectOrCreate?: usersCreateOrConnectWithoutApproved_kpisInput
-    connect?: usersWhereUniqueInput
-  }
-
-  export type kpiUpdateOneRequiredWithoutAssigned_kpisNestedInput = {
-    create?: XOR<kpiCreateWithoutAssigned_kpisInput, kpiUncheckedCreateWithoutAssigned_kpisInput>
-    connectOrCreate?: kpiCreateOrConnectWithoutAssigned_kpisInput
-    upsert?: kpiUpsertWithoutAssigned_kpisInput
-    connect?: kpiWhereUniqueInput
-    update?: XOR<XOR<kpiUpdateToOneWithWhereWithoutAssigned_kpisInput, kpiUpdateWithoutAssigned_kpisInput>, kpiUncheckedUpdateWithoutAssigned_kpisInput>
-  }
-
   export type pillarsUpdateOneRequiredWithoutAssigned_kpiNestedInput = {
     create?: XOR<pillarsCreateWithoutAssigned_kpiInput, pillarsUncheckedCreateWithoutAssigned_kpiInput>
     connectOrCreate?: pillarsCreateOrConnectWithoutAssigned_kpiInput
     upsert?: pillarsUpsertWithoutAssigned_kpiInput
     connect?: pillarsWhereUniqueInput
     update?: XOR<XOR<pillarsUpdateToOneWithWhereWithoutAssigned_kpiInput, pillarsUpdateWithoutAssigned_kpiInput>, pillarsUncheckedUpdateWithoutAssigned_kpiInput>
-  }
-
-  export type usersUpdateOneWithoutApproved_kpisNestedInput = {
-    create?: XOR<usersCreateWithoutApproved_kpisInput, usersUncheckedCreateWithoutApproved_kpisInput>
-    connectOrCreate?: usersCreateOrConnectWithoutApproved_kpisInput
-    upsert?: usersUpsertWithoutApproved_kpisInput
-    disconnect?: usersWhereInput | boolean
-    delete?: usersWhereInput | boolean
-    connect?: usersWhereUniqueInput
-    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutApproved_kpisInput, usersUpdateWithoutApproved_kpisInput>, usersUncheckedUpdateWithoutApproved_kpisInput>
-  }
-
-  export type assigned_kpiCreateNestedManyWithoutKpiInput = {
-    create?: XOR<assigned_kpiCreateWithoutKpiInput, assigned_kpiUncheckedCreateWithoutKpiInput> | assigned_kpiCreateWithoutKpiInput[] | assigned_kpiUncheckedCreateWithoutKpiInput[]
-    connectOrCreate?: assigned_kpiCreateOrConnectWithoutKpiInput | assigned_kpiCreateOrConnectWithoutKpiInput[]
-    createMany?: assigned_kpiCreateManyKpiInputEnvelope
-    connect?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
-  }
-
-  export type usersCreateNestedOneWithoutKpiInput = {
-    create?: XOR<usersCreateWithoutKpiInput, usersUncheckedCreateWithoutKpiInput>
-    connectOrCreate?: usersCreateOrConnectWithoutKpiInput
-    connect?: usersWhereUniqueInput
-  }
-
-  export type assigned_kpiUncheckedCreateNestedManyWithoutKpiInput = {
-    create?: XOR<assigned_kpiCreateWithoutKpiInput, assigned_kpiUncheckedCreateWithoutKpiInput> | assigned_kpiCreateWithoutKpiInput[] | assigned_kpiUncheckedCreateWithoutKpiInput[]
-    connectOrCreate?: assigned_kpiCreateOrConnectWithoutKpiInput | assigned_kpiCreateOrConnectWithoutKpiInput[]
-    createMany?: assigned_kpiCreateManyKpiInputEnvelope
-    connect?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
-  }
-
-  export type assigned_kpiUpdateManyWithoutKpiNestedInput = {
-    create?: XOR<assigned_kpiCreateWithoutKpiInput, assigned_kpiUncheckedCreateWithoutKpiInput> | assigned_kpiCreateWithoutKpiInput[] | assigned_kpiUncheckedCreateWithoutKpiInput[]
-    connectOrCreate?: assigned_kpiCreateOrConnectWithoutKpiInput | assigned_kpiCreateOrConnectWithoutKpiInput[]
-    upsert?: assigned_kpiUpsertWithWhereUniqueWithoutKpiInput | assigned_kpiUpsertWithWhereUniqueWithoutKpiInput[]
-    createMany?: assigned_kpiCreateManyKpiInputEnvelope
-    set?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
-    disconnect?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
-    delete?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
-    connect?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
-    update?: assigned_kpiUpdateWithWhereUniqueWithoutKpiInput | assigned_kpiUpdateWithWhereUniqueWithoutKpiInput[]
-    updateMany?: assigned_kpiUpdateManyWithWhereWithoutKpiInput | assigned_kpiUpdateManyWithWhereWithoutKpiInput[]
-    deleteMany?: assigned_kpiScalarWhereInput | assigned_kpiScalarWhereInput[]
-  }
-
-  export type usersUpdateOneWithoutKpiNestedInput = {
-    create?: XOR<usersCreateWithoutKpiInput, usersUncheckedCreateWithoutKpiInput>
-    connectOrCreate?: usersCreateOrConnectWithoutKpiInput
-    upsert?: usersUpsertWithoutKpiInput
-    disconnect?: usersWhereInput | boolean
-    delete?: usersWhereInput | boolean
-    connect?: usersWhereUniqueInput
-    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutKpiInput, usersUpdateWithoutKpiInput>, usersUncheckedUpdateWithoutKpiInput>
-  }
-
-  export type assigned_kpiUncheckedUpdateManyWithoutKpiNestedInput = {
-    create?: XOR<assigned_kpiCreateWithoutKpiInput, assigned_kpiUncheckedCreateWithoutKpiInput> | assigned_kpiCreateWithoutKpiInput[] | assigned_kpiUncheckedCreateWithoutKpiInput[]
-    connectOrCreate?: assigned_kpiCreateOrConnectWithoutKpiInput | assigned_kpiCreateOrConnectWithoutKpiInput[]
-    upsert?: assigned_kpiUpsertWithWhereUniqueWithoutKpiInput | assigned_kpiUpsertWithWhereUniqueWithoutKpiInput[]
-    createMany?: assigned_kpiCreateManyKpiInputEnvelope
-    set?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
-    disconnect?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
-    delete?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
-    connect?: assigned_kpiWhereUniqueInput | assigned_kpiWhereUniqueInput[]
-    update?: assigned_kpiUpdateWithWhereUniqueWithoutKpiInput | assigned_kpiUpdateWithWhereUniqueWithoutKpiInput[]
-    updateMany?: assigned_kpiUpdateManyWithWhereWithoutKpiInput | assigned_kpiUpdateManyWithWhereWithoutKpiInput[]
-    deleteMany?: assigned_kpiScalarWhereInput | assigned_kpiScalarWhereInput[]
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -10573,208 +9701,118 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type kpiCreateWithoutUserInput = {
-    kpi_name: string
-    kpi_created_at?: Date | string | null
-    kpi_updated_at?: Date | string | null
-    form_data: JsonNullValueInput | InputJsonValue
-    assigned_kpis?: assigned_kpiCreateNestedManyWithoutKpiInput
-  }
-
-  export type kpiUncheckedCreateWithoutUserInput = {
-    kpi_id?: number
-    kpi_name: string
-    kpi_created_at?: Date | string | null
-    kpi_updated_at?: Date | string | null
-    form_data: JsonNullValueInput | InputJsonValue
-    assigned_kpis?: assigned_kpiUncheckedCreateNestedManyWithoutKpiInput
-  }
-
-  export type kpiCreateOrConnectWithoutUserInput = {
-    where: kpiWhereUniqueInput
-    create: XOR<kpiCreateWithoutUserInput, kpiUncheckedCreateWithoutUserInput>
-  }
-
-  export type kpiCreateManyUserInputEnvelope = {
-    data: kpiCreateManyUserInput | kpiCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type departmentsCreateWithoutUsers_in_deptInput = {
+  export type departmentsCreateWithoutMembersInput = {
     dept_name: string
+    hod_id?: number | null
     dept_creation?: Date | string | null
     hod_name?: string | null
-    pillars?: pillarsCreateNestedManyWithoutDepartmentsInput
-    users?: usersCreateNestedOneWithoutHod_departmentsInput
+    pillars?: pillarsCreateNestedManyWithoutDepartmentInput
   }
 
-  export type departmentsUncheckedCreateWithoutUsers_in_deptInput = {
+  export type departmentsUncheckedCreateWithoutMembersInput = {
     dept_id?: number
     dept_name: string
     hod_id?: number | null
     dept_creation?: Date | string | null
     hod_name?: string | null
-    pillars?: pillarsUncheckedCreateNestedManyWithoutDepartmentsInput
+    pillars?: pillarsUncheckedCreateNestedManyWithoutDepartmentInput
   }
 
-  export type departmentsCreateOrConnectWithoutUsers_in_deptInput = {
+  export type departmentsCreateOrConnectWithoutMembersInput = {
     where: departmentsWhereUniqueInput
-    create: XOR<departmentsCreateWithoutUsers_in_deptInput, departmentsUncheckedCreateWithoutUsers_in_deptInput>
+    create: XOR<departmentsCreateWithoutMembersInput, departmentsUncheckedCreateWithoutMembersInput>
   }
 
-  export type pillarsCreateWithoutUsersInput = {
-    pillar_name: string
-    pillar_creation?: Date | string | null
-    assigned_kpi?: assigned_kpiCreateNestedManyWithoutPillarsInput
-    departments: departmentsCreateNestedOneWithoutPillarsInput
-  }
-
-  export type pillarsUncheckedCreateWithoutUsersInput = {
-    pillar_id?: number
-    pillar_name: string
-    pillar_creation?: Date | string | null
-    department_id: number
-    assigned_kpi?: assigned_kpiUncheckedCreateNestedManyWithoutPillarsInput
-  }
-
-  export type pillarsCreateOrConnectWithoutUsersInput = {
-    where: pillarsWhereUniqueInput
-    create: XOR<pillarsCreateWithoutUsersInput, pillarsUncheckedCreateWithoutUsersInput>
-  }
-
-  export type pillarsCreateManyUsersInputEnvelope = {
-    data: pillarsCreateManyUsersInput | pillarsCreateManyUsersInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type assigned_kpiCreateWithoutApproverInput = {
-    kpi_name: string
-    kpi_status: string
-    added_date?: Date | string | null
-    resolved_date?: Date | string | null
-    comments?: string | null
-    kpi: kpiCreateNestedOneWithoutAssigned_kpisInput
-    pillars: pillarsCreateNestedOneWithoutAssigned_kpiInput
-  }
-
-  export type assigned_kpiUncheckedCreateWithoutApproverInput = {
-    assigned_kpi_id?: number
-    kpi_id: number
-    pillar_id: number
-    kpi_name: string
-    kpi_status: string
-    added_date?: Date | string | null
-    resolved_date?: Date | string | null
-    comments?: string | null
-  }
-
-  export type assigned_kpiCreateOrConnectWithoutApproverInput = {
-    where: assigned_kpiWhereUniqueInput
-    create: XOR<assigned_kpiCreateWithoutApproverInput, assigned_kpiUncheckedCreateWithoutApproverInput>
-  }
-
-  export type assigned_kpiCreateManyApproverInputEnvelope = {
-    data: assigned_kpiCreateManyApproverInput | assigned_kpiCreateManyApproverInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type departmentsCreateWithoutUsersInput = {
-    dept_name: string
-    dept_creation?: Date | string | null
-    hod_name?: string | null
-    pillars?: pillarsCreateNestedManyWithoutDepartmentsInput
-    users_in_dept?: usersCreateNestedManyWithoutDepartmentsInput
-  }
-
-  export type departmentsUncheckedCreateWithoutUsersInput = {
-    dept_id?: number
-    dept_name: string
-    dept_creation?: Date | string | null
-    hod_name?: string | null
-    pillars?: pillarsUncheckedCreateNestedManyWithoutDepartmentsInput
-    users_in_dept?: usersUncheckedCreateNestedManyWithoutDepartmentsInput
-  }
-
-  export type departmentsCreateOrConnectWithoutUsersInput = {
-    where: departmentsWhereUniqueInput
-    create: XOR<departmentsCreateWithoutUsersInput, departmentsUncheckedCreateWithoutUsersInput>
-  }
-
-  export type departmentsCreateManyUsersInputEnvelope = {
-    data: departmentsCreateManyUsersInput | departmentsCreateManyUsersInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type kpiUpsertWithWhereUniqueWithoutUserInput = {
-    where: kpiWhereUniqueInput
-    update: XOR<kpiUpdateWithoutUserInput, kpiUncheckedUpdateWithoutUserInput>
-    create: XOR<kpiCreateWithoutUserInput, kpiUncheckedCreateWithoutUserInput>
-  }
-
-  export type kpiUpdateWithWhereUniqueWithoutUserInput = {
-    where: kpiWhereUniqueInput
-    data: XOR<kpiUpdateWithoutUserInput, kpiUncheckedUpdateWithoutUserInput>
-  }
-
-  export type kpiUpdateManyWithWhereWithoutUserInput = {
-    where: kpiScalarWhereInput
-    data: XOR<kpiUpdateManyMutationInput, kpiUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type kpiScalarWhereInput = {
-    AND?: kpiScalarWhereInput | kpiScalarWhereInput[]
-    OR?: kpiScalarWhereInput[]
-    NOT?: kpiScalarWhereInput | kpiScalarWhereInput[]
-    kpi_id?: IntFilter<"kpi"> | number
-    kpi_name?: StringFilter<"kpi"> | string
-    kpi_created_at?: DateTimeNullableFilter<"kpi"> | Date | string | null
-    kpi_updated_at?: DateTimeNullableFilter<"kpi"> | Date | string | null
-    form_data?: JsonFilter<"kpi">
-    user_id?: IntNullableFilter<"kpi"> | number | null
-  }
-
-  export type departmentsUpsertWithoutUsers_in_deptInput = {
-    update: XOR<departmentsUpdateWithoutUsers_in_deptInput, departmentsUncheckedUpdateWithoutUsers_in_deptInput>
-    create: XOR<departmentsCreateWithoutUsers_in_deptInput, departmentsUncheckedCreateWithoutUsers_in_deptInput>
+  export type departmentsUpsertWithoutMembersInput = {
+    update: XOR<departmentsUpdateWithoutMembersInput, departmentsUncheckedUpdateWithoutMembersInput>
+    create: XOR<departmentsCreateWithoutMembersInput, departmentsUncheckedCreateWithoutMembersInput>
     where?: departmentsWhereInput
   }
 
-  export type departmentsUpdateToOneWithWhereWithoutUsers_in_deptInput = {
+  export type departmentsUpdateToOneWithWhereWithoutMembersInput = {
     where?: departmentsWhereInput
-    data: XOR<departmentsUpdateWithoutUsers_in_deptInput, departmentsUncheckedUpdateWithoutUsers_in_deptInput>
+    data: XOR<departmentsUpdateWithoutMembersInput, departmentsUncheckedUpdateWithoutMembersInput>
   }
 
-  export type departmentsUpdateWithoutUsers_in_deptInput = {
+  export type departmentsUpdateWithoutMembersInput = {
     dept_name?: StringFieldUpdateOperationsInput | string
+    hod_id?: NullableIntFieldUpdateOperationsInput | number | null
     dept_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     hod_name?: NullableStringFieldUpdateOperationsInput | string | null
-    pillars?: pillarsUpdateManyWithoutDepartmentsNestedInput
-    users?: usersUpdateOneWithoutHod_departmentsNestedInput
+    pillars?: pillarsUpdateManyWithoutDepartmentNestedInput
   }
 
-  export type departmentsUncheckedUpdateWithoutUsers_in_deptInput = {
+  export type departmentsUncheckedUpdateWithoutMembersInput = {
     dept_id?: IntFieldUpdateOperationsInput | number
     dept_name?: StringFieldUpdateOperationsInput | string
     hod_id?: NullableIntFieldUpdateOperationsInput | number | null
     dept_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     hod_name?: NullableStringFieldUpdateOperationsInput | string | null
-    pillars?: pillarsUncheckedUpdateManyWithoutDepartmentsNestedInput
+    pillars?: pillarsUncheckedUpdateManyWithoutDepartmentNestedInput
   }
 
-  export type pillarsUpsertWithWhereUniqueWithoutUsersInput = {
+  export type pillarsCreateWithoutDepartmentInput = {
+    pillar_name: string
+    pillar_creation?: Date | string | null
+    assigned_kpi?: assigned_kpiCreateNestedManyWithoutPillarInput
+  }
+
+  export type pillarsUncheckedCreateWithoutDepartmentInput = {
+    pillar_id?: number
+    pillar_name: string
+    pillar_creation?: Date | string | null
+    assigned_kpi?: assigned_kpiUncheckedCreateNestedManyWithoutPillarInput
+  }
+
+  export type pillarsCreateOrConnectWithoutDepartmentInput = {
     where: pillarsWhereUniqueInput
-    update: XOR<pillarsUpdateWithoutUsersInput, pillarsUncheckedUpdateWithoutUsersInput>
-    create: XOR<pillarsCreateWithoutUsersInput, pillarsUncheckedCreateWithoutUsersInput>
+    create: XOR<pillarsCreateWithoutDepartmentInput, pillarsUncheckedCreateWithoutDepartmentInput>
   }
 
-  export type pillarsUpdateWithWhereUniqueWithoutUsersInput = {
+  export type pillarsCreateManyDepartmentInputEnvelope = {
+    data: pillarsCreateManyDepartmentInput | pillarsCreateManyDepartmentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type usersCreateWithoutDepartmentInput = {
+    user_name: string
+    user_email: string
+    user_password: string
+    user_role?: string
+  }
+
+  export type usersUncheckedCreateWithoutDepartmentInput = {
+    user_id?: number
+    user_name: string
+    user_email: string
+    user_password: string
+    user_role?: string
+  }
+
+  export type usersCreateOrConnectWithoutDepartmentInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutDepartmentInput, usersUncheckedCreateWithoutDepartmentInput>
+  }
+
+  export type usersCreateManyDepartmentInputEnvelope = {
+    data: usersCreateManyDepartmentInput | usersCreateManyDepartmentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type pillarsUpsertWithWhereUniqueWithoutDepartmentInput = {
     where: pillarsWhereUniqueInput
-    data: XOR<pillarsUpdateWithoutUsersInput, pillarsUncheckedUpdateWithoutUsersInput>
+    update: XOR<pillarsUpdateWithoutDepartmentInput, pillarsUncheckedUpdateWithoutDepartmentInput>
+    create: XOR<pillarsCreateWithoutDepartmentInput, pillarsUncheckedCreateWithoutDepartmentInput>
   }
 
-  export type pillarsUpdateManyWithWhereWithoutUsersInput = {
+  export type pillarsUpdateWithWhereUniqueWithoutDepartmentInput = {
+    where: pillarsWhereUniqueInput
+    data: XOR<pillarsUpdateWithoutDepartmentInput, pillarsUncheckedUpdateWithoutDepartmentInput>
+  }
+
+  export type pillarsUpdateManyWithWhereWithoutDepartmentInput = {
     where: pillarsScalarWhereInput
-    data: XOR<pillarsUpdateManyMutationInput, pillarsUncheckedUpdateManyWithoutUsersInput>
+    data: XOR<pillarsUpdateManyMutationInput, pillarsUncheckedUpdateManyWithoutDepartmentInput>
   }
 
   export type pillarsScalarWhereInput = {
@@ -10784,218 +9822,23 @@ export namespace Prisma {
     pillar_id?: IntFilter<"pillars"> | number
     pillar_name?: StringFilter<"pillars"> | string
     pillar_creation?: DateTimeNullableFilter<"pillars"> | Date | string | null
-    created_by?: IntFilter<"pillars"> | number
     department_id?: IntFilter<"pillars"> | number
   }
 
-  export type assigned_kpiUpsertWithWhereUniqueWithoutApproverInput = {
-    where: assigned_kpiWhereUniqueInput
-    update: XOR<assigned_kpiUpdateWithoutApproverInput, assigned_kpiUncheckedUpdateWithoutApproverInput>
-    create: XOR<assigned_kpiCreateWithoutApproverInput, assigned_kpiUncheckedCreateWithoutApproverInput>
-  }
-
-  export type assigned_kpiUpdateWithWhereUniqueWithoutApproverInput = {
-    where: assigned_kpiWhereUniqueInput
-    data: XOR<assigned_kpiUpdateWithoutApproverInput, assigned_kpiUncheckedUpdateWithoutApproverInput>
-  }
-
-  export type assigned_kpiUpdateManyWithWhereWithoutApproverInput = {
-    where: assigned_kpiScalarWhereInput
-    data: XOR<assigned_kpiUpdateManyMutationInput, assigned_kpiUncheckedUpdateManyWithoutApproverInput>
-  }
-
-  export type assigned_kpiScalarWhereInput = {
-    AND?: assigned_kpiScalarWhereInput | assigned_kpiScalarWhereInput[]
-    OR?: assigned_kpiScalarWhereInput[]
-    NOT?: assigned_kpiScalarWhereInput | assigned_kpiScalarWhereInput[]
-    assigned_kpi_id?: IntFilter<"assigned_kpi"> | number
-    kpi_id?: IntFilter<"assigned_kpi"> | number
-    pillar_id?: IntFilter<"assigned_kpi"> | number
-    kpi_name?: StringFilter<"assigned_kpi"> | string
-    kpi_status?: StringFilter<"assigned_kpi"> | string
-    added_date?: DateTimeNullableFilter<"assigned_kpi"> | Date | string | null
-    resolved_date?: DateTimeNullableFilter<"assigned_kpi"> | Date | string | null
-    approved_by?: IntNullableFilter<"assigned_kpi"> | number | null
-    comments?: StringNullableFilter<"assigned_kpi"> | string | null
-  }
-
-  export type departmentsUpsertWithWhereUniqueWithoutUsersInput = {
-    where: departmentsWhereUniqueInput
-    update: XOR<departmentsUpdateWithoutUsersInput, departmentsUncheckedUpdateWithoutUsersInput>
-    create: XOR<departmentsCreateWithoutUsersInput, departmentsUncheckedCreateWithoutUsersInput>
-  }
-
-  export type departmentsUpdateWithWhereUniqueWithoutUsersInput = {
-    where: departmentsWhereUniqueInput
-    data: XOR<departmentsUpdateWithoutUsersInput, departmentsUncheckedUpdateWithoutUsersInput>
-  }
-
-  export type departmentsUpdateManyWithWhereWithoutUsersInput = {
-    where: departmentsScalarWhereInput
-    data: XOR<departmentsUpdateManyMutationInput, departmentsUncheckedUpdateManyWithoutUsersInput>
-  }
-
-  export type departmentsScalarWhereInput = {
-    AND?: departmentsScalarWhereInput | departmentsScalarWhereInput[]
-    OR?: departmentsScalarWhereInput[]
-    NOT?: departmentsScalarWhereInput | departmentsScalarWhereInput[]
-    dept_id?: IntFilter<"departments"> | number
-    dept_name?: StringFilter<"departments"> | string
-    hod_id?: IntNullableFilter<"departments"> | number | null
-    dept_creation?: DateTimeNullableFilter<"departments"> | Date | string | null
-    hod_name?: StringNullableFilter<"departments"> | string | null
-  }
-
-  export type pillarsCreateWithoutDepartmentsInput = {
-    pillar_name: string
-    pillar_creation?: Date | string | null
-    assigned_kpi?: assigned_kpiCreateNestedManyWithoutPillarsInput
-    users: usersCreateNestedOneWithoutPillarsInput
-  }
-
-  export type pillarsUncheckedCreateWithoutDepartmentsInput = {
-    pillar_id?: number
-    pillar_name: string
-    pillar_creation?: Date | string | null
-    created_by: number
-    assigned_kpi?: assigned_kpiUncheckedCreateNestedManyWithoutPillarsInput
-  }
-
-  export type pillarsCreateOrConnectWithoutDepartmentsInput = {
-    where: pillarsWhereUniqueInput
-    create: XOR<pillarsCreateWithoutDepartmentsInput, pillarsUncheckedCreateWithoutDepartmentsInput>
-  }
-
-  export type pillarsCreateManyDepartmentsInputEnvelope = {
-    data: pillarsCreateManyDepartmentsInput | pillarsCreateManyDepartmentsInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type usersCreateWithoutHod_departmentsInput = {
-    user_name: string
-    user_email: string
-    user_password: string
-    user_role?: string
-    kpi?: kpiCreateNestedManyWithoutUserInput
-    departments?: departmentsCreateNestedOneWithoutUsers_in_deptInput
-    pillars?: pillarsCreateNestedManyWithoutUsersInput
-    approved_kpis?: assigned_kpiCreateNestedManyWithoutApproverInput
-  }
-
-  export type usersUncheckedCreateWithoutHod_departmentsInput = {
-    user_id?: number
-    user_name: string
-    user_email: string
-    user_password: string
-    user_role?: string
-    dept_id?: number | null
-    kpi?: kpiUncheckedCreateNestedManyWithoutUserInput
-    pillars?: pillarsUncheckedCreateNestedManyWithoutUsersInput
-    approved_kpis?: assigned_kpiUncheckedCreateNestedManyWithoutApproverInput
-  }
-
-  export type usersCreateOrConnectWithoutHod_departmentsInput = {
+  export type usersUpsertWithWhereUniqueWithoutDepartmentInput = {
     where: usersWhereUniqueInput
-    create: XOR<usersCreateWithoutHod_departmentsInput, usersUncheckedCreateWithoutHod_departmentsInput>
+    update: XOR<usersUpdateWithoutDepartmentInput, usersUncheckedUpdateWithoutDepartmentInput>
+    create: XOR<usersCreateWithoutDepartmentInput, usersUncheckedCreateWithoutDepartmentInput>
   }
 
-  export type usersCreateWithoutDepartmentsInput = {
-    user_name: string
-    user_email: string
-    user_password: string
-    user_role?: string
-    kpi?: kpiCreateNestedManyWithoutUserInput
-    pillars?: pillarsCreateNestedManyWithoutUsersInput
-    approved_kpis?: assigned_kpiCreateNestedManyWithoutApproverInput
-    hod_departments?: departmentsCreateNestedManyWithoutUsersInput
-  }
-
-  export type usersUncheckedCreateWithoutDepartmentsInput = {
-    user_id?: number
-    user_name: string
-    user_email: string
-    user_password: string
-    user_role?: string
-    kpi?: kpiUncheckedCreateNestedManyWithoutUserInput
-    pillars?: pillarsUncheckedCreateNestedManyWithoutUsersInput
-    approved_kpis?: assigned_kpiUncheckedCreateNestedManyWithoutApproverInput
-    hod_departments?: departmentsUncheckedCreateNestedManyWithoutUsersInput
-  }
-
-  export type usersCreateOrConnectWithoutDepartmentsInput = {
+  export type usersUpdateWithWhereUniqueWithoutDepartmentInput = {
     where: usersWhereUniqueInput
-    create: XOR<usersCreateWithoutDepartmentsInput, usersUncheckedCreateWithoutDepartmentsInput>
+    data: XOR<usersUpdateWithoutDepartmentInput, usersUncheckedUpdateWithoutDepartmentInput>
   }
 
-  export type usersCreateManyDepartmentsInputEnvelope = {
-    data: usersCreateManyDepartmentsInput | usersCreateManyDepartmentsInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type pillarsUpsertWithWhereUniqueWithoutDepartmentsInput = {
-    where: pillarsWhereUniqueInput
-    update: XOR<pillarsUpdateWithoutDepartmentsInput, pillarsUncheckedUpdateWithoutDepartmentsInput>
-    create: XOR<pillarsCreateWithoutDepartmentsInput, pillarsUncheckedCreateWithoutDepartmentsInput>
-  }
-
-  export type pillarsUpdateWithWhereUniqueWithoutDepartmentsInput = {
-    where: pillarsWhereUniqueInput
-    data: XOR<pillarsUpdateWithoutDepartmentsInput, pillarsUncheckedUpdateWithoutDepartmentsInput>
-  }
-
-  export type pillarsUpdateManyWithWhereWithoutDepartmentsInput = {
-    where: pillarsScalarWhereInput
-    data: XOR<pillarsUpdateManyMutationInput, pillarsUncheckedUpdateManyWithoutDepartmentsInput>
-  }
-
-  export type usersUpsertWithoutHod_departmentsInput = {
-    update: XOR<usersUpdateWithoutHod_departmentsInput, usersUncheckedUpdateWithoutHod_departmentsInput>
-    create: XOR<usersCreateWithoutHod_departmentsInput, usersUncheckedCreateWithoutHod_departmentsInput>
-    where?: usersWhereInput
-  }
-
-  export type usersUpdateToOneWithWhereWithoutHod_departmentsInput = {
-    where?: usersWhereInput
-    data: XOR<usersUpdateWithoutHod_departmentsInput, usersUncheckedUpdateWithoutHod_departmentsInput>
-  }
-
-  export type usersUpdateWithoutHod_departmentsInput = {
-    user_name?: StringFieldUpdateOperationsInput | string
-    user_email?: StringFieldUpdateOperationsInput | string
-    user_password?: StringFieldUpdateOperationsInput | string
-    user_role?: StringFieldUpdateOperationsInput | string
-    kpi?: kpiUpdateManyWithoutUserNestedInput
-    departments?: departmentsUpdateOneWithoutUsers_in_deptNestedInput
-    pillars?: pillarsUpdateManyWithoutUsersNestedInput
-    approved_kpis?: assigned_kpiUpdateManyWithoutApproverNestedInput
-  }
-
-  export type usersUncheckedUpdateWithoutHod_departmentsInput = {
-    user_id?: IntFieldUpdateOperationsInput | number
-    user_name?: StringFieldUpdateOperationsInput | string
-    user_email?: StringFieldUpdateOperationsInput | string
-    user_password?: StringFieldUpdateOperationsInput | string
-    user_role?: StringFieldUpdateOperationsInput | string
-    dept_id?: NullableIntFieldUpdateOperationsInput | number | null
-    kpi?: kpiUncheckedUpdateManyWithoutUserNestedInput
-    pillars?: pillarsUncheckedUpdateManyWithoutUsersNestedInput
-    approved_kpis?: assigned_kpiUncheckedUpdateManyWithoutApproverNestedInput
-  }
-
-  export type usersUpsertWithWhereUniqueWithoutDepartmentsInput = {
-    where: usersWhereUniqueInput
-    update: XOR<usersUpdateWithoutDepartmentsInput, usersUncheckedUpdateWithoutDepartmentsInput>
-    create: XOR<usersCreateWithoutDepartmentsInput, usersUncheckedCreateWithoutDepartmentsInput>
-  }
-
-  export type usersUpdateWithWhereUniqueWithoutDepartmentsInput = {
-    where: usersWhereUniqueInput
-    data: XOR<usersUpdateWithoutDepartmentsInput, usersUncheckedUpdateWithoutDepartmentsInput>
-  }
-
-  export type usersUpdateManyWithWhereWithoutDepartmentsInput = {
+  export type usersUpdateManyWithWhereWithoutDepartmentInput = {
     where: usersScalarWhereInput
-    data: XOR<usersUpdateManyMutationInput, usersUncheckedUpdateManyWithoutDepartmentsInput>
+    data: XOR<usersUpdateManyMutationInput, usersUncheckedUpdateManyWithoutDepartmentInput>
   }
 
   export type usersScalarWhereInput = {
@@ -11010,71 +9853,41 @@ export namespace Prisma {
     dept_id?: IntNullableFilter<"users"> | number | null
   }
 
-  export type assigned_kpiCreateWithoutPillarsInput = {
+  export type assigned_kpiCreateWithoutPillarInput = {
     kpi_name: string
     kpi_status: string
+    form_data: JsonNullValueInput | InputJsonValue
     added_date?: Date | string | null
     resolved_date?: Date | string | null
     comments?: string | null
-    kpi: kpiCreateNestedOneWithoutAssigned_kpisInput
-    approver?: usersCreateNestedOneWithoutApproved_kpisInput
   }
 
-  export type assigned_kpiUncheckedCreateWithoutPillarsInput = {
+  export type assigned_kpiUncheckedCreateWithoutPillarInput = {
     assigned_kpi_id?: number
-    kpi_id: number
     kpi_name: string
     kpi_status: string
+    form_data: JsonNullValueInput | InputJsonValue
     added_date?: Date | string | null
     resolved_date?: Date | string | null
-    approved_by?: number | null
     comments?: string | null
   }
 
-  export type assigned_kpiCreateOrConnectWithoutPillarsInput = {
+  export type assigned_kpiCreateOrConnectWithoutPillarInput = {
     where: assigned_kpiWhereUniqueInput
-    create: XOR<assigned_kpiCreateWithoutPillarsInput, assigned_kpiUncheckedCreateWithoutPillarsInput>
+    create: XOR<assigned_kpiCreateWithoutPillarInput, assigned_kpiUncheckedCreateWithoutPillarInput>
   }
 
-  export type assigned_kpiCreateManyPillarsInputEnvelope = {
-    data: assigned_kpiCreateManyPillarsInput | assigned_kpiCreateManyPillarsInput[]
+  export type assigned_kpiCreateManyPillarInputEnvelope = {
+    data: assigned_kpiCreateManyPillarInput | assigned_kpiCreateManyPillarInput[]
     skipDuplicates?: boolean
-  }
-
-  export type usersCreateWithoutPillarsInput = {
-    user_name: string
-    user_email: string
-    user_password: string
-    user_role?: string
-    kpi?: kpiCreateNestedManyWithoutUserInput
-    departments?: departmentsCreateNestedOneWithoutUsers_in_deptInput
-    approved_kpis?: assigned_kpiCreateNestedManyWithoutApproverInput
-    hod_departments?: departmentsCreateNestedManyWithoutUsersInput
-  }
-
-  export type usersUncheckedCreateWithoutPillarsInput = {
-    user_id?: number
-    user_name: string
-    user_email: string
-    user_password: string
-    user_role?: string
-    dept_id?: number | null
-    kpi?: kpiUncheckedCreateNestedManyWithoutUserInput
-    approved_kpis?: assigned_kpiUncheckedCreateNestedManyWithoutApproverInput
-    hod_departments?: departmentsUncheckedCreateNestedManyWithoutUsersInput
-  }
-
-  export type usersCreateOrConnectWithoutPillarsInput = {
-    where: usersWhereUniqueInput
-    create: XOR<usersCreateWithoutPillarsInput, usersUncheckedCreateWithoutPillarsInput>
   }
 
   export type departmentsCreateWithoutPillarsInput = {
     dept_name: string
+    hod_id?: number | null
     dept_creation?: Date | string | null
     hod_name?: string | null
-    users?: usersCreateNestedOneWithoutHod_departmentsInput
-    users_in_dept?: usersCreateNestedManyWithoutDepartmentsInput
+    members?: usersCreateNestedManyWithoutDepartmentInput
   }
 
   export type departmentsUncheckedCreateWithoutPillarsInput = {
@@ -11083,7 +9896,7 @@ export namespace Prisma {
     hod_id?: number | null
     dept_creation?: Date | string | null
     hod_name?: string | null
-    users_in_dept?: usersUncheckedCreateNestedManyWithoutDepartmentsInput
+    members?: usersUncheckedCreateNestedManyWithoutDepartmentInput
   }
 
   export type departmentsCreateOrConnectWithoutPillarsInput = {
@@ -11091,54 +9904,34 @@ export namespace Prisma {
     create: XOR<departmentsCreateWithoutPillarsInput, departmentsUncheckedCreateWithoutPillarsInput>
   }
 
-  export type assigned_kpiUpsertWithWhereUniqueWithoutPillarsInput = {
+  export type assigned_kpiUpsertWithWhereUniqueWithoutPillarInput = {
     where: assigned_kpiWhereUniqueInput
-    update: XOR<assigned_kpiUpdateWithoutPillarsInput, assigned_kpiUncheckedUpdateWithoutPillarsInput>
-    create: XOR<assigned_kpiCreateWithoutPillarsInput, assigned_kpiUncheckedCreateWithoutPillarsInput>
+    update: XOR<assigned_kpiUpdateWithoutPillarInput, assigned_kpiUncheckedUpdateWithoutPillarInput>
+    create: XOR<assigned_kpiCreateWithoutPillarInput, assigned_kpiUncheckedCreateWithoutPillarInput>
   }
 
-  export type assigned_kpiUpdateWithWhereUniqueWithoutPillarsInput = {
+  export type assigned_kpiUpdateWithWhereUniqueWithoutPillarInput = {
     where: assigned_kpiWhereUniqueInput
-    data: XOR<assigned_kpiUpdateWithoutPillarsInput, assigned_kpiUncheckedUpdateWithoutPillarsInput>
+    data: XOR<assigned_kpiUpdateWithoutPillarInput, assigned_kpiUncheckedUpdateWithoutPillarInput>
   }
 
-  export type assigned_kpiUpdateManyWithWhereWithoutPillarsInput = {
+  export type assigned_kpiUpdateManyWithWhereWithoutPillarInput = {
     where: assigned_kpiScalarWhereInput
-    data: XOR<assigned_kpiUpdateManyMutationInput, assigned_kpiUncheckedUpdateManyWithoutPillarsInput>
+    data: XOR<assigned_kpiUpdateManyMutationInput, assigned_kpiUncheckedUpdateManyWithoutPillarInput>
   }
 
-  export type usersUpsertWithoutPillarsInput = {
-    update: XOR<usersUpdateWithoutPillarsInput, usersUncheckedUpdateWithoutPillarsInput>
-    create: XOR<usersCreateWithoutPillarsInput, usersUncheckedCreateWithoutPillarsInput>
-    where?: usersWhereInput
-  }
-
-  export type usersUpdateToOneWithWhereWithoutPillarsInput = {
-    where?: usersWhereInput
-    data: XOR<usersUpdateWithoutPillarsInput, usersUncheckedUpdateWithoutPillarsInput>
-  }
-
-  export type usersUpdateWithoutPillarsInput = {
-    user_name?: StringFieldUpdateOperationsInput | string
-    user_email?: StringFieldUpdateOperationsInput | string
-    user_password?: StringFieldUpdateOperationsInput | string
-    user_role?: StringFieldUpdateOperationsInput | string
-    kpi?: kpiUpdateManyWithoutUserNestedInput
-    departments?: departmentsUpdateOneWithoutUsers_in_deptNestedInput
-    approved_kpis?: assigned_kpiUpdateManyWithoutApproverNestedInput
-    hod_departments?: departmentsUpdateManyWithoutUsersNestedInput
-  }
-
-  export type usersUncheckedUpdateWithoutPillarsInput = {
-    user_id?: IntFieldUpdateOperationsInput | number
-    user_name?: StringFieldUpdateOperationsInput | string
-    user_email?: StringFieldUpdateOperationsInput | string
-    user_password?: StringFieldUpdateOperationsInput | string
-    user_role?: StringFieldUpdateOperationsInput | string
-    dept_id?: NullableIntFieldUpdateOperationsInput | number | null
-    kpi?: kpiUncheckedUpdateManyWithoutUserNestedInput
-    approved_kpis?: assigned_kpiUncheckedUpdateManyWithoutApproverNestedInput
-    hod_departments?: departmentsUncheckedUpdateManyWithoutUsersNestedInput
+  export type assigned_kpiScalarWhereInput = {
+    AND?: assigned_kpiScalarWhereInput | assigned_kpiScalarWhereInput[]
+    OR?: assigned_kpiScalarWhereInput[]
+    NOT?: assigned_kpiScalarWhereInput | assigned_kpiScalarWhereInput[]
+    assigned_kpi_id?: IntFilter<"assigned_kpi"> | number
+    pillar_id?: IntFilter<"assigned_kpi"> | number
+    kpi_name?: StringFilter<"assigned_kpi"> | string
+    kpi_status?: StringFilter<"assigned_kpi"> | string
+    form_data?: JsonFilter<"assigned_kpi">
+    added_date?: DateTimeNullableFilter<"assigned_kpi"> | Date | string | null
+    resolved_date?: DateTimeNullableFilter<"assigned_kpi"> | Date | string | null
+    comments?: StringNullableFilter<"assigned_kpi"> | string | null
   }
 
   export type departmentsUpsertWithoutPillarsInput = {
@@ -11154,10 +9947,10 @@ export namespace Prisma {
 
   export type departmentsUpdateWithoutPillarsInput = {
     dept_name?: StringFieldUpdateOperationsInput | string
+    hod_id?: NullableIntFieldUpdateOperationsInput | number | null
     dept_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     hod_name?: NullableStringFieldUpdateOperationsInput | string | null
-    users?: usersUpdateOneWithoutHod_departmentsNestedInput
-    users_in_dept?: usersUpdateManyWithoutDepartmentsNestedInput
+    members?: usersUpdateManyWithoutDepartmentNestedInput
   }
 
   export type departmentsUncheckedUpdateWithoutPillarsInput = {
@@ -11166,105 +9959,25 @@ export namespace Prisma {
     hod_id?: NullableIntFieldUpdateOperationsInput | number | null
     dept_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     hod_name?: NullableStringFieldUpdateOperationsInput | string | null
-    users_in_dept?: usersUncheckedUpdateManyWithoutDepartmentsNestedInput
-  }
-
-  export type kpiCreateWithoutAssigned_kpisInput = {
-    kpi_name: string
-    kpi_created_at?: Date | string | null
-    kpi_updated_at?: Date | string | null
-    form_data: JsonNullValueInput | InputJsonValue
-    user?: usersCreateNestedOneWithoutKpiInput
-  }
-
-  export type kpiUncheckedCreateWithoutAssigned_kpisInput = {
-    kpi_id?: number
-    kpi_name: string
-    kpi_created_at?: Date | string | null
-    kpi_updated_at?: Date | string | null
-    form_data: JsonNullValueInput | InputJsonValue
-    user_id?: number | null
-  }
-
-  export type kpiCreateOrConnectWithoutAssigned_kpisInput = {
-    where: kpiWhereUniqueInput
-    create: XOR<kpiCreateWithoutAssigned_kpisInput, kpiUncheckedCreateWithoutAssigned_kpisInput>
+    members?: usersUncheckedUpdateManyWithoutDepartmentNestedInput
   }
 
   export type pillarsCreateWithoutAssigned_kpiInput = {
     pillar_name: string
     pillar_creation?: Date | string | null
-    users: usersCreateNestedOneWithoutPillarsInput
-    departments: departmentsCreateNestedOneWithoutPillarsInput
+    department: departmentsCreateNestedOneWithoutPillarsInput
   }
 
   export type pillarsUncheckedCreateWithoutAssigned_kpiInput = {
     pillar_id?: number
     pillar_name: string
     pillar_creation?: Date | string | null
-    created_by: number
     department_id: number
   }
 
   export type pillarsCreateOrConnectWithoutAssigned_kpiInput = {
     where: pillarsWhereUniqueInput
     create: XOR<pillarsCreateWithoutAssigned_kpiInput, pillarsUncheckedCreateWithoutAssigned_kpiInput>
-  }
-
-  export type usersCreateWithoutApproved_kpisInput = {
-    user_name: string
-    user_email: string
-    user_password: string
-    user_role?: string
-    kpi?: kpiCreateNestedManyWithoutUserInput
-    departments?: departmentsCreateNestedOneWithoutUsers_in_deptInput
-    pillars?: pillarsCreateNestedManyWithoutUsersInput
-    hod_departments?: departmentsCreateNestedManyWithoutUsersInput
-  }
-
-  export type usersUncheckedCreateWithoutApproved_kpisInput = {
-    user_id?: number
-    user_name: string
-    user_email: string
-    user_password: string
-    user_role?: string
-    dept_id?: number | null
-    kpi?: kpiUncheckedCreateNestedManyWithoutUserInput
-    pillars?: pillarsUncheckedCreateNestedManyWithoutUsersInput
-    hod_departments?: departmentsUncheckedCreateNestedManyWithoutUsersInput
-  }
-
-  export type usersCreateOrConnectWithoutApproved_kpisInput = {
-    where: usersWhereUniqueInput
-    create: XOR<usersCreateWithoutApproved_kpisInput, usersUncheckedCreateWithoutApproved_kpisInput>
-  }
-
-  export type kpiUpsertWithoutAssigned_kpisInput = {
-    update: XOR<kpiUpdateWithoutAssigned_kpisInput, kpiUncheckedUpdateWithoutAssigned_kpisInput>
-    create: XOR<kpiCreateWithoutAssigned_kpisInput, kpiUncheckedCreateWithoutAssigned_kpisInput>
-    where?: kpiWhereInput
-  }
-
-  export type kpiUpdateToOneWithWhereWithoutAssigned_kpisInput = {
-    where?: kpiWhereInput
-    data: XOR<kpiUpdateWithoutAssigned_kpisInput, kpiUncheckedUpdateWithoutAssigned_kpisInput>
-  }
-
-  export type kpiUpdateWithoutAssigned_kpisInput = {
-    kpi_name?: StringFieldUpdateOperationsInput | string
-    kpi_created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    kpi_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    form_data?: JsonNullValueInput | InputJsonValue
-    user?: usersUpdateOneWithoutKpiNestedInput
-  }
-
-  export type kpiUncheckedUpdateWithoutAssigned_kpisInput = {
-    kpi_id?: IntFieldUpdateOperationsInput | number
-    kpi_name?: StringFieldUpdateOperationsInput | string
-    kpi_created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    kpi_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    form_data?: JsonNullValueInput | InputJsonValue
-    user_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type pillarsUpsertWithoutAssigned_kpiInput = {
@@ -11281,448 +9994,108 @@ export namespace Prisma {
   export type pillarsUpdateWithoutAssigned_kpiInput = {
     pillar_name?: StringFieldUpdateOperationsInput | string
     pillar_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    users?: usersUpdateOneRequiredWithoutPillarsNestedInput
-    departments?: departmentsUpdateOneRequiredWithoutPillarsNestedInput
+    department?: departmentsUpdateOneRequiredWithoutPillarsNestedInput
   }
 
   export type pillarsUncheckedUpdateWithoutAssigned_kpiInput = {
     pillar_id?: IntFieldUpdateOperationsInput | number
     pillar_name?: StringFieldUpdateOperationsInput | string
     pillar_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_by?: IntFieldUpdateOperationsInput | number
     department_id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type usersUpsertWithoutApproved_kpisInput = {
-    update: XOR<usersUpdateWithoutApproved_kpisInput, usersUncheckedUpdateWithoutApproved_kpisInput>
-    create: XOR<usersCreateWithoutApproved_kpisInput, usersUncheckedCreateWithoutApproved_kpisInput>
-    where?: usersWhereInput
+  export type pillarsCreateManyDepartmentInput = {
+    pillar_id?: number
+    pillar_name: string
+    pillar_creation?: Date | string | null
   }
 
-  export type usersUpdateToOneWithWhereWithoutApproved_kpisInput = {
-    where?: usersWhereInput
-    data: XOR<usersUpdateWithoutApproved_kpisInput, usersUncheckedUpdateWithoutApproved_kpisInput>
-  }
-
-  export type usersUpdateWithoutApproved_kpisInput = {
-    user_name?: StringFieldUpdateOperationsInput | string
-    user_email?: StringFieldUpdateOperationsInput | string
-    user_password?: StringFieldUpdateOperationsInput | string
-    user_role?: StringFieldUpdateOperationsInput | string
-    kpi?: kpiUpdateManyWithoutUserNestedInput
-    departments?: departmentsUpdateOneWithoutUsers_in_deptNestedInput
-    pillars?: pillarsUpdateManyWithoutUsersNestedInput
-    hod_departments?: departmentsUpdateManyWithoutUsersNestedInput
-  }
-
-  export type usersUncheckedUpdateWithoutApproved_kpisInput = {
-    user_id?: IntFieldUpdateOperationsInput | number
-    user_name?: StringFieldUpdateOperationsInput | string
-    user_email?: StringFieldUpdateOperationsInput | string
-    user_password?: StringFieldUpdateOperationsInput | string
-    user_role?: StringFieldUpdateOperationsInput | string
-    dept_id?: NullableIntFieldUpdateOperationsInput | number | null
-    kpi?: kpiUncheckedUpdateManyWithoutUserNestedInput
-    pillars?: pillarsUncheckedUpdateManyWithoutUsersNestedInput
-    hod_departments?: departmentsUncheckedUpdateManyWithoutUsersNestedInput
-  }
-
-  export type assigned_kpiCreateWithoutKpiInput = {
-    kpi_name: string
-    kpi_status: string
-    added_date?: Date | string | null
-    resolved_date?: Date | string | null
-    comments?: string | null
-    pillars: pillarsCreateNestedOneWithoutAssigned_kpiInput
-    approver?: usersCreateNestedOneWithoutApproved_kpisInput
-  }
-
-  export type assigned_kpiUncheckedCreateWithoutKpiInput = {
-    assigned_kpi_id?: number
-    pillar_id: number
-    kpi_name: string
-    kpi_status: string
-    added_date?: Date | string | null
-    resolved_date?: Date | string | null
-    approved_by?: number | null
-    comments?: string | null
-  }
-
-  export type assigned_kpiCreateOrConnectWithoutKpiInput = {
-    where: assigned_kpiWhereUniqueInput
-    create: XOR<assigned_kpiCreateWithoutKpiInput, assigned_kpiUncheckedCreateWithoutKpiInput>
-  }
-
-  export type assigned_kpiCreateManyKpiInputEnvelope = {
-    data: assigned_kpiCreateManyKpiInput | assigned_kpiCreateManyKpiInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type usersCreateWithoutKpiInput = {
-    user_name: string
-    user_email: string
-    user_password: string
-    user_role?: string
-    departments?: departmentsCreateNestedOneWithoutUsers_in_deptInput
-    pillars?: pillarsCreateNestedManyWithoutUsersInput
-    approved_kpis?: assigned_kpiCreateNestedManyWithoutApproverInput
-    hod_departments?: departmentsCreateNestedManyWithoutUsersInput
-  }
-
-  export type usersUncheckedCreateWithoutKpiInput = {
+  export type usersCreateManyDepartmentInput = {
     user_id?: number
     user_name: string
     user_email: string
     user_password: string
     user_role?: string
-    dept_id?: number | null
-    pillars?: pillarsUncheckedCreateNestedManyWithoutUsersInput
-    approved_kpis?: assigned_kpiUncheckedCreateNestedManyWithoutApproverInput
-    hod_departments?: departmentsUncheckedCreateNestedManyWithoutUsersInput
   }
 
-  export type usersCreateOrConnectWithoutKpiInput = {
-    where: usersWhereUniqueInput
-    create: XOR<usersCreateWithoutKpiInput, usersUncheckedCreateWithoutKpiInput>
+  export type pillarsUpdateWithoutDepartmentInput = {
+    pillar_name?: StringFieldUpdateOperationsInput | string
+    pillar_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assigned_kpi?: assigned_kpiUpdateManyWithoutPillarNestedInput
   }
 
-  export type assigned_kpiUpsertWithWhereUniqueWithoutKpiInput = {
-    where: assigned_kpiWhereUniqueInput
-    update: XOR<assigned_kpiUpdateWithoutKpiInput, assigned_kpiUncheckedUpdateWithoutKpiInput>
-    create: XOR<assigned_kpiCreateWithoutKpiInput, assigned_kpiUncheckedCreateWithoutKpiInput>
+  export type pillarsUncheckedUpdateWithoutDepartmentInput = {
+    pillar_id?: IntFieldUpdateOperationsInput | number
+    pillar_name?: StringFieldUpdateOperationsInput | string
+    pillar_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assigned_kpi?: assigned_kpiUncheckedUpdateManyWithoutPillarNestedInput
   }
 
-  export type assigned_kpiUpdateWithWhereUniqueWithoutKpiInput = {
-    where: assigned_kpiWhereUniqueInput
-    data: XOR<assigned_kpiUpdateWithoutKpiInput, assigned_kpiUncheckedUpdateWithoutKpiInput>
+  export type pillarsUncheckedUpdateManyWithoutDepartmentInput = {
+    pillar_id?: IntFieldUpdateOperationsInput | number
+    pillar_name?: StringFieldUpdateOperationsInput | string
+    pillar_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type assigned_kpiUpdateManyWithWhereWithoutKpiInput = {
-    where: assigned_kpiScalarWhereInput
-    data: XOR<assigned_kpiUpdateManyMutationInput, assigned_kpiUncheckedUpdateManyWithoutKpiInput>
-  }
-
-  export type usersUpsertWithoutKpiInput = {
-    update: XOR<usersUpdateWithoutKpiInput, usersUncheckedUpdateWithoutKpiInput>
-    create: XOR<usersCreateWithoutKpiInput, usersUncheckedCreateWithoutKpiInput>
-    where?: usersWhereInput
-  }
-
-  export type usersUpdateToOneWithWhereWithoutKpiInput = {
-    where?: usersWhereInput
-    data: XOR<usersUpdateWithoutKpiInput, usersUncheckedUpdateWithoutKpiInput>
-  }
-
-  export type usersUpdateWithoutKpiInput = {
+  export type usersUpdateWithoutDepartmentInput = {
     user_name?: StringFieldUpdateOperationsInput | string
     user_email?: StringFieldUpdateOperationsInput | string
     user_password?: StringFieldUpdateOperationsInput | string
     user_role?: StringFieldUpdateOperationsInput | string
-    departments?: departmentsUpdateOneWithoutUsers_in_deptNestedInput
-    pillars?: pillarsUpdateManyWithoutUsersNestedInput
-    approved_kpis?: assigned_kpiUpdateManyWithoutApproverNestedInput
-    hod_departments?: departmentsUpdateManyWithoutUsersNestedInput
   }
 
-  export type usersUncheckedUpdateWithoutKpiInput = {
+  export type usersUncheckedUpdateWithoutDepartmentInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     user_name?: StringFieldUpdateOperationsInput | string
     user_email?: StringFieldUpdateOperationsInput | string
     user_password?: StringFieldUpdateOperationsInput | string
     user_role?: StringFieldUpdateOperationsInput | string
-    dept_id?: NullableIntFieldUpdateOperationsInput | number | null
-    pillars?: pillarsUncheckedUpdateManyWithoutUsersNestedInput
-    approved_kpis?: assigned_kpiUncheckedUpdateManyWithoutApproverNestedInput
-    hod_departments?: departmentsUncheckedUpdateManyWithoutUsersNestedInput
   }
 
-  export type kpiCreateManyUserInput = {
-    kpi_id?: number
+  export type usersUncheckedUpdateManyWithoutDepartmentInput = {
+    user_id?: IntFieldUpdateOperationsInput | number
+    user_name?: StringFieldUpdateOperationsInput | string
+    user_email?: StringFieldUpdateOperationsInput | string
+    user_password?: StringFieldUpdateOperationsInput | string
+    user_role?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type assigned_kpiCreateManyPillarInput = {
+    assigned_kpi_id?: number
     kpi_name: string
-    kpi_created_at?: Date | string | null
-    kpi_updated_at?: Date | string | null
+    kpi_status: string
     form_data: JsonNullValueInput | InputJsonValue
-  }
-
-  export type pillarsCreateManyUsersInput = {
-    pillar_id?: number
-    pillar_name: string
-    pillar_creation?: Date | string | null
-    department_id: number
-  }
-
-  export type assigned_kpiCreateManyApproverInput = {
-    assigned_kpi_id?: number
-    kpi_id: number
-    pillar_id: number
-    kpi_name: string
-    kpi_status: string
     added_date?: Date | string | null
     resolved_date?: Date | string | null
     comments?: string | null
   }
 
-  export type departmentsCreateManyUsersInput = {
-    dept_id?: number
-    dept_name: string
-    dept_creation?: Date | string | null
-    hod_name?: string | null
-  }
-
-  export type kpiUpdateWithoutUserInput = {
+  export type assigned_kpiUpdateWithoutPillarInput = {
     kpi_name?: StringFieldUpdateOperationsInput | string
-    kpi_created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    kpi_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    kpi_status?: StringFieldUpdateOperationsInput | string
     form_data?: JsonNullValueInput | InputJsonValue
-    assigned_kpis?: assigned_kpiUpdateManyWithoutKpiNestedInput
+    added_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resolved_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    comments?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type kpiUncheckedUpdateWithoutUserInput = {
-    kpi_id?: IntFieldUpdateOperationsInput | number
+  export type assigned_kpiUncheckedUpdateWithoutPillarInput = {
+    assigned_kpi_id?: IntFieldUpdateOperationsInput | number
     kpi_name?: StringFieldUpdateOperationsInput | string
-    kpi_created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    kpi_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    kpi_status?: StringFieldUpdateOperationsInput | string
     form_data?: JsonNullValueInput | InputJsonValue
-    assigned_kpis?: assigned_kpiUncheckedUpdateManyWithoutKpiNestedInput
+    added_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resolved_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    comments?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type kpiUncheckedUpdateManyWithoutUserInput = {
-    kpi_id?: IntFieldUpdateOperationsInput | number
+  export type assigned_kpiUncheckedUpdateManyWithoutPillarInput = {
+    assigned_kpi_id?: IntFieldUpdateOperationsInput | number
     kpi_name?: StringFieldUpdateOperationsInput | string
-    kpi_created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    kpi_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    kpi_status?: StringFieldUpdateOperationsInput | string
     form_data?: JsonNullValueInput | InputJsonValue
-  }
-
-  export type pillarsUpdateWithoutUsersInput = {
-    pillar_name?: StringFieldUpdateOperationsInput | string
-    pillar_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    assigned_kpi?: assigned_kpiUpdateManyWithoutPillarsNestedInput
-    departments?: departmentsUpdateOneRequiredWithoutPillarsNestedInput
-  }
-
-  export type pillarsUncheckedUpdateWithoutUsersInput = {
-    pillar_id?: IntFieldUpdateOperationsInput | number
-    pillar_name?: StringFieldUpdateOperationsInput | string
-    pillar_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    department_id?: IntFieldUpdateOperationsInput | number
-    assigned_kpi?: assigned_kpiUncheckedUpdateManyWithoutPillarsNestedInput
-  }
-
-  export type pillarsUncheckedUpdateManyWithoutUsersInput = {
-    pillar_id?: IntFieldUpdateOperationsInput | number
-    pillar_name?: StringFieldUpdateOperationsInput | string
-    pillar_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    department_id?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type assigned_kpiUpdateWithoutApproverInput = {
-    kpi_name?: StringFieldUpdateOperationsInput | string
-    kpi_status?: StringFieldUpdateOperationsInput | string
     added_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resolved_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    comments?: NullableStringFieldUpdateOperationsInput | string | null
-    kpi?: kpiUpdateOneRequiredWithoutAssigned_kpisNestedInput
-    pillars?: pillarsUpdateOneRequiredWithoutAssigned_kpiNestedInput
-  }
-
-  export type assigned_kpiUncheckedUpdateWithoutApproverInput = {
-    assigned_kpi_id?: IntFieldUpdateOperationsInput | number
-    kpi_id?: IntFieldUpdateOperationsInput | number
-    pillar_id?: IntFieldUpdateOperationsInput | number
-    kpi_name?: StringFieldUpdateOperationsInput | string
-    kpi_status?: StringFieldUpdateOperationsInput | string
-    added_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resolved_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    comments?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type assigned_kpiUncheckedUpdateManyWithoutApproverInput = {
-    assigned_kpi_id?: IntFieldUpdateOperationsInput | number
-    kpi_id?: IntFieldUpdateOperationsInput | number
-    pillar_id?: IntFieldUpdateOperationsInput | number
-    kpi_name?: StringFieldUpdateOperationsInput | string
-    kpi_status?: StringFieldUpdateOperationsInput | string
-    added_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resolved_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    comments?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type departmentsUpdateWithoutUsersInput = {
-    dept_name?: StringFieldUpdateOperationsInput | string
-    dept_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    hod_name?: NullableStringFieldUpdateOperationsInput | string | null
-    pillars?: pillarsUpdateManyWithoutDepartmentsNestedInput
-    users_in_dept?: usersUpdateManyWithoutDepartmentsNestedInput
-  }
-
-  export type departmentsUncheckedUpdateWithoutUsersInput = {
-    dept_id?: IntFieldUpdateOperationsInput | number
-    dept_name?: StringFieldUpdateOperationsInput | string
-    dept_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    hod_name?: NullableStringFieldUpdateOperationsInput | string | null
-    pillars?: pillarsUncheckedUpdateManyWithoutDepartmentsNestedInput
-    users_in_dept?: usersUncheckedUpdateManyWithoutDepartmentsNestedInput
-  }
-
-  export type departmentsUncheckedUpdateManyWithoutUsersInput = {
-    dept_id?: IntFieldUpdateOperationsInput | number
-    dept_name?: StringFieldUpdateOperationsInput | string
-    dept_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    hod_name?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type pillarsCreateManyDepartmentsInput = {
-    pillar_id?: number
-    pillar_name: string
-    pillar_creation?: Date | string | null
-    created_by: number
-  }
-
-  export type usersCreateManyDepartmentsInput = {
-    user_id?: number
-    user_name: string
-    user_email: string
-    user_password: string
-    user_role?: string
-  }
-
-  export type pillarsUpdateWithoutDepartmentsInput = {
-    pillar_name?: StringFieldUpdateOperationsInput | string
-    pillar_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    assigned_kpi?: assigned_kpiUpdateManyWithoutPillarsNestedInput
-    users?: usersUpdateOneRequiredWithoutPillarsNestedInput
-  }
-
-  export type pillarsUncheckedUpdateWithoutDepartmentsInput = {
-    pillar_id?: IntFieldUpdateOperationsInput | number
-    pillar_name?: StringFieldUpdateOperationsInput | string
-    pillar_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_by?: IntFieldUpdateOperationsInput | number
-    assigned_kpi?: assigned_kpiUncheckedUpdateManyWithoutPillarsNestedInput
-  }
-
-  export type pillarsUncheckedUpdateManyWithoutDepartmentsInput = {
-    pillar_id?: IntFieldUpdateOperationsInput | number
-    pillar_name?: StringFieldUpdateOperationsInput | string
-    pillar_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_by?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type usersUpdateWithoutDepartmentsInput = {
-    user_name?: StringFieldUpdateOperationsInput | string
-    user_email?: StringFieldUpdateOperationsInput | string
-    user_password?: StringFieldUpdateOperationsInput | string
-    user_role?: StringFieldUpdateOperationsInput | string
-    kpi?: kpiUpdateManyWithoutUserNestedInput
-    pillars?: pillarsUpdateManyWithoutUsersNestedInput
-    approved_kpis?: assigned_kpiUpdateManyWithoutApproverNestedInput
-    hod_departments?: departmentsUpdateManyWithoutUsersNestedInput
-  }
-
-  export type usersUncheckedUpdateWithoutDepartmentsInput = {
-    user_id?: IntFieldUpdateOperationsInput | number
-    user_name?: StringFieldUpdateOperationsInput | string
-    user_email?: StringFieldUpdateOperationsInput | string
-    user_password?: StringFieldUpdateOperationsInput | string
-    user_role?: StringFieldUpdateOperationsInput | string
-    kpi?: kpiUncheckedUpdateManyWithoutUserNestedInput
-    pillars?: pillarsUncheckedUpdateManyWithoutUsersNestedInput
-    approved_kpis?: assigned_kpiUncheckedUpdateManyWithoutApproverNestedInput
-    hod_departments?: departmentsUncheckedUpdateManyWithoutUsersNestedInput
-  }
-
-  export type usersUncheckedUpdateManyWithoutDepartmentsInput = {
-    user_id?: IntFieldUpdateOperationsInput | number
-    user_name?: StringFieldUpdateOperationsInput | string
-    user_email?: StringFieldUpdateOperationsInput | string
-    user_password?: StringFieldUpdateOperationsInput | string
-    user_role?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type assigned_kpiCreateManyPillarsInput = {
-    assigned_kpi_id?: number
-    kpi_id: number
-    kpi_name: string
-    kpi_status: string
-    added_date?: Date | string | null
-    resolved_date?: Date | string | null
-    approved_by?: number | null
-    comments?: string | null
-  }
-
-  export type assigned_kpiUpdateWithoutPillarsInput = {
-    kpi_name?: StringFieldUpdateOperationsInput | string
-    kpi_status?: StringFieldUpdateOperationsInput | string
-    added_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resolved_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    comments?: NullableStringFieldUpdateOperationsInput | string | null
-    kpi?: kpiUpdateOneRequiredWithoutAssigned_kpisNestedInput
-    approver?: usersUpdateOneWithoutApproved_kpisNestedInput
-  }
-
-  export type assigned_kpiUncheckedUpdateWithoutPillarsInput = {
-    assigned_kpi_id?: IntFieldUpdateOperationsInput | number
-    kpi_id?: IntFieldUpdateOperationsInput | number
-    kpi_name?: StringFieldUpdateOperationsInput | string
-    kpi_status?: StringFieldUpdateOperationsInput | string
-    added_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resolved_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    approved_by?: NullableIntFieldUpdateOperationsInput | number | null
-    comments?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type assigned_kpiUncheckedUpdateManyWithoutPillarsInput = {
-    assigned_kpi_id?: IntFieldUpdateOperationsInput | number
-    kpi_id?: IntFieldUpdateOperationsInput | number
-    kpi_name?: StringFieldUpdateOperationsInput | string
-    kpi_status?: StringFieldUpdateOperationsInput | string
-    added_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resolved_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    approved_by?: NullableIntFieldUpdateOperationsInput | number | null
-    comments?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type assigned_kpiCreateManyKpiInput = {
-    assigned_kpi_id?: number
-    pillar_id: number
-    kpi_name: string
-    kpi_status: string
-    added_date?: Date | string | null
-    resolved_date?: Date | string | null
-    approved_by?: number | null
-    comments?: string | null
-  }
-
-  export type assigned_kpiUpdateWithoutKpiInput = {
-    kpi_name?: StringFieldUpdateOperationsInput | string
-    kpi_status?: StringFieldUpdateOperationsInput | string
-    added_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resolved_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    comments?: NullableStringFieldUpdateOperationsInput | string | null
-    pillars?: pillarsUpdateOneRequiredWithoutAssigned_kpiNestedInput
-    approver?: usersUpdateOneWithoutApproved_kpisNestedInput
-  }
-
-  export type assigned_kpiUncheckedUpdateWithoutKpiInput = {
-    assigned_kpi_id?: IntFieldUpdateOperationsInput | number
-    pillar_id?: IntFieldUpdateOperationsInput | number
-    kpi_name?: StringFieldUpdateOperationsInput | string
-    kpi_status?: StringFieldUpdateOperationsInput | string
-    added_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resolved_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    approved_by?: NullableIntFieldUpdateOperationsInput | number | null
-    comments?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type assigned_kpiUncheckedUpdateManyWithoutKpiInput = {
-    assigned_kpi_id?: IntFieldUpdateOperationsInput | number
-    pillar_id?: IntFieldUpdateOperationsInput | number
-    kpi_name?: StringFieldUpdateOperationsInput | string
-    kpi_status?: StringFieldUpdateOperationsInput | string
-    added_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resolved_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    approved_by?: NullableIntFieldUpdateOperationsInput | number | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
