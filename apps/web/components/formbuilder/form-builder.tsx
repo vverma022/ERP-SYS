@@ -13,9 +13,9 @@ import FormPreview from "./form-preview"
 import type { FormElementType, FormElementInstance, FormConfig } from "@/lib/types"
 import { Input } from "@workspace/ui/components/input"
 import { Label } from "@workspace/ui/components/label"
-import { saveFormToBackend } from "@/lib/actions"
 import { toast } from "sonner"
 import { Loader2, Save } from "lucide-react"
+import { useSaveForm } from "@/hooks/forms"
 
 export default function FormBuilder({ initialForm }: { initialForm?: FormConfig }) {
   const [formTitle, setFormTitle] = useState(initialForm?.title || "Untitled Form")
@@ -23,6 +23,7 @@ export default function FormBuilder({ initialForm }: { initialForm?: FormConfig 
   const [activeId, setActiveId] = useState<string | null>(null)
   const [activeElement, setActiveElement] = useState<FormElementInstance | null>(null)
   const [isSaving, setIsSaving] = useState(false)
+  const { mutate: saveForm } = useSaveForm();
 
   function handleDragStart(event: DragStartEvent) {
     const { active } = event
@@ -136,58 +137,31 @@ export default function FormBuilder({ initialForm }: { initialForm?: FormConfig 
     setElements(elements.filter((element) => element.id !== id))
   }
 
-  function handleExport() {
-    const formData: FormConfig = {
-      id: initialForm?.id || `form-${Date.now()}`,
-      title: formTitle,
-      elements: elements,
-      createdAt: initialForm?.createdAt || new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    }
-
-    const blob = new Blob([JSON.stringify(formData, null, 2)], { type: "application/json" })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement("a")
-    a.href = url
-    a.download = `${formTitle.toLowerCase().replace(/\s+/g, "-")}.json`
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-    URL.revokeObjectURL(url)
-  }
-
-  async function handleSaveForm() {
+  const handleSaveForm = () => {
     if (elements.length === 0) {
-      toast("Cannot save empty form",{
+      toast("Cannot save empty form", {
         description: "Please add at least one element to your form",
-      })
-      return
+      });
+      return;
     }
-
+  
     try {
-      setIsSaving(true)
       const formData: FormConfig = {
-        id: initialForm?.id || `form-${Date.now()}`,
+        id: `form-${Date.now()}`,
         title: formTitle,
-        elements: elements,
-        createdAt: initialForm?.createdAt || new Date().toISOString(),
+        elements,
+        createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
-      }
-
-      await saveFormToBackend(formData)
-
-      toast("Form saved successfully",{
-        description: "Your form has been saved to the backend",
-      })
+      };
+  
+      saveForm(formData);
     } catch (error) {
-      console.error("Error saving form:", error)
-      toast( "Error saving form",{
-        description: "There was an error saving your form. Please try again.",
-      })
-    } finally {
-      setIsSaving(false)
+      console.error("Unexpected error in handleSaveForm:", error);
+      toast("Unexpected Error", {
+        description: "An unexpected error occurred. Please try again.",
+      });
     }
-  }
+  };
 
   return (
     <DndContext
@@ -198,14 +172,17 @@ export default function FormBuilder({ initialForm }: { initialForm?: FormConfig 
     >
       <div className="mb-6">
         <Label htmlFor="form-title" className="text-lg font-medium mb-2 block">
-          Form Title
+          KPI TITLE
         </Label>
         <Input
           id="form-title"
-          value={formTitle}
-          onChange={(e) => setFormTitle(e.target.value)}
+          value={formTitle.replace('KPI', '')}
+          onChange={(e) => {
+            const numberValue = e.target.value.replace(/\D/g,' ');
+            setFormTitle(`KPI ${numberValue}`);}
+          } 
           className="text-lg font-medium"
-          placeholder="Enter form title"
+          placeholder="Enter KPI Number"
         />
       </div>
 
@@ -221,9 +198,6 @@ export default function FormBuilder({ initialForm }: { initialForm?: FormConfig 
               </TabsList>
 
               <div className="flex gap-2">
-                <Button variant="outline" onClick={handleExport}>
-                  Export JSON
-                </Button>
                 <Button onClick={handleSaveForm} disabled={isSaving}>
                   {isSaving ? (
                     <>
