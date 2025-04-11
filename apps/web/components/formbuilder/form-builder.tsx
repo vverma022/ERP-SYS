@@ -171,19 +171,21 @@ export default function FormBuilder({ initialForm }: { initialForm?: FormConfig 
       modifiers={[restrictToVerticalAxis, restrictToWindowEdges]}
     >
       <div className="mb-6">
-        <Label htmlFor="form-title" className="text-lg font-medium mb-2 block">
-          KPI TITLE
-        </Label>
-        <Input
-          id="form-title"
-          value={formTitle.replace('KPI', '')}
-          onChange={(e) => {
-            const numberValue = e.target.value.replace(/\D/g,' ');
-            setFormTitle(`KPI ${numberValue}`);}
-          } 
-          className="text-lg font-medium"
-          placeholder="Enter KPI Number"
-        />
+      <div className="flex items-center space-x-4">
+  <Label className="text-lg font-medium">
+    KPI
+  </Label>
+  <Input
+    id="form-title"
+    value={formTitle.replace('KPI', '')}
+    onChange={(e) => {
+      const numberValue = e.target.value.replace(/\D/g, ' ');
+      setFormTitle(`KPI ${numberValue}`);
+    }}
+    className="text-lg font-medium flex-1"
+    placeholder="Enter KPI Number"
+  />
+</div>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-6">
