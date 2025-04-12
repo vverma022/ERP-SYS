@@ -1,12 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@repo/db' // Import Prisma client from the shared package
 
-/* 
-For KPI's. Here we'll have the KPI's for creating the KPI's and Getting the KPI's.
-POST request will be used to create the KPI. 
-GET request will be used to get the KPI's names etc to display on the dashboard.
-GET_BY_ID will be used to get the KPI by ID to show the actual file.
-*/
+// we will not be using this anymore
 
 // POST function to create a KPI
 export async function POST(request: Request): Promise<NextResponse> {

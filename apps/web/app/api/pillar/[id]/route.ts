@@ -24,6 +24,15 @@ export async function GET(
       }
     });
 
+    // Transform assigned KPIs for consistent structure
+    if (pillar && pillar.assigned_kpi) {
+      pillar.assigned_kpi = pillar.assigned_kpi.map(kpi => ({
+        ...kpi,
+        id: `assigned-${kpi.assigned_kpi_id}`,
+        elements: kpi.form_data
+      }));
+    }
+
     if (!pillar) {
       return NextResponse.json(
         { success: false, error: 'Pillar not found' },

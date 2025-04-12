@@ -7,7 +7,18 @@ import { prisma } from '@repo/db';
 export async function GET(request: Request): Promise<NextResponse> {
   try {
     const kpis = await prisma.kpi.findMany();
-    return NextResponse.json({ success: true, kpis });
+    
+    // Transform KPIs to match frontend format
+    const transformedKpis = kpis.map(kpi => ({
+      kpi_id: kpi.kpi_id,
+      kpi_name: kpi.kpi_name,
+      kpi_created_at: kpi.kpi_created_at,
+      kpi_updated_at: kpi.kpi_updated_at,
+      id: kpi.kpi_name,
+      elements: kpi.form_data
+    }));
+    
+    return NextResponse.json({ success: true, kpis: transformedKpis });
   } catch (error) {
     console.error('Error fetching KPIs:', error);
     return NextResponse.json(
@@ -23,31 +34,31 @@ export async function GET(request: Request): Promise<NextResponse> {
 export async function POST(request: Request): Promise<NextResponse> {
   try {
     const body = await request.json();
-    const { kpi_name, form_data } = body;
+    const { id, title, elements, createdAt, updatedAt } = body;
 
     // Validate required fields
-    if (!kpi_name) {
+    if (!id) {
       return NextResponse.json(
-        { success: false, error: 'KPI name is required' },
+        { success: false, error: 'KPI id is required' },
         { status: 400 }
       );
     }
 
-    if (!form_data) {
+    if (!elements || !Array.isArray(elements)) {
       return NextResponse.json(
-        { success: false, error: 'Form data is required' },
+        { success: false, error: 'Form elements are required and must be an array' },
         { status: 400 }
       );
     }
 
     // Check if KPI with same name already exists
-    const existingKpi = await prisma.kpi.findUnique({
-      where: { kpi_name }
+    const existingKpi = await prisma.kpi.findFirst({
+      where: { kpi_name: id }
     });
 
     if (existingKpi) {
       return NextResponse.json(
-        { success: false, error: 'A KPI with this name already exists' },
+        { success: false, error: 'A KPI with this ID already exists' },
         { status: 400 }
       );
     }
@@ -55,15 +66,25 @@ export async function POST(request: Request): Promise<NextResponse> {
     // Create new KPI
     const newKpi = await prisma.kpi.create({
       data: {
-        kpi_name,
-        form_data
+        kpi_name: id,
+        form_data: elements,
+        kpi_created_at: createdAt ? new Date(createdAt) : new Date(),
+        kpi_updated_at: updatedAt ? new Date(updatedAt) : new Date()
       }
     });
 
+    // Return the created KPI with consistent structure
     return NextResponse.json({ 
       success: true, 
       message: 'KPI created successfully', 
-      kpi: newKpi 
+      kpi: {
+        kpi_id: newKpi.kpi_id,
+        kpi_name: newKpi.kpi_name,
+        kpi_created_at: newKpi.kpi_created_at,
+        kpi_updated_at: newKpi.kpi_updated_at,
+        id: newKpi.kpi_name,
+        elements: newKpi.form_data
+      }
     });
   } catch (error) {
     console.error('Error creating KPI:', error);

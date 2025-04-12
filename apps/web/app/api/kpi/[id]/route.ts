@@ -23,7 +23,18 @@ export async function GET(
       );
     }
 
-    return NextResponse.json({ success: true, kpi });
+    // Return KPI with transformed structure for frontend
+    // Instead of including both form_data and elements, only include elements
+    const responseKpi = {
+      kpi_id: kpi.kpi_id,
+      kpi_name: kpi.kpi_name,
+      kpi_created_at: kpi.kpi_created_at,
+      kpi_updated_at: kpi.kpi_updated_at,
+      id: kpi.kpi_name,
+      elements: kpi.form_data
+    };
+
+    return NextResponse.json({ success: true, kpi: responseKpi });
   } catch (error) {
     console.error('Error fetching KPI:', error);
     return NextResponse.json(
@@ -44,7 +55,7 @@ export async function PUT(
     const { id } = params;
     const kpi_id = Number(id);
     
-    // Add error handling for JSON parsing
+    // Parse request body
     let body;
     try {
       body = await request.json();
@@ -56,12 +67,12 @@ export async function PUT(
       );
     }
     
-    const { kpi_name, form_data } = body;
+    const { elements, updatedAt } = body;
 
-    // Check if at least one field is provided
-    if (!kpi_name && !form_data) {
+    // Check if elements are provided
+    if (!elements || !Array.isArray(elements)) {
       return NextResponse.json(
-        { success: false, error: 'At least one field (kpi_name or form_data) must be provided' },
+        { success: false, error: 'Form elements are required and must be an array' },
         { status: 400 }
       );
     }
@@ -78,47 +89,30 @@ export async function PUT(
       );
     }
 
-    // Prepare update data
-    const updateData: any = {};
-    if (kpi_name) updateData.kpi_name = kpi_name;
-    if (form_data) updateData.form_data = form_data;
-
-    // Check if new KPI name already exists (if changing name)
-    if (kpi_name && kpi_name !== existingKpi.kpi_name) {
-      const duplicateKpi = await prisma.kpi.findUnique({
-        where: { kpi_name }
-      });
-
-      if (duplicateKpi) {
-        return NextResponse.json(
-          { success: false, error: 'A KPI with this name already exists' },
-          { status: 400 }
-        );
-      }
-    }
-
-    // Update KPI
+    // Update KPI - keep the same kpi_name but update form_data with new elements
     const updatedKpi = await prisma.kpi.update({
       where: { kpi_id },
-      data: updateData
+      data: {
+        form_data: elements,
+        kpi_updated_at: updatedAt ? new Date(updatedAt) : new Date()
+      }
     });
 
+    // Return updated KPI with transformed structure (avoid duplication)
     return NextResponse.json({ 
       success: true, 
       message: 'KPI updated successfully', 
-      kpi: updatedKpi 
+      kpi: {
+        kpi_id: updatedKpi.kpi_id,
+        kpi_name: updatedKpi.kpi_name,
+        kpi_created_at: updatedKpi.kpi_created_at,
+        kpi_updated_at: updatedKpi.kpi_updated_at,
+        id: updatedKpi.kpi_name,
+        elements: updatedKpi.form_data
+      }
     });
   } catch (error) {
     console.error('Error updating KPI:', error);
-    
-    // Handle unique constraint violation
-    if ((error as any).code === 'P2002') {
-      return NextResponse.json(
-        { success: false, error: 'A KPI with this name already exists' },
-        { status: 400 }
-      );
-    }
-    
     return NextResponse.json(
       { success: false, error: 'Failed to update KPI' },
       { status: 500 }
