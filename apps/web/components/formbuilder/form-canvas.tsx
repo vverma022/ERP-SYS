@@ -17,7 +17,7 @@ export default function FormCanvas({ elements, updateElement, removeElement }: F
   })
 
   return (
-    <div ref={setNodeRef} className="border rounded-md p-4 min-h-[400px] bg-gray-50">
+    <div ref={setNodeRef} className="border rounded-md p-4 min-h-[400px]">
       {elements.length === 0 ? (
         <div className="h-full flex items-center justify-center text-gray-400 text-center p-8">
           <div>

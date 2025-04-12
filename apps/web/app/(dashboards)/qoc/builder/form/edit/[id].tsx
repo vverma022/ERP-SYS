@@ -1,6 +1,7 @@
 import FormBuilder from "@/components/formbuilder/form-builder"
 import { getFormById } from "@/lib/actions"
 import { notFound } from "next/navigation"
+import { FormConfig } from "@/lib/types"
 
 interface EditFormPageProps {
   params: {
@@ -8,11 +9,11 @@ interface EditFormPageProps {
   }
 }
 
-export default async function EditFormPage({ params }: EditFormPageProps) {
+export default async function EditFormPage({ params }: string) {
   const form = await getFormById(params.id)
 
   if (!form) {
-    notFound()
+    <p>Error</p>
   }
 
   return (

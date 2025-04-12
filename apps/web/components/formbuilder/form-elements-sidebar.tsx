@@ -30,9 +30,9 @@ function ElementButton({ id, icon, label }: ElementButtonProps) {
       style={style}
       {...listeners}
       {...attributes}
-      className="flex items-center gap-2 p-3 border rounded-md cursor-pointer bg-white hover:bg-gray-50 transition-colors"
+      className="flex items-center gap-2 p-3 border rounded-md cursor-pointer hover:bg-gray-200 hover:dark:bg-zinc-800 transition-colors"
     >
-      <div className="text-gray-500">{icon}</div>
+      <div className="text-primary">{icon}</div>
       <span>{label}</span>
     </div>
   )
@@ -52,7 +52,7 @@ export default function FormElementsSidebar() {
   ]
 
   return (
-    <Card className="w-full lg:w-64 h-fit bg-accent-foreground">
+    <Card className="w-full lg:w-64 h-fit">
       <CardHeader>
         <CardTitle>Form Elements</CardTitle>
       </CardHeader>

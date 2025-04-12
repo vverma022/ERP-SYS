@@ -75,3 +75,17 @@ export function useDeleteKpi() {
   });
 }
 
+const fetchFormById = async (id : string) => {
+  const { data } = await axios.get(`/api/kpi/${id}`); // Replace with your API endpoint
+  return data;
+};
+
+
+export const useFormById = (id : string) => {
+  return useQuery({
+    queryKey: ['form', id], 
+    queryFn: () => fetchFormById(id!), 
+    enabled: !!id, 
+  });
+};
+

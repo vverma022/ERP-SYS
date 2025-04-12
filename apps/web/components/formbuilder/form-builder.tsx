@@ -18,7 +18,7 @@ import { Loader2, Save } from "lucide-react"
 import { useSaveForm } from "@/hooks/forms"
 
 export default function FormBuilder({ initialForm }: { initialForm?: FormConfig }) {
-  const [formTitle, setFormTitle] = useState(initialForm?.title || "Untitled Form")
+  const [formTitle, setFormTitle] = useState(initialForm?.title || "")
   const [elements, setElements] = useState<FormElementInstance[]>(initialForm?.elements || [])
   const [activeId, setActiveId] = useState<string | null>(null)
   const [activeElement, setActiveElement] = useState<FormElementInstance | null>(null)
@@ -138,8 +138,14 @@ export default function FormBuilder({ initialForm }: { initialForm?: FormConfig 
   }
 
   const handleSaveForm = () => {
+    if (!formTitle.trim() || formTitle.trim() === "KPI") {
+      toast.error("Empty KPI Number", {
+        description: "Form title must include a KPI number.",
+      });
+      return;
+    }  
     if (elements.length === 0) {
-      toast("Cannot save empty form", {
+      toast.warning("Cannot save empty form", {
         description: "Please add at least one element to your form",
       });
       return;
