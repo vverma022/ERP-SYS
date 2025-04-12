@@ -30,7 +30,7 @@ function ElementButton({ id, icon, label }: ElementButtonProps) {
       style={style}
       {...listeners}
       {...attributes}
-      className="flex items-center gap-2 p-3 border rounded-md cursor-move bg-white hover:bg-gray-50 transition-colors"
+      className="flex items-center gap-2 p-3 border rounded-md cursor-pointer bg-white hover:bg-gray-50 transition-colors"
     >
       <div className="text-gray-500">{icon}</div>
       <span>{label}</span>

@@ -1,5 +1,5 @@
 import { FormConfig, ProcessError } from '@/lib/types';
-import { useMutation, UseMutationResult, useQuery } from '@tanstack/react-query';
+import { useMutation, UseMutationResult, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { toast } from 'sonner';
 
@@ -48,6 +48,30 @@ export function useFetchForms() {
     queryFn: fetchForms,
     staleTime: 5 * 60 * 1000,
     refetchOnWindowFocus: false
+  });
+}
+
+export function useDeleteKpi() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (kpiId: string) => {
+      const response = await axios.delete(`/api/kpi/${kpiId}`);
+      return response.data;
+    },
+    onSuccess: () => {
+      toast.success("KPI deleted successfully", {
+        description: "The KPI has been deleted from the backend",
+      });
+      // Fix the invalidation syntax
+      queryClient.invalidateQueries({ queryKey: ['kpi'] });
+    },
+    onError: (error: ProcessError) => {
+      toast.error("Error deleting KPI", {
+        description: error.message,
+      });
+      console.error('Error deleting KPI:', error);
+    },
   });
 }
 

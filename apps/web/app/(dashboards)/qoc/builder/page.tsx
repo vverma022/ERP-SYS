@@ -3,10 +3,16 @@ import { Button } from "@workspace/ui/components/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@workspace/ui/components/card"
 import Link from "next/link"
 import { PlusCircle } from "lucide-react"
-import { useFetchForms } from "@/hooks/forms"
+import { useFetchForms , useDeleteKpi } from "@/hooks/forms"
 
 export default function FormsPage() {
   const {data: forms, isLoading, error } = useFetchForms();
+  const deleteKpiMutation = useDeleteKpi();
+
+  const handleDelete = (formId: string) => {
+    const numericId = formId.startsWith("form-") ? formId.split("-")[1]! : formId;
+    deleteKpiMutation.mutate(numericId);
+  };
 
   return (
     <main className="container mx-auto py-8 px-4">
@@ -44,12 +50,15 @@ export default function FormsPage() {
               <p className="text-sm">{form.elements.length} elements</p>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <Link href={`/forms/${form.id}/edit`}>
-                <Button variant="outline">Edit</Button>
-              </Link>
-              <Link href={`/forms/${form.id}/view`}>
+            <Link href={`/qoc/builder/form/view/${form.id.replace('form-','')}`}>
                 <Button>View</Button>
               </Link>
+              <Link href={`/qoc/builder/form/edit/${form.id.replace('form-','')}`}>
+                <Button variant="outline">Edit</Button>
+              </Link>
+              <Button variant="destructive" onClick={() => handleDelete(form.id)} disabled={deleteKpiMutation.isPending}>
+                {deleteKpiMutation.isPending ? 'Deleting..' : "Delete"}
+              </Button>
             </CardFooter>
           </Card>
         ))}

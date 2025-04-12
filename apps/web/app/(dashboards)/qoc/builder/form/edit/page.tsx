@@ -4,12 +4,12 @@ import { notFound } from "next/navigation"
 
 interface EditFormPageProps {
   params: {
-    form: string
+    id: string
   }
 }
 
 export default async function EditFormPage({ params }: EditFormPageProps) {
-  const form = await getFormById(params.form)
+  const form = await getFormById(params.id)
 
   if (!form) {
     notFound()

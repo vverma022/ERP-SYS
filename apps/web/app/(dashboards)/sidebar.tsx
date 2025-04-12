@@ -22,8 +22,8 @@ const sidebarConfig: Record<string, { title: string; items: SidebarItem[] }> = {
       title: "QOC Dashboard",
       items: [
         { icon: Home, label: "Dashboard", id: "qoc-dashboard", path: "/qoc/" },
-        {icon: Hammer, label:"Build", id:"form-builder", path:"/qoc/builder"},
-        {icon: Check, label:"Review", id:"Review Submissions", path:"/qoc/review"},
+        {icon: Hammer, label:"KPI Builder", id:"form-builder", path:"/qoc/builder"},
+        {icon: Check, label:"Review KPI's", id:"Review Submissions", path:"/qoc/review"},
         { icon: Settings, label: "Settings", id: "qoc-settings", path: "/qoc/settings" },
       ],
     },
