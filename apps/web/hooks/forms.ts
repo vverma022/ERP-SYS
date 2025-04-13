@@ -2,6 +2,23 @@ import { FormConfig, ProcessError } from '@/lib/types';
 import { useMutation, UseMutationResult, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { toast } from 'sonner';
+import { useRouter } from 'next/router';
+
+
+const fetchForms = async (): Promise<FormConfig[]> => {
+  const response = await axios.get('/api/forms');
+  return response.data.kpis;
+};
+
+export function useFetchForms() {
+  return useQuery<FormConfig[]>({
+    queryKey: ['forms'],
+    queryFn: fetchForms,
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false
+  });
+}
+
 
 const saveFormToBackend = async (formData: FormConfig): Promise<any> => {
     try {
@@ -21,12 +38,16 @@ export function useSaveForm(): UseMutationResult<
   ProcessError,
   FormConfig
 > {
+  
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: saveFormToBackend,
     onSuccess: () => {
       toast.success("Form saved successfully", {
-        description: "Your form has been saved to the backend",
+        description: "Your form has been saved successfully",
       });
+      queryClient.invalidateQueries({ queryKey: ['forms'] });
+      
     },
     onError: (error: ProcessError) => {
       toast.error("Error saving form", {
@@ -37,19 +58,6 @@ export function useSaveForm(): UseMutationResult<
   });
 }
 
-const fetchForms = async (): Promise<FormConfig[]> => {
-  const response = await axios.get('/api/forms');
-  return response.data.kpis;
-};
-
-export function useFetchForms() {
-  return useQuery<FormConfig[]>({
-    queryKey: ['forms'],
-    queryFn: fetchForms,
-    staleTime: 5 * 60 * 1000,
-    refetchOnWindowFocus: false
-  });
-}
 
 export function useDeleteKpi() {
   const queryClient = useQueryClient();
@@ -63,8 +71,9 @@ export function useDeleteKpi() {
       toast.success("KPI deleted successfully", {
         description: "The KPI has been deleted from the backend",
       });
-      // Fix the invalidation syntax
+      
       queryClient.invalidateQueries({ queryKey: ['kpi'] });
+      queryClient.invalidateQueries({ queryKey: ['forms'] });
     },
     onError: (error: ProcessError) => {
       toast.error("Error deleting KPI", {
@@ -77,6 +86,7 @@ export function useDeleteKpi() {
 
 const fetchFormById = async (id : string) => {
   const { data } = await axios.get(`/api/kpi/${id}`); // Replace with your API endpoint
+  console.log("Fetched form data:", data);
   return data;
 };
 

@@ -16,6 +16,7 @@ import { Label } from "@workspace/ui/components/label"
 import { toast } from "sonner"
 import { Loader2, Save } from "lucide-react"
 import { useSaveForm } from "@/hooks/forms"
+import { useRouter } from "next/navigation"
 
 export default function FormBuilder({ initialForm }: { initialForm?: FormConfig }) {
   const [formTitle, setFormTitle] = useState(initialForm?.title || "")
@@ -24,6 +25,7 @@ export default function FormBuilder({ initialForm }: { initialForm?: FormConfig 
   const [activeElement, setActiveElement] = useState<FormElementInstance | null>(null)
   const [isSaving, setIsSaving] = useState(false)
   const { mutate: saveForm } = useSaveForm();
+  const router = useRouter();
 
   function handleDragStart(event: DragStartEvent) {
     const { active } = event
@@ -161,6 +163,9 @@ export default function FormBuilder({ initialForm }: { initialForm?: FormConfig 
       };
   
       saveForm(formData);
+
+      setTimeout(() => router.push('/qoc/builder'), 2000);
+
     } catch (error) {
       console.error("Unexpected error in handleSaveForm:", error);
       toast("Unexpected Error", {
@@ -215,7 +220,7 @@ export default function FormBuilder({ initialForm }: { initialForm?: FormConfig 
                   ) : (
                     <>
                       <Save className="mr-2 h-4 w-4" />
-                      Save Form
+                      Save KPI
                     </>
                   )}
                 </Button>

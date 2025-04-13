@@ -24,7 +24,7 @@ export default function FormsPage() {
       <Link href="/qoc/builder/create">
         <Button>
           <PlusCircle className="mr-2 h-4 w-4" />
-          Create Form
+          Create KPI
         </Button>
       </Link>
     </div>
