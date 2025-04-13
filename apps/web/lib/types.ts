@@ -57,7 +57,7 @@ export interface AppSidebarProps {
 export interface SidebarItem {
   icon: LucideIcon
   label: string
-  id?: string
+  id: string
   path?: string
   subItems?: SidebarItem[]
 }

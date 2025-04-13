@@ -16,44 +16,45 @@ import { Home , LayoutDashboard, LineChart, Settings , ChevronDown, ChevronRight
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { AppSidebarProps, SidebarItem } from "@/lib/types";
+import { useSidebarConfig } from "@/lib/sidebarconfig";
 
-const sidebarConfig: Record<string, { title: string; items: SidebarItem[] }> = {
-    qoc: {
-      title: "QOC Dashboard",
-      items: [
-        { icon: Home, label: "Dashboard", id: "qoc-dashboard", path: "/qoc/" },
-        {icon: Hammer, label:"KPI Builder", id:"form-builder", path:"/qoc/builder"},
-        {icon: Check, label:"Review KPI's", id:"Review Submissions", path:"/qoc/review"},
-        { icon: Settings, label: "Settings", id: "qoc-settings", path: "/qoc/settings" },
-      ],
-    },
-    faculty: {
-      title: "Faculty Dashboard",
-      items: [
-        {
-          icon: LayoutDashboard,
-          label: "Dashboard",
-          id: "dashboard",
-          path: "/faculty/", 
-        },
-        {
-          icon: LineChart,
-          label: "KPI Management",
-          id: "kpi-management",
-          subItems: [
-            { icon:LineChart,label: "KPI 3", id: "kpi-3", path: "/faculty/kpi-management/kpi-3" }, // Added path
-            { icon: LineChart ,label: "KPI 4", id: "kpi-4", path: "/faculty/kpi-management/kpi-4" }, // Added path
-          ],
-        },
-        {
-          icon: Settings,
-          label: "Settings",
-          id: "settings",
-          path: "/faculty/settings", // Added path
-        },
-      ],
-    },
-  }
+// const sidebarConfig: Record<string, { title: string; items: SidebarItem[] }> = {
+//     qoc: {
+//       title: "QOC Dashboard",
+//       items: [
+//         { icon: Home, label: "Dashboard", id: "qoc-dashboard", path: "/qoc/" },
+//         {icon: Hammer, label:"KPI Builder", id:"form-builder", path:"/qoc/builder"},
+//         {icon: Check, label:"Review KPI's", id:"Review Submissions", path:"/qoc/review"},
+//         { icon: Settings, label: "Settings", id: "qoc-settings", path: "/qoc/settings" },
+//       ],
+//     },
+//     faculty: {
+//       title: "Faculty Dashboard",
+//       items: [
+//         {
+//           icon: LayoutDashboard,
+//           label: "Dashboard",
+//           id: "dashboard",
+//           path: "/faculty/", 
+//         },
+//         {
+//           icon: LineChart,
+//           label: "KPI Management",
+//           id: "kpi-management",
+//           subItems: [
+//             { icon:LineChart,label: "KPI 3", id: "kpi-3", path: "/faculty/kpi-management/kpi-3" }, 
+//             { icon: LineChart ,label: "KPI 4", id: "kpi-4", path: "/faculty/kpi-management/kpi-4" }, 
+//           ],
+//         },
+//         {
+//           icon: Settings,
+//           label: "Settings",
+//           id: "settings",
+//           path: "/faculty/settings", // Added path
+//         },
+//       ],
+//     },
+//   }
 
 
 export function MainAppSidebar({ activeSection, setActiveSection }: AppSidebarProps) {
@@ -61,6 +62,9 @@ export function MainAppSidebar({ activeSection, setActiveSection }: AppSidebarPr
   const pathname = usePathname();
   const dashboardKey = pathname.startsWith("/qoc") ? "qoc" : "faculty";
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
+  const sidebarConfig = useSidebarConfig();
+
+  console.log("Sidebar Config:", sidebarConfig);
 
   const { title, items } = sidebarConfig[dashboardKey] as { title: string; items: SidebarItem[] };
 
