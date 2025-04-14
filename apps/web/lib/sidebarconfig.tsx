@@ -1,5 +1,5 @@
 import { useFetchForms } from "@/hooks/forms";
-import { Home, Hammer, Check, Settings, LayoutDashboard, LineChart } from "lucide-react"; // Icons
+import { Home, Hammer, Check, Settings, LayoutDashboard, LineChart, User2 } from "lucide-react"; // Icons
 import { SidebarItem } from "./types";
 
 type SidebarConfig = Record<string, { title: string; items: SidebarItem[] }>;
@@ -10,9 +10,9 @@ export function useSidebarConfig(): SidebarConfig {
   const kpiSubItems: SidebarItem[] =
   data?.map((kpi: any) => ({
     icon: LineChart,
-    label: kpi.title, // Use `title` as the label
-    id: kpi.id.replace("form-", ""), // Remove `form-` from `id`
-    path: `/faculty/kpi-management/${kpi.id.replace("form-", "")}`, // Use the modified `id` in the path
+    label: kpi.title, 
+    id: kpi.id.replace("form-", ""), 
+    path: `/faculty/kpi-management/${kpi.id.replace("form-", "")}`, 
   })) || [];
 
   return {
@@ -20,7 +20,8 @@ export function useSidebarConfig(): SidebarConfig {
       title: "QOC Dashboard",
       items: [
         { icon: Home, label: "Dashboard", id: "qoc-dashboard", path: "/qoc/" },
-        { icon: Hammer, label: "KPI Builder", id: "form-builder", path: "/qoc/builder" },
+        { icon: Hammer, label: "Build KPI", id: "form-builder", path: "/qoc/builder" },
+        {icon: User2, label:"Assign KPI", id:"assign-kpi", path:"/qoc/assign"},
         { icon: Check, label: "Review KPI's", id: "review-submissions", path: "/qoc/review" },
         { icon: Settings, label: "Settings", id: "qoc-settings", path: "/qoc/settings" },
       ],

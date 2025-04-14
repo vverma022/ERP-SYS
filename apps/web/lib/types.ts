@@ -35,6 +35,15 @@ export interface FormElementInstance {
   attributes: Record<string, any>
 }
 
+export interface PillarInstance {
+  id: number
+  title: string
+  counts: {
+    assignedkpi: number;
+  }
+
+}
+
 export interface FormConfig {
   id: string
   title: string
@@ -60,5 +69,15 @@ export interface SidebarItem {
   id: string
   path?: string
   subItems?: SidebarItem[]
+}
+
+export interface DeptConfig {
+  id: string
+  name: string
+  hodid: number | null
+  hodName: string
+  createdAt: string
+  membersCount: number
+  pillars: PillarInstance[]
 }
 
