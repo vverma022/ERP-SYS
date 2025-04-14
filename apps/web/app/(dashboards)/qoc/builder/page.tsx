@@ -4,14 +4,20 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import Link from "next/link"
 import { PlusCircle } from "lucide-react"
 import { useFetchForms , useDeleteKpi } from "@/hooks/forms"
+import { useState } from "react"
 
 export default function FormsPage() {
-  const {data: forms, isLoading, error } = useFetchForms();
+  const { data: forms, isLoading, error } = useFetchForms();
   const deleteKpiMutation = useDeleteKpi();
+  const [deletingFormId, setDeletingFormId] = useState<string | null>(null);
 
   const handleDelete = (formId: string) => {
     const numericId = formId.startsWith("form-") ? formId.split("-")[1]! : formId;
-    deleteKpiMutation.mutate(numericId);
+    setDeletingFormId(formId);
+    deleteKpiMutation.mutate(numericId, {
+      onSuccess: () => setDeletingFormId(null),
+      onError: () => setDeletingFormId(null),
+    });
   };
 
   return (
@@ -47,7 +53,7 @@ export default function FormsPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm">{form.elements.length} elements</p>
+              <p className="text-sm">{form.elements.length} Fields</p>
             </CardContent>
             <CardFooter className="flex justify-between">
             <Link href={`/qoc/builder/form/view/${form.id.replace('form-','')}`}>
@@ -56,9 +62,13 @@ export default function FormsPage() {
               <Link href={`/qoc/builder/form/edit/${form.id.replace('form-','')}`}>
                 <Button variant="outline">Edit</Button>
               </Link>
-              <Button variant="destructive" onClick={() => handleDelete(form.id)} disabled={deleteKpiMutation.isPending}>
-                {deleteKpiMutation.isPending ? 'Deleting..' : "Delete"}
-              </Button>
+              <Button
+                  variant="destructive"
+                  onClick={() => handleDelete(form.id)}
+                  disabled={deletingFormId === form.id}
+                >
+                  {deletingFormId === form.id ? 'Deleting...' : "Delete"}
+                </Button>
             </CardFooter>
           </Card>
         ))}

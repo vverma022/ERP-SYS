@@ -71,11 +71,10 @@ export function useDeleteKpi() {
       toast.success("KPI deleted successfully", {
         description: "The KPI has been deleted from the backend",
       });
-      
       queryClient.invalidateQueries({ queryKey: ['kpi'] });
       queryClient.invalidateQueries({ queryKey: ['forms'] });
     },
-    onError: (error: ProcessError) => {
+    onError: (error: { message: string }) => {
       toast.error("Error deleting KPI", {
         description: error.message,
       });
