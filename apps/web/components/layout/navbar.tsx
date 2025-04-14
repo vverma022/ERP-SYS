@@ -8,6 +8,8 @@ import { Button } from "@workspace/ui/components/button"
 import { Input } from "@workspace/ui/components/input"
 import { SidebarTrigger } from "@workspace/ui/components/sidebar"
 import { ThemeToggle } from "@workspace/ui/components/theme-toggle"
+import { usePathname } from "next/navigation"
+
 
 export interface NavbarProps {
   appTitle?: string
@@ -34,6 +36,9 @@ export function Navbar({
   rightContent,
   onSearch,
 }: NavbarProps) {
+  const pathname = usePathname()
+  const hideNotifications = pathname.startsWith("/qoc")
+
   return (
     <header className="flex h-14 items-center gap-4 border-b bg-background px-4 lg:h-[60px]">
       <SidebarTrigger className="lg:hidden" />
@@ -70,14 +75,14 @@ export function Navbar({
 
         {showThemeToggle && <ThemeToggle />}
 
-        {showNotifications && (
+        {showNotifications && !hideNotifications && (
           <Button variant="ghost" size="icon" className="rounded-full">
             <Bell className="h-5 w-5" />
             <span className="sr-only">Notifications</span>
           </Button>
         )}
 
-        {showHelp && (
+        {showHelp && !hideNotifications && (
           <Button variant="ghost" size="icon" className="rounded-full">
             <HelpCircle className="h-5 w-5" />
             <span className="sr-only">Help</span>
