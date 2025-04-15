@@ -41,7 +41,7 @@ const handleKpiCheckboxChange = (kpiId: string) => {
     <main className="container mx-auto py-8 px-4">
     <div className="flex justify-between items-center mb-8">
       <div>
-        <h1 className="text-3xl font-bold">Your KPIs</h1>
+        <h1 className="text-3xl font-bold">Assign KPIs</h1>
         <p className="text-gray-600 mt-2">Assign KPIs by Selecting the Department</p>
       </div>
       <Select onValueChange={handleDepartmentChange}>
@@ -57,6 +57,10 @@ const handleKpiCheckboxChange = (kpiId: string) => {
         </SelectContent>
       </Select>
     </div>
+
+    {!selectedDepartment && (
+        <p className="text-center text-gray-500">Please Select Deapartment to Continue</p>
+      )}
 
     {selectedDepartment && (
       <div>
