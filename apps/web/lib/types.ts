@@ -37,11 +37,15 @@ export interface FormElementInstance {
 
 export interface PillarInstance {
   id: number
-  title: string
+  name: string
   counts: {
     assignedkpi: number;
   }
+}
 
+export interface AssignKpiPayload {
+  pillarId: string;
+  kpiIds: string[];
 }
 
 export interface FormConfig {

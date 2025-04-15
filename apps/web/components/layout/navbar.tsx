@@ -74,21 +74,7 @@ export function Navbar({
         {rightContent}
 
         {showThemeToggle && <ThemeToggle />}
-
-        {showNotifications && !hideNotifications && (
-          <Button variant="ghost" size="icon" className="rounded-full">
-            <Bell className="h-5 w-5" />
-            <span className="sr-only">Notifications</span>
-          </Button>
-        )}
-
-        {showHelp && !hideNotifications && (
-          <Button variant="ghost" size="icon" className="rounded-full">
-            <HelpCircle className="h-5 w-5" />
-            <span className="sr-only">Help</span>
-          </Button>
-        )}
-
+        
         <Avatar className="h-8 w-8">
           <AvatarImage src={userAvatar} alt="User" />
           <AvatarFallback>{userInitials}</AvatarFallback>

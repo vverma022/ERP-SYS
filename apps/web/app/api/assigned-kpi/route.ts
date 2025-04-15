@@ -66,7 +66,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     
     if (!kpi_id) {
       return NextResponse.json(
-        { success: false, error: 'KPI ID is required' },
+        { success: false, message: 'KPI ID is required' },
         { status: 400 }
       );
     }
@@ -78,7 +78,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     
     if (!pillar) {
       return NextResponse.json(
-        { success: false, error: 'Pillar not found' },
+        { success: false, message: 'Pillar not found' },
         { status: 404 }
       );
     }
