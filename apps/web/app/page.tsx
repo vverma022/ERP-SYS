@@ -1,140 +1,154 @@
 "use client"
 
-import type React from "react"
-import Image from "next/image"
 import { useState } from "react"
-import { cn } from "@workspace/ui/lib/utils"
-import { Button } from "@workspace/ui/components/button"
-import { Card, CardContent } from "@workspace/ui/components/card"
+import Image from "next/image"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@workspace/ui/components/tabs"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@workspace/ui/components/card"
 import { Input } from "@workspace/ui/components/input"
 import { Label } from "@workspace/ui/components/label"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@workspace/ui/components/tabs"
-import { useRouter } from "next/navigation"
+import { Button } from "@workspace/ui/components/button"
+import { LockIcon, UserIcon, BookIcon } from "lucide-react"
 
-export default function LoginForm({ className }: { className?: string }) {
-  const [userType, setUserType] = useState("faculty")
-  const router = useRouter();
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-
-    console.log(`Logging in as ${userType}`)
-  }
+export default function LoginPage() {
+  const [activeTab, setActiveTab] = useState("qoac")
 
   return (
-    <div className={cn("flex min-h-screen items-center justify-center p-4", className)}>
-      <Card className="w-full max-w-4xl overflow-hidden">
-        <CardContent className="grid p-0 md:grid-cols-2">
-          <div className="flex flex-col">
-            <Tabs defaultValue="faculty" className="w-full" onValueChange={setUserType}>
-              <TabsList className="grid w-full grid-cols-3 p-1 rounded-xl bg-muted/50">
-                <TabsTrigger value="qoac" className="rounded-lg shadow-sm data-[state=active]:shadow-md transition-all">
-                  QOAC
-                </TabsTrigger>
-                <TabsTrigger value="hod" className="rounded-lg shadow-sm data-[state=active]:shadow-md transition-all">
-                  HoD
-                </TabsTrigger>
-                <TabsTrigger
-                  value="faculty"
-                  className="rounded-lg shadow-sm data-[state=active]:shadow-md transition-all"
-                >
-                  Faculty
-                </TabsTrigger>
+    <div className="flex min-h-screen flex-col md:flex-row">
+      {/* Video Section */}
+      <div className="relative w-full md:w-2.2/3 bg-black">
+        <video className="h-full w-full object-cover opacity-80" autoPlay muted loop playsInline>
+          <source src="./mujvideo.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      {/* Login Section */}
+      <div className="w-full md:w-1/2 flex items-center justify-center p-8 bg-gray-50">
+        <Card className="w-full max-w-md">
+          <CardHeader>
+            <CardTitle className="text-2xl text-center">Login Portal</CardTitle>
+            <CardDescription className="text-center">Select your role and enter your credentials</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Tabs defaultValue="qoac" value={activeTab} onValueChange={setActiveTab} className="w-full">
+              <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="qoac">QOAC</TabsTrigger>
+                <TabsTrigger value="hod">HOD</TabsTrigger>
+                <TabsTrigger value="faculty">Faculty</TabsTrigger>
               </TabsList>
 
-              <TabsContent value="qoac" className="p-6 md:p-8">
-                <form onSubmit={handleSubmit}>
-                  <div className="flex flex-col gap-6">
-                    <div className="flex flex-col items-center text-center">
-                      <h1 className="text-2xl font-bold">Welcome!</h1>
-                      <p className="text-balance text-muted-foreground">Login to your QOAC account</p>
+              {/* QOAC Login */}
+              <TabsContent value="qoac">
+                <form className="space-y-4 mt-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="qoac-id">QOAC ID</Label>
+                    <div className="relative">
+                      <UserIcon className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Input id="qoac-id" placeholder="Enter your QOAC ID" className="pl-10" />
                     </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="qoac-email">Email</Label>
-                      <Input id="qoac-email" type="email" placeholder="qoac@muj.manipal.edu" required />
-                    </div>
-                    <div className="grid gap-2">
-                      <div className="flex items-center">
-                        <Label htmlFor="qoac-password">Password</Label>
-                        <a href="#" className="ml-auto text-sm underline-offset-2 hover:underline">
-                          Forgot your password?
-                        </a>
-                      </div>
-                      <Input id="qoac-password" type="password" required />
-                    </div>
-                    <Button type="button" className="w-full" onClick={() => router.push('/qoc')}>
-                      Login as QOAC
-                    </Button>
                   </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="qoac-id">QOAC Name</Label>
+                    <div className="relative">
+                      <UserIcon className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Input id="qoac-name" placeholder="Enter your QOAC Name" className="pl-10" />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="qoac-password">Password</Label>
+                    <div className="relative">
+                      <LockIcon className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Input id="qoac-password" type="password" placeholder="Enter your password" className="pl-10" />
+                    </div>
+                  </div>
+                  <Button type="submit" className="w-full">
+                    Login as QOAC
+                  </Button>
                 </form>
               </TabsContent>
 
-              <TabsContent value="hod" className="p-6 md:p-8">
-                <form onSubmit={handleSubmit}>
-                  <div className="flex flex-col gap-6">
-                    <div className="flex flex-col items-center text-center">
-                      <h1 className="text-2xl font-bold">Welcome!</h1>
-                      <p className="text-balance text-muted-foreground">Login to your HoD account</p>
+              {/* HOD Login */}
+              <TabsContent value="hod">
+                <form className="space-y-4 mt-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="hod-id">HOD ID</Label>
+                    <div className="relative">
+                      <UserIcon className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Input id="hod-id" placeholder="Enter your HOD ID" className="pl-10" />
                     </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="hod-email">Email</Label>
-                      <Input id="hod-email" type="email" placeholder="hod@muj.manipal.edu" required />
-                    </div>
-                    <div className="grid gap-2">
-                      <div className="flex items-center">
-                        <Label htmlFor="hod-password">Password</Label>
-                        <a href="#" className="ml-auto text-sm underline-offset-2 hover:underline">
-                          Forgot your password?
-                        </a>
-                      </div>
-                      <Input id="hod-password" type="password" required />
-                    </div>
-                    <Button type="submit" className="w-full">
-                      Login as HoD
-                    </Button>
                   </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="department">Department</Label>
+                    <div className="relative">
+                      <BookIcon className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Input id="department" placeholder="Enter your department" className="pl-10" />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="hod-password">Password</Label>
+                    <div className="relative">
+                      <LockIcon className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Input id="hod-password" type="password" placeholder="Enter your password" className="pl-10" />
+                    </div>
+                  </div>
+                  <Button type="submit" className="w-full">
+                    Login as HOD
+                  </Button>
                 </form>
               </TabsContent>
 
-              <TabsContent value="faculty" className="p-6 md:p-8">
-                <form onSubmit={handleSubmit}>
-                  <div className="flex flex-col gap-6">
-                    <div className="flex flex-col items-center text-center">
-                      <h1 className="text-2xl font-bold">Welcome!</h1>
-                      <p className="text-balance text-muted-foreground">Login to your Faculty account</p>
+              {/* Faculty Login */}
+              <TabsContent value="faculty">
+                <form className="space-y-4 mt-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="faculty-id">Faculty ID</Label>
+                    <div className="relative">
+                      <UserIcon className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Input id="faculty-id" placeholder="Enter your Faculty ID" className="pl-10" />
                     </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="faculty-email">Email</Label>
-                      <Input id="faculty-email" type="email" placeholder="faculty@muj.manipal.edu" required />
-                    </div>
-                    <div className="grid gap-2">
-                      <div className="flex items-center">
-                        <Label htmlFor="faculty-password">Password</Label>
-                        <a href="#" className="ml-auto text-sm underline-offset-2 hover:underline">
-                          Forgot your password?
-                        </a>
-                      </div>
-                      <Input id="faculty-password" type="password" required />
-                    </div>
-                    <Button type="submit" className="w-full" onClick={() => router.push('/faculty')}>
-                      Login as Faculty
-                    </Button>
                   </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="faculty-department">Department</Label>
+                    <div className="relative">
+                      <BookIcon className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Input id="faculty-department" placeholder="Enter your department" className="pl-10" />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="faculty-password">Password</Label>
+                    <div className="relative">
+                      <LockIcon className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="faculty-password"
+                        type="password"
+                        placeholder="Enter your password"
+                        className="pl-10"
+                      />
+                    </div>
+                  </div>
+                  <Button type="submit" className="w-full ">
+                    Login as Faculty
+                  </Button>
                 </form>
               </TabsContent>
             </Tabs>
-          </div>
-          <div className="relative hidden h-full bg-muted md:block">
-            <Image
-              src="/images/Manipal.png"
-              alt="Manipal University Jaipur"
-              fill
-              className="object-cover dark:brightness-[0.5]"
-            />
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+          <CardFooter className="flex flex-col space-y-2">
+            <div className="text-sm text-center text-muted-foreground">
+              Forgot your password?{" "}
+              <a href="#" className="text-blue-600 hover:underline">
+                Reset it here
+              </a>
+            </div>
+            <div className="text-sm text-center text-muted-foreground">
+              Having trouble?{" "}
+              <a href="#" className="text-blue-600 hover:underline">
+                Contact support
+              </a>
+            </div>
+          </CardFooter>
+        </Card>
+      </div>
     </div>
   )
 }
-
