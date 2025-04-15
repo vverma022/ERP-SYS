@@ -20,7 +20,22 @@ export default function LoginPage() {
           <source src="./mujvideo.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-8">
+          <div className="bg-black/40 p-6 rounded-lg backdrop-blur-sm">
+            <Image
+              src="/logo.png"
+              alt="Manipal University Jaipur Logo"
+              width={75}
+              height={75}
+              className="mx-auto mb-4 bg-white-rounded-full"
+            />
+            <h1 className="text-3xl font-bold text-center mb-2">Manipal University Jaipur</h1>
+            <p className="text-center max-w-md">Welcome to the official portal. Please login with your credentials.</p>
+          </div>
+        </div>
       </div>
+
+
 
       {/* Login Section */}
       <div className="w-full md:w-1/2 flex items-center justify-center p-8 bg-gray-50">
