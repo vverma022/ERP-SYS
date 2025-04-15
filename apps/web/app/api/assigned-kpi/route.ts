@@ -48,32 +48,31 @@ export async function GET(request: Request): Promise<NextResponse> {
 export async function POST(request: Request): Promise<NextResponse> {
   try {
     const body = await request.json();
-    const { 
-      pillar_id,
-      kpi_id,  // Required to find the KPI template
-      kpi_name, // Optional, can use the name from the KPI template if not provided
-      kpi_status, 
-      comments
+    const {
+      pillarId,     // Changed from pillar_id to match your input format
+      kpiIds,       // Now expecting an array of KPI IDs
+      kpi_status,   // Optional status to apply to all assigned KPIs
+      comments      // Optional comments to apply to all assigned KPIs
     } = body;
     
     // Validate required fields
-    if (!pillar_id) {
+    if (!pillarId) {
       return NextResponse.json(
         { success: false, error: 'Pillar ID is required' },
         { status: 400 }
       );
     }
     
-    if (!kpi_id) {
+    if (!kpiIds || !Array.isArray(kpiIds) || kpiIds.length === 0) {
       return NextResponse.json(
-        { success: false, message: 'KPI ID is required' },
+        { success: false, message: 'At least one KPI ID is required' },
         { status: 400 }
       );
     }
     
-    // Check if pillar exists - use pillars (plural) as defined in your schema
+    // Check if pillar exists
     const pillar = await prisma.pillars.findUnique({
-      where: { pillar_id: Number(pillar_id) }
+      where: { pillar_id: Number(pillarId) }
     });
     
     if (!pillar) {
@@ -83,62 +82,75 @@ export async function POST(request: Request): Promise<NextResponse> {
       );
     }
     
-    // Fetch the KPI template using kpi_id
-    const kpiTemplate = await prisma.kpi.findUnique({
-      where: { kpi_id: Number(kpi_id) }
-    });
+    // Process each KPI ID and create assigned KPIs
+    const assignedKpis = [];
+    const errors = [];
     
-    if (!kpiTemplate) {
-      return NextResponse.json(
-        { success: false, error: 'KPI template not found' },
-        { status: 404 }
-      );
+    for (const kpiId of kpiIds) {
+      try {
+        // Fetch the KPI template
+        const kpiTemplate = await prisma.kpi.findUnique({
+          where: { kpi_id: Number(kpiId) }
+        });
+        
+        if (!kpiTemplate) {
+          errors.push({ kpiId, error: 'KPI template not found' });
+          continue;
+        }
+        
+        // Create the assigned KPI
+        const assignedKpi = await prisma.assigned_kpi.create({
+          data: {
+            pillar_id: Number(pillarId),
+            kpi_name: kpiTemplate.kpi_name,
+            kpi_status: kpi_status || 'Not Started',
+            form_data: kpiTemplate.form_data || {}, // Copy form_data from the template
+            added_date: new Date(),
+            comments: comments || ''
+          }
+        });
+        
+        // Add to the successfully assigned KPIs list
+        assignedKpis.push({
+          assigned_kpi_id: assignedKpi.assigned_kpi_id,
+          pillar_id: assignedKpi.pillar_id,
+          kpi_name: assignedKpi.kpi_name,
+          kpi_status: assignedKpi.kpi_status,
+          added_date: assignedKpi.added_date,
+          resolved_date: assignedKpi.resolved_date,
+          comments: assignedKpi.comments,
+          id: `assigned-${assignedKpi.assigned_kpi_id}`,
+          elements: assignedKpi.form_data
+        });
+      } catch (err) {
+        // Log and collect any errors for individual KPIs
+        console.error(`Error assigning KPI ${kpiId}:`, err);
+        errors.push({ kpiId, error: err instanceof Error ? err.message : 'Unknown error' });
+      }
     }
     
-    // Use name from template if not provided
-    const assignedKpiName = kpi_name || kpiTemplate.kpi_name;
-    
-    // Create the assigned KPI with form_data copied from the template
-    const assignedKpi = await prisma.assigned_kpi.create({
-      data: {
-        pillar_id: Number(pillar_id),
-        kpi_name: assignedKpiName,
-        kpi_status: kpi_status || 'Not Started',
-        form_data: kpiTemplate.form_data || {}, // Copy form_data from the KPI template with empty object fallback
-        added_date: new Date(),
-        comments: comments || ''
-      }
-    });
-    
-    // Return the newly created assigned KPI with frontend-friendly format
+    // Return response with successfully assigned KPIs and any errors
     return NextResponse.json({
-      success: true,
-      message: 'KPI assigned successfully',
-      assignedKpi: {
-        assigned_kpi_id: assignedKpi.assigned_kpi_id,
-        pillar_id: assignedKpi.pillar_id,
-        kpi_name: assignedKpi.kpi_name,
-        kpi_status: assignedKpi.kpi_status,
-        added_date: assignedKpi.added_date,
-        resolved_date: assignedKpi.resolved_date,
-        comments: assignedKpi.comments,
-        id: `assigned-${assignedKpi.assigned_kpi_id}`,
-        elements: assignedKpi.form_data
-      }
+      success: assignedKpis.length > 0,
+      message: assignedKpis.length > 0 
+        ? `Successfully assigned ${assignedKpis.length} KPIs` 
+        : 'Failed to assign any KPIs',
+      assignedKpis,
+      errors: errors.length > 0 ? errors : undefined
     });
   } catch (error) {
-    console.error('Error assigning KPI:', error);
+    console.error('Error in KPI batch assignment:', error);
     
     // More detailed error handling
     if (error instanceof Error) {
       return NextResponse.json(
-        { success: false, error: `Failed to assign KPI: ${error.message}` },
+        { success: false, error: `Failed to assign KPIs: ${error.message}` },
         { status: 500 }
       );
     }
     
     return NextResponse.json(
-      { success: false, error: 'Failed to assign KPI' },
+      { success: false, error: 'Failed to assign KPIs' },
       { status: 500 }
     );
   }

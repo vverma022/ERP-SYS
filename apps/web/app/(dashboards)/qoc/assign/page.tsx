@@ -53,7 +53,7 @@ export default function AssignPage() {
     }
     const payload: AssignKpiPayload = {
       pillarId: selectedPillar,
-      kpiIds: selectedKpis,
+      kpiIds: selectedKpis.map((kpiId) => (kpiId.replace('form-', ''))),
     };
 
     console.log("Assigning KPIs with payload:", payload);
