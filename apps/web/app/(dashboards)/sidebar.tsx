@@ -60,7 +60,7 @@ import { useSidebarConfig } from "@/lib/sidebarconfig";
 export function MainAppSidebar({ activeSection, setActiveSection }: AppSidebarProps) {
   const router = useRouter(); // Initialize the router
   const pathname = usePathname();
-  const dashboardKey = pathname.startsWith("/qoc") ? "qoc" : "faculty";
+  const dashboardKey = pathname.startsWith("/qoc") ? "qoc" : pathname.startsWith("/hod") ? "hod" : "faculty";
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
   const sidebarConfig = useSidebarConfig();
 
