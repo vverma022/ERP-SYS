@@ -182,20 +182,54 @@ export default function FormBuilder({ initialForm }: { initialForm?: FormConfig 
       modifiers={[restrictToVerticalAxis, restrictToWindowEdges]}
     >
       <div className="mb-6">
-      <div className="flex items-center space-x-4">
-  <Label className="text-lg font-medium">
-    KPI
-  </Label>
-  <Input
-    id="form-title"
-    value={formTitle.replace('KPI', '')}
-    onChange={(e) => {
-      const numberValue = e.target.value.replace(/\D/g, ' ');
-      setFormTitle(`KPI ${numberValue}`);
-    }}
-    className="text-lg font-medium flex-1"
-    placeholder="Enter KPI Number"
-  />
+      <div className="space-y-6">
+  <div className="flex flex-col">
+    <Label className="text-lg font-medium mb-2">KPI</Label>
+    <p className="text-sm text-gray-500 mb-2">
+      KPI identification number, usually between 1 to 78.
+    </p>
+    <Input
+      id="form-title"
+      value={formTitle.replace('KPI', '')}
+      onChange={(e) => {
+        const numberValue = e.target.value.replace(/\D/g, ''); // Allow only numbers
+        setFormTitle(`KPI ${numberValue}`);
+      }}
+      className="text-lg font-medium"
+      placeholder="Enter KPI Number"
+    />
+  </div>
+
+  {/* KPI Description Input */}
+  <div className="flex flex-col">
+    <Label className="text-lg font-medium mb-2">Description</Label>
+    <p className="text-sm text-gray-500 mb-2">
+      A short description of what this KPI is and what faculty is expected to fill.
+    </p>
+    <Input
+      id="form-description"
+      // value={formDescription}
+      // onChange={(e) => setFormDescription(e.target.value)}
+      className="text-lg font-medium"
+      placeholder="Enter KPI Description"
+    />
+  </div>
+
+  {/* KPI Value Input */}
+  <div className="flex flex-col">
+    <Label className="text-lg font-medium mb-2">Value</Label>
+    <p className="text-sm text-gray-500 mb-2">
+      Value of each KPI in a specific metric.
+    </p>
+    <Input
+      id="form-value"
+      type="number" // Ensure only numeric input
+      // value={formValue}
+      // onChange={(e) => setFormValue(Number(e.target.value))}
+      className="text-lg font-medium"
+      placeholder="Enter KPI Value"
+    />
+  </div>
 </div>
       </div>
 
