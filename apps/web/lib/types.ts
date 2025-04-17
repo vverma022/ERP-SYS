@@ -75,6 +75,15 @@ export interface SidebarItem {
   subItems?: SidebarItem[]
 }
 
+export interface AssignedKPI {
+  assigned_kpi_id: number;
+  kpi_name: string;
+  kpi_status: string;
+  comments: string;
+  elements: FormElementInstance[];
+}
+
+
 export interface DeptConfig {
   id: string
   name: string

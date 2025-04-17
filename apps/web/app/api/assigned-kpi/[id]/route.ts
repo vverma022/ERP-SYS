@@ -6,11 +6,11 @@ import { prisma } from '@repo/db';
  */
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: number } }
 ): Promise<NextResponse> {
   try {
     const { id } = params;
-    const assigned_kpi_id = Number(id);
+    const assigned_kpi_id = id;
     
     if (isNaN(assigned_kpi_id)) {
       return NextResponse.json(

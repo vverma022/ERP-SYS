@@ -1,18 +1,21 @@
 import { useFetchForms } from "@/hooks/forms";
 import { Home, Hammer, Check, Settings, LayoutDashboard, LineChart, User2 } from "lucide-react"; // Icons
-import { SidebarItem } from "./types";
+import { SidebarItem } from "@/lib/types";
+import { useFetchAssignedKPI } from "@/hooks/faculty";
 
-type SidebarConfig = Record<string, { title: string; items: SidebarItem[] }>;
+type SidebarConfig = Record<string, { title: string; items: SidebarItem[] }
+>;
 
 export function useSidebarConfig(): SidebarConfig {
-  const { data } = useFetchForms();
+  const { data, isLoading, error } = useFetchAssignedKPI();
+
 
   const kpiSubItems: SidebarItem[] =
   data?.map((kpi: any) => ({
     icon: LineChart,
-    label: kpi.title, 
-    id: kpi.id.replace("form-", ""), 
-    path: `/faculty/kpi-management/${kpi.id.replace("form-", "")}`, 
+    label: kpi.kpi_name, 
+    id: kpi.assigned_kpi_id, 
+    path: `/faculty/kpi-management/${kpi.kpi_id.toString()}`, // Assuming kpi_id is the ID you want to use
   })) || [];
 
   return {
