@@ -21,10 +21,11 @@ export function useSidebarConfig(): SidebarConfig {
   const HodkpiSubItems: SidebarItem[] =
   data?.map((kpi: any) => ({
     icon: LineChart,
-    label: kpi.title, 
-    id: kpi.id.replace("form-", ""), 
-    path: `/hod/kpi-management/${kpi.id.replace("form-", "")}`, 
+    label: kpi.kpi_name, 
+    id: kpi.assigned_kpi_id, 
+    path: `/hod/kpi-management/${kpi.kpi_id.toString()}`, // Assuming kpi_id is the ID you want to use
   })) || [];
+
 
   return {
     qoc: {
