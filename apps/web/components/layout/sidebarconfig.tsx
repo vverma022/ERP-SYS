@@ -18,13 +18,21 @@ export function useSidebarConfig(): SidebarConfig {
     path: `/faculty/kpi-management/${kpi.kpi_id.toString()}`, // Assuming kpi_id is the ID you want to use
   })) || [];
 
+  const HodkpiSubItems: SidebarItem[] =
+  data?.map((kpi: any) => ({
+    icon: LineChart,
+    label: kpi.title, 
+    id: kpi.id.replace("form-", ""), 
+    path: `/hod/kpi-management/${kpi.id.replace("form-", "")}`, 
+  })) || [];
+
   return {
     qoc: {
       title: "QOC Dashboard",
       items: [
         { icon: Home, label: "Dashboard", id: "qoc-dashboard", path: "/qoc/" },
         { icon: Hammer, label: "Build KPI", id: "form-builder", path: "/qoc/builder" },
-        {icon: User2, label:"Assign KPI", id:"assign-kpi", path:"/qoc/assign"},
+        { icon: User2, label:"Assign KPI", id:"assign-kpi", path:"/qoc/assign"},
         { icon: Check, label: "Review KPI's", id: "review-submissions", path: "/qoc/review" },
         { icon: Settings, label: "Settings", id: "qoc-settings", path: "/qoc/settings" },
       ],
@@ -49,6 +57,35 @@ export function useSidebarConfig(): SidebarConfig {
           label: "Settings",
           id: "settings",
           path: "/faculty/settings",
+        },
+      ],
+    },
+    hod: {
+      title: "HoD Dashboard",
+      items:  [
+        {
+          icon: LayoutDashboard,
+          label: "Dashboard",
+          id: "dashboard",
+          path: "/hod/",
+        },
+        {
+          icon: LineChart,
+          label: "KPI Management",
+          id: "kpi-management",
+          subItems: HodkpiSubItems, // Nested KPI items with required paths
+        },
+        {
+          icon: User2,
+          label: "Assign KPI Coordinator",
+          id: "kpi-coordinator",
+          path: "/hod/assign-coordinator", // Nested KPI items with required paths
+        },
+        {
+          icon: Settings,
+          label: "Settings",
+          id: "settings",
+          path: "/hod/settings",
         },
       ],
     },
