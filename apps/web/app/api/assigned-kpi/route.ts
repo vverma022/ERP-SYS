@@ -1,20 +1,59 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@repo/db';
+import { prisma, Prisma } from '@repo/db';
 
 /**
- * GET function to fetch all assigned KPIs, with optional filtering by pillar_id.
+ * GET function to fetch all assigned KPIs, with optional filtering by department_id and/or pillar_id.
  */
 export async function GET(request: Request): Promise<NextResponse> {
   try {
     const url = new URL(request.url);
+    const departmentId = url.searchParams.get('department_id');
     const pillarId = url.searchParams.get('pillar_id');
     
-    const where = pillarId ? { pillar_id: Number(pillarId) } : {};
+    // Build query conditions
+    let where: any = {};
     
+    // If pillar_id is provided, filter by it
+    if (pillarId) {
+      where.pillar_id = Number(pillarId);
+    }
+    
+    // If department_id is provided, we need to filter by pillars in that department
+    if (departmentId) {
+      // Get all pillars for this department first
+      const pillarsInDept = await prisma.pillars.findMany({
+        where: { department_id: Number(departmentId) },
+        select: { pillar_id: true }
+      });
+      
+      const pillarIds = pillarsInDept.map(p => p.pillar_id);
+      
+      // If pillar_id was also provided, ensure it's in the department's pillars
+      if (pillarId) {
+        if (!pillarIds.includes(Number(pillarId))) {
+          return NextResponse.json(
+            { 
+              success: false, 
+              error: `Pillar ID ${pillarId} does not belong to Department ID ${departmentId}` 
+            },
+            { status: 400 }
+          );
+        }
+      } else {
+        // If only department_id was provided, filter by all its pillars
+        where.pillar_id = { in: pillarIds };
+      }
+    }
+    
+    // Fetch assigned KPIs with filtering
     const assignedKpis = await prisma.assigned_kpi.findMany({
       where,
       include: {
-        pillar: true // This should be "pillar" as defined in your assigned_kpi model relation
+        pillar: {
+          include: {
+            department: true
+          }
+        }
       }
     });
     
@@ -27,12 +66,19 @@ export async function GET(request: Request): Promise<NextResponse> {
       added_date: kpi.added_date,
       resolved_date: kpi.resolved_date,
       comments: kpi.comments,
+      kpi_value: kpi.kpi_value,
+      kpi_description: kpi.kpi_description,
+      form_input: kpi.form_input,
       pillar: kpi.pillar,
+      department: kpi.pillar.department,
       id: `assigned-${kpi.assigned_kpi_id}`,
-      elements: kpi.form_data  // Map form_data to elements
+      elements: kpi.form_data
     }));
     
-    return NextResponse.json({ success: true, assignedKpis: transformedKpis });
+    return NextResponse.json({ 
+      success: true, 
+      assignedKpis: transformedKpis 
+    });
   } catch (error) {
     console.error('Error fetching assigned KPIs:', error);
     return NextResponse.json(
@@ -43,114 +89,134 @@ export async function GET(request: Request): Promise<NextResponse> {
 }
 
 /**
- * POST function to assign a KPI to a pillar.
+ * POST function to assign KPI(s) to a pillar, ensuring the pillar belongs to the correct department.
  */
 export async function POST(request: Request): Promise<NextResponse> {
   try {
     const body = await request.json();
     const {
-      pillarId,     // Changed from pillar_id to match your input format
-      kpiIds,       // Now expecting an array of KPI IDs
-      kpi_status,   // Optional status to apply to all assigned KPIs
-      comments      // Optional comments to apply to all assigned KPIs
+      department_id,
+      pillar_id,
+      kpi_id,
+      kpi_name,
+      kpi_status,
+      kpi_value,
+      kpi_description,
+      comments,
+      form_input
     } = body;
     
     // Validate required fields
-    if (!pillarId) {
+    if (!department_id) {
+      return NextResponse.json(
+        { success: false, error: 'Department ID is required' },
+        { status: 400 }
+      );
+    }
+    
+    if (!pillar_id) {
       return NextResponse.json(
         { success: false, error: 'Pillar ID is required' },
         { status: 400 }
       );
     }
     
-    if (!kpiIds || !Array.isArray(kpiIds) || kpiIds.length === 0) {
+    if (!kpi_id) {
       return NextResponse.json(
-        { success: false, message: 'At least one KPI ID is required' },
+        { success: false, error: 'KPI ID is required' },
         { status: 400 }
       );
     }
     
-    // Check if pillar exists
-    const pillar = await prisma.pillars.findUnique({
-      where: { pillar_id: Number(pillarId) }
+    // Verify that the pillar belongs to the specified department
+    const pillar = await prisma.pillars.findFirst({
+      where: {
+        pillar_id: Number(pillar_id),
+        department_id: Number(department_id)
+      }
     });
     
     if (!pillar) {
       return NextResponse.json(
-        { success: false, message: 'Pillar not found' },
+        { 
+          success: false, 
+          error: `Pillar ID ${pillar_id} does not belong to Department ID ${department_id}` 
+        },
         { status: 404 }
       );
     }
     
-    // Process each KPI ID and create assigned KPIs
-    const assignedKpis = [];
-    const errors = [];
+    // Fetch the KPI template
+    const kpiTemplate = await prisma.kpi.findUnique({
+      where: { kpi_id: Number(kpi_id) }
+    });
     
-    for (const kpiId of kpiIds) {
-      try {
-        // Fetch the KPI template
-        const kpiTemplate = await prisma.kpi.findUnique({
-          where: { kpi_id: Number(kpiId) }
-        });
-        
-        if (!kpiTemplate) {
-          errors.push({ kpiId, error: 'KPI template not found' });
-          continue;
-        }
-        
-        // Create the assigned KPI
-        const assignedKpi = await prisma.assigned_kpi.create({
-          data: {
-            pillar_id: Number(pillarId),
-            kpi_name: kpiTemplate.kpi_name,
-            kpi_status: kpi_status || 'Not Started',
-            form_data: kpiTemplate.form_data || {}, // Copy form_data from the template
-            added_date: new Date(),
-            comments: comments || ''
-          }
-        });
-        
-        // Add to the successfully assigned KPIs list
-        assignedKpis.push({
-          assigned_kpi_id: assignedKpi.assigned_kpi_id,
-          pillar_id: assignedKpi.pillar_id,
-          kpi_name: assignedKpi.kpi_name,
-          kpi_status: assignedKpi.kpi_status,
-          added_date: assignedKpi.added_date,
-          resolved_date: assignedKpi.resolved_date,
-          comments: assignedKpi.comments,
-          id: `assigned-${assignedKpi.assigned_kpi_id}`,
-          elements: assignedKpi.form_data
-        });
-      } catch (err) {
-        // Log and collect any errors for individual KPIs
-        console.error(`Error assigning KPI ${kpiId}:`, err);
-        errors.push({ kpiId, error: err instanceof Error ? err.message : 'Unknown error' });
-      }
+    if (!kpiTemplate) {
+      return NextResponse.json(
+        { success: false, error: 'KPI template not found' },
+        { status: 404 }
+      );
     }
     
-    // Return response with successfully assigned KPIs and any errors
+    // Use name from template if not provided
+    const assignedKpiName = kpi_name || kpiTemplate.kpi_name;
+    
+    // Create the assigned KPI
+    const assignedKpi = await prisma.assigned_kpi.create({
+      data: {
+        pillar_id: Number(pillar_id),
+        kpi_name: assignedKpiName,
+        kpi_status: kpi_status || 'Not Started',
+        form_data: kpiTemplate.form_data as unknown as Prisma.InputJsonValue,
+        added_date: new Date(),
+        resolved_date: null,
+        comments: comments || '',
+        kpi_value: kpi_value !== undefined ? kpi_value : kpiTemplate.kpi_value,
+        kpi_description: kpi_description || kpiTemplate.kpi_description || '',
+        form_input: form_input || null
+      },
+      include: {
+        pillar: {
+          include: {
+            department: true
+          }
+        }
+      }
+    });
+    
+    // Return with transformed structure
     return NextResponse.json({
-      success: assignedKpis.length > 0,
-      message: assignedKpis.length > 0 
-        ? `Successfully assigned ${assignedKpis.length} KPIs` 
-        : 'Failed to assign any KPIs',
-      assignedKpis,
-      errors: errors.length > 0 ? errors : undefined
+      success: true,
+      message: 'KPI assigned successfully',
+      assignedKpi: {
+        assigned_kpi_id: assignedKpi.assigned_kpi_id,
+        pillar_id: assignedKpi.pillar_id,
+        kpi_name: assignedKpi.kpi_name,
+        kpi_status: assignedKpi.kpi_status,
+        added_date: assignedKpi.added_date,
+        resolved_date: assignedKpi.resolved_date,
+        comments: assignedKpi.comments,
+        kpi_value: assignedKpi.kpi_value,
+        kpi_description: assignedKpi.kpi_description,
+        form_input: assignedKpi.form_input,
+        department: assignedKpi.pillar.department,
+        pillar: assignedKpi.pillar,
+        id: `assigned-${assignedKpi.assigned_kpi_id}`,
+        elements: assignedKpi.form_data
+      }
     });
   } catch (error) {
-    console.error('Error in KPI batch assignment:', error);
+    console.error('Error assigning KPI:', error);
     
-    // More detailed error handling
     if (error instanceof Error) {
       return NextResponse.json(
-        { success: false, error: `Failed to assign KPIs: ${error.message}` },
+        { success: false, error: `Failed to assign KPI: ${error.message}` },
         { status: 500 }
       );
     }
     
     return NextResponse.json(
-      { success: false, error: 'Failed to assign KPIs' },
+      { success: false, error: 'Failed to assign KPI' },
       { status: 500 }
     );
   }
