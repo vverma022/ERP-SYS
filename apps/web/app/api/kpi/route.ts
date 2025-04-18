@@ -14,6 +14,8 @@ export async function GET(request: Request): Promise<NextResponse> {
       kpi_name: kpi.kpi_name,
       kpi_created_at: kpi.kpi_created_at,
       kpi_updated_at: kpi.kpi_updated_at,
+      kpi_value: kpi.kpi_value,
+      kpi_description: kpi.kpi_description,
       id: kpi.kpi_name,
       elements: kpi.form_data
     }));
@@ -34,7 +36,15 @@ export async function GET(request: Request): Promise<NextResponse> {
 export async function POST(request: Request): Promise<NextResponse> {
   try {
     const body = await request.json();
-    const { id, title, elements, createdAt, updatedAt } = body;
+    const { 
+      id, 
+      title, 
+      elements, 
+      createdAt, 
+      updatedAt,
+      kpi_value,
+      kpi_description
+    } = body;
 
     // Validate required fields
     if (!id) {
@@ -63,13 +73,15 @@ export async function POST(request: Request): Promise<NextResponse> {
       );
     }
 
-    // Create new KPI
+    // Create new KPI with additional fields
     const newKpi = await prisma.kpi.create({
       data: {
         kpi_name: id,
         form_data: elements,
         kpi_created_at: createdAt ? new Date(createdAt) : new Date(),
-        kpi_updated_at: updatedAt ? new Date(updatedAt) : new Date()
+        kpi_updated_at: updatedAt ? new Date(updatedAt) : new Date(),
+        kpi_value: kpi_value !== undefined ? kpi_value : null,
+        kpi_description: kpi_description || null
       }
     });
 
@@ -82,6 +94,8 @@ export async function POST(request: Request): Promise<NextResponse> {
         kpi_name: newKpi.kpi_name,
         kpi_created_at: newKpi.kpi_created_at,
         kpi_updated_at: newKpi.kpi_updated_at,
+        kpi_value: newKpi.kpi_value,
+        kpi_description: newKpi.kpi_description,
         id: newKpi.kpi_name,
         elements: newKpi.form_data
       }
