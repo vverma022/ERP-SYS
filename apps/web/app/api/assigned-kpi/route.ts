@@ -57,6 +57,28 @@ export async function GET(request: Request): Promise<NextResponse> {
       }
     });
     
+    // Get all unique KPI names from the assigned KPIs
+    const kpiNames = [...new Set(assignedKpis.map(kpi => kpi.kpi_name))];
+    
+    // Fetch all original KPIs that match these names in one query
+    const originalKpis = await prisma.kpi.findMany({
+      where: {
+        kpi_name: {
+          in: kpiNames
+        }
+      },
+      select: {
+        kpi_id: true,
+        kpi_name: true
+      }
+    });
+    
+    // Create a map for quick lookup with proper typing
+    const kpiNameToIdMap: Record<string, number> = {};
+    originalKpis.forEach(kpi => {
+      kpiNameToIdMap[kpi.kpi_name] = kpi.kpi_id;
+    });
+    
     // Transform assigned KPIs to match frontend format
     const transformedKpis = assignedKpis.map(kpi => ({
       assigned_kpi_id: kpi.assigned_kpi_id,
@@ -72,7 +94,8 @@ export async function GET(request: Request): Promise<NextResponse> {
       pillar: kpi.pillar,
       department: kpi.pillar.department,
       id: `assigned-${kpi.assigned_kpi_id}`,
-      elements: kpi.form_data
+      elements: kpi.form_data,  // Map form_data to elements
+      original_kpi_id: kpiNameToIdMap[kpi.kpi_name] || null
     }));
     
     return NextResponse.json({ 

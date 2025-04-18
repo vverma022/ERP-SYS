@@ -196,7 +196,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\Arunabha\\Desktop\\Projects\\ERP-SYS\\packages\\db\\generated\\client",
+      "value": "D:\\Personal\\Resume and work\\ERP-SYS\\packages\\db\\generated\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -210,7 +210,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\Arunabha\\Desktop\\Projects\\ERP-SYS\\packages\\db\\prisma\\schema.prisma",
+    "sourceFilePath": "D:\\Personal\\Resume and work\\ERP-SYS\\packages\\db\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

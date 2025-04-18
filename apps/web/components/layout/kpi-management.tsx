@@ -21,14 +21,14 @@ import { Label } from "@workspace/ui/components/label"
 import { RadioGroup, RadioGroupItem } from "@workspace/ui/components/radio-group"
 
 interface KpiManagementProps {
-  kpiType: string
+  kpiType: number
 }
 
 export function KpiManagement({ kpiType }: KpiManagementProps) {
   return (
     <div className="mx-auto max-w-5xl">
       <h1 className="mb-6 text-2xl font-bold">
-        {kpiType === "kpi-3" ? "KPI 3 - Value Added Courses" : "KPI 4 - Target Courses"}
+        {kpiType === 3 ? "KPI 3 - Value Added Courses" : "KPI 4 - Target Courses"}
       </h1>
 
       <Tabs defaultValue="add" className="w-full">
@@ -36,13 +36,13 @@ export function KpiManagement({ kpiType }: KpiManagementProps) {
           <TabsTrigger value="add">Add New Entry</TabsTrigger>
           <TabsTrigger value="view">View Entries</TabsTrigger>
         </TabsList>
-        <TabsContent value="add">{kpiType === "kpi-3" ? <Kpi3Form /> : <Kpi4Form />}</TabsContent>
+        <TabsContent value="add">{kpiType === 3 ? <Kpi3Form /> : <Kpi4Form />}</TabsContent>
         <TabsContent value="view">
           <Card className="bg-card text-card-foreground">
             <CardHeader>
               <CardTitle>Existing Entries</CardTitle>
               <CardDescription>
-                View and manage your existing {kpiType === "kpi-3" ? "value added courses" : "target courses"}.
+                View and manage your existing {kpiType === 3 ? "value added courses" : "target courses"}.
               </CardDescription>
             </CardHeader>
             <CardContent>
