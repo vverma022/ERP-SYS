@@ -149,7 +149,10 @@ exports.Prisma.Assigned_kpiScalarFieldEnum = {
   form_data: 'form_data',
   added_date: 'added_date',
   resolved_date: 'resolved_date',
-  comments: 'comments'
+  comments: 'comments',
+  kpi_value: 'kpi_value',
+  kpi_description: 'kpi_description',
+  form_input: 'form_input'
 };
 
 exports.Prisma.KpiScalarFieldEnum = {
@@ -157,7 +160,9 @@ exports.Prisma.KpiScalarFieldEnum = {
   kpi_name: 'kpi_name',
   kpi_created_at: 'kpi_created_at',
   kpi_updated_at: 'kpi_updated_at',
-  form_data: 'form_data'
+  form_data: 'form_data',
+  kpi_value: 'kpi_value',
+  kpi_description: 'kpi_description'
 };
 
 exports.Prisma.QocScalarFieldEnum = {
@@ -174,6 +179,11 @@ exports.Prisma.SortOrder = {
 };
 
 exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull
 };
 

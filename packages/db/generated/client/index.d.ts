@@ -4786,11 +4786,13 @@ export namespace Prisma {
   export type Assigned_kpiAvgAggregateOutputType = {
     assigned_kpi_id: number | null
     pillar_id: number | null
+    kpi_value: number | null
   }
 
   export type Assigned_kpiSumAggregateOutputType = {
     assigned_kpi_id: number | null
     pillar_id: number | null
+    kpi_value: number | null
   }
 
   export type Assigned_kpiMinAggregateOutputType = {
@@ -4801,6 +4803,8 @@ export namespace Prisma {
     added_date: Date | null
     resolved_date: Date | null
     comments: string | null
+    kpi_value: number | null
+    kpi_description: string | null
   }
 
   export type Assigned_kpiMaxAggregateOutputType = {
@@ -4811,6 +4815,8 @@ export namespace Prisma {
     added_date: Date | null
     resolved_date: Date | null
     comments: string | null
+    kpi_value: number | null
+    kpi_description: string | null
   }
 
   export type Assigned_kpiCountAggregateOutputType = {
@@ -4822,6 +4828,9 @@ export namespace Prisma {
     added_date: number
     resolved_date: number
     comments: number
+    kpi_value: number
+    kpi_description: number
+    form_input: number
     _all: number
   }
 
@@ -4829,11 +4838,13 @@ export namespace Prisma {
   export type Assigned_kpiAvgAggregateInputType = {
     assigned_kpi_id?: true
     pillar_id?: true
+    kpi_value?: true
   }
 
   export type Assigned_kpiSumAggregateInputType = {
     assigned_kpi_id?: true
     pillar_id?: true
+    kpi_value?: true
   }
 
   export type Assigned_kpiMinAggregateInputType = {
@@ -4844,6 +4855,8 @@ export namespace Prisma {
     added_date?: true
     resolved_date?: true
     comments?: true
+    kpi_value?: true
+    kpi_description?: true
   }
 
   export type Assigned_kpiMaxAggregateInputType = {
@@ -4854,6 +4867,8 @@ export namespace Prisma {
     added_date?: true
     resolved_date?: true
     comments?: true
+    kpi_value?: true
+    kpi_description?: true
   }
 
   export type Assigned_kpiCountAggregateInputType = {
@@ -4865,6 +4880,9 @@ export namespace Prisma {
     added_date?: true
     resolved_date?: true
     comments?: true
+    kpi_value?: true
+    kpi_description?: true
+    form_input?: true
     _all?: true
   }
 
@@ -4963,6 +4981,9 @@ export namespace Prisma {
     added_date: Date | null
     resolved_date: Date | null
     comments: string | null
+    kpi_value: number | null
+    kpi_description: string | null
+    form_input: JsonValue | null
     _count: Assigned_kpiCountAggregateOutputType | null
     _avg: Assigned_kpiAvgAggregateOutputType | null
     _sum: Assigned_kpiSumAggregateOutputType | null
@@ -4993,6 +5014,9 @@ export namespace Prisma {
     added_date?: boolean
     resolved_date?: boolean
     comments?: boolean
+    kpi_value?: boolean
+    kpi_description?: boolean
+    form_input?: boolean
     pillar?: boolean | pillarsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["assigned_kpi"]>
 
@@ -5005,6 +5029,9 @@ export namespace Prisma {
     added_date?: boolean
     resolved_date?: boolean
     comments?: boolean
+    kpi_value?: boolean
+    kpi_description?: boolean
+    form_input?: boolean
     pillar?: boolean | pillarsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["assigned_kpi"]>
 
@@ -5017,6 +5044,9 @@ export namespace Prisma {
     added_date?: boolean
     resolved_date?: boolean
     comments?: boolean
+    kpi_value?: boolean
+    kpi_description?: boolean
+    form_input?: boolean
     pillar?: boolean | pillarsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["assigned_kpi"]>
 
@@ -5029,9 +5059,12 @@ export namespace Prisma {
     added_date?: boolean
     resolved_date?: boolean
     comments?: boolean
+    kpi_value?: boolean
+    kpi_description?: boolean
+    form_input?: boolean
   }
 
-  export type assigned_kpiOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"assigned_kpi_id" | "pillar_id" | "kpi_name" | "kpi_status" | "form_data" | "added_date" | "resolved_date" | "comments", ExtArgs["result"]["assigned_kpi"]>
+  export type assigned_kpiOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"assigned_kpi_id" | "pillar_id" | "kpi_name" | "kpi_status" | "form_data" | "added_date" | "resolved_date" | "comments" | "kpi_value" | "kpi_description" | "form_input", ExtArgs["result"]["assigned_kpi"]>
   export type assigned_kpiInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     pillar?: boolean | pillarsDefaultArgs<ExtArgs>
   }
@@ -5056,6 +5089,9 @@ export namespace Prisma {
       added_date: Date | null
       resolved_date: Date | null
       comments: string | null
+      kpi_value: number | null
+      kpi_description: string | null
+      form_input: Prisma.JsonValue | null
     }, ExtArgs["result"]["assigned_kpi"]>
     composites: {}
   }
@@ -5488,6 +5524,9 @@ export namespace Prisma {
     readonly added_date: FieldRef<"assigned_kpi", 'DateTime'>
     readonly resolved_date: FieldRef<"assigned_kpi", 'DateTime'>
     readonly comments: FieldRef<"assigned_kpi", 'String'>
+    readonly kpi_value: FieldRef<"assigned_kpi", 'Float'>
+    readonly kpi_description: FieldRef<"assigned_kpi", 'String'>
+    readonly form_input: FieldRef<"assigned_kpi", 'Json'>
   }
     
 
@@ -5916,10 +5955,12 @@ export namespace Prisma {
 
   export type KpiAvgAggregateOutputType = {
     kpi_id: number | null
+    kpi_value: number | null
   }
 
   export type KpiSumAggregateOutputType = {
     kpi_id: number | null
+    kpi_value: number | null
   }
 
   export type KpiMinAggregateOutputType = {
@@ -5927,6 +5968,8 @@ export namespace Prisma {
     kpi_name: string | null
     kpi_created_at: Date | null
     kpi_updated_at: Date | null
+    kpi_value: number | null
+    kpi_description: string | null
   }
 
   export type KpiMaxAggregateOutputType = {
@@ -5934,6 +5977,8 @@ export namespace Prisma {
     kpi_name: string | null
     kpi_created_at: Date | null
     kpi_updated_at: Date | null
+    kpi_value: number | null
+    kpi_description: string | null
   }
 
   export type KpiCountAggregateOutputType = {
@@ -5942,16 +5987,20 @@ export namespace Prisma {
     kpi_created_at: number
     kpi_updated_at: number
     form_data: number
+    kpi_value: number
+    kpi_description: number
     _all: number
   }
 
 
   export type KpiAvgAggregateInputType = {
     kpi_id?: true
+    kpi_value?: true
   }
 
   export type KpiSumAggregateInputType = {
     kpi_id?: true
+    kpi_value?: true
   }
 
   export type KpiMinAggregateInputType = {
@@ -5959,6 +6008,8 @@ export namespace Prisma {
     kpi_name?: true
     kpi_created_at?: true
     kpi_updated_at?: true
+    kpi_value?: true
+    kpi_description?: true
   }
 
   export type KpiMaxAggregateInputType = {
@@ -5966,6 +6017,8 @@ export namespace Prisma {
     kpi_name?: true
     kpi_created_at?: true
     kpi_updated_at?: true
+    kpi_value?: true
+    kpi_description?: true
   }
 
   export type KpiCountAggregateInputType = {
@@ -5974,6 +6027,8 @@ export namespace Prisma {
     kpi_created_at?: true
     kpi_updated_at?: true
     form_data?: true
+    kpi_value?: true
+    kpi_description?: true
     _all?: true
   }
 
@@ -6069,6 +6124,8 @@ export namespace Prisma {
     kpi_created_at: Date | null
     kpi_updated_at: Date | null
     form_data: JsonValue
+    kpi_value: number | null
+    kpi_description: string | null
     _count: KpiCountAggregateOutputType | null
     _avg: KpiAvgAggregateOutputType | null
     _sum: KpiSumAggregateOutputType | null
@@ -6096,6 +6153,8 @@ export namespace Prisma {
     kpi_created_at?: boolean
     kpi_updated_at?: boolean
     form_data?: boolean
+    kpi_value?: boolean
+    kpi_description?: boolean
   }, ExtArgs["result"]["kpi"]>
 
   export type kpiSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6104,6 +6163,8 @@ export namespace Prisma {
     kpi_created_at?: boolean
     kpi_updated_at?: boolean
     form_data?: boolean
+    kpi_value?: boolean
+    kpi_description?: boolean
   }, ExtArgs["result"]["kpi"]>
 
   export type kpiSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6112,6 +6173,8 @@ export namespace Prisma {
     kpi_created_at?: boolean
     kpi_updated_at?: boolean
     form_data?: boolean
+    kpi_value?: boolean
+    kpi_description?: boolean
   }, ExtArgs["result"]["kpi"]>
 
   export type kpiSelectScalar = {
@@ -6120,9 +6183,11 @@ export namespace Prisma {
     kpi_created_at?: boolean
     kpi_updated_at?: boolean
     form_data?: boolean
+    kpi_value?: boolean
+    kpi_description?: boolean
   }
 
-  export type kpiOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"kpi_id" | "kpi_name" | "kpi_created_at" | "kpi_updated_at" | "form_data", ExtArgs["result"]["kpi"]>
+  export type kpiOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"kpi_id" | "kpi_name" | "kpi_created_at" | "kpi_updated_at" | "form_data" | "kpi_value" | "kpi_description", ExtArgs["result"]["kpi"]>
 
   export type $kpiPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "kpi"
@@ -6133,6 +6198,8 @@ export namespace Prisma {
       kpi_created_at: Date | null
       kpi_updated_at: Date | null
       form_data: Prisma.JsonValue
+      kpi_value: number | null
+      kpi_description: string | null
     }, ExtArgs["result"]["kpi"]>
     composites: {}
   }
@@ -6561,6 +6628,8 @@ export namespace Prisma {
     readonly kpi_created_at: FieldRef<"kpi", 'DateTime'>
     readonly kpi_updated_at: FieldRef<"kpi", 'DateTime'>
     readonly form_data: FieldRef<"kpi", 'Json'>
+    readonly kpi_value: FieldRef<"kpi", 'Float'>
+    readonly kpi_description: FieldRef<"kpi", 'String'>
   }
     
 
@@ -8011,7 +8080,10 @@ export namespace Prisma {
     form_data: 'form_data',
     added_date: 'added_date',
     resolved_date: 'resolved_date',
-    comments: 'comments'
+    comments: 'comments',
+    kpi_value: 'kpi_value',
+    kpi_description: 'kpi_description',
+    form_input: 'form_input'
   };
 
   export type Assigned_kpiScalarFieldEnum = (typeof Assigned_kpiScalarFieldEnum)[keyof typeof Assigned_kpiScalarFieldEnum]
@@ -8022,7 +8094,9 @@ export namespace Prisma {
     kpi_name: 'kpi_name',
     kpi_created_at: 'kpi_created_at',
     kpi_updated_at: 'kpi_updated_at',
-    form_data: 'form_data'
+    form_data: 'form_data',
+    kpi_value: 'kpi_value',
+    kpi_description: 'kpi_description'
   };
 
   export type KpiScalarFieldEnum = (typeof KpiScalarFieldEnum)[keyof typeof KpiScalarFieldEnum]
@@ -8052,6 +8126,14 @@ export namespace Prisma {
   };
 
   export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -8347,6 +8429,9 @@ export namespace Prisma {
     added_date?: DateTimeNullableFilter<"assigned_kpi"> | Date | string | null
     resolved_date?: DateTimeNullableFilter<"assigned_kpi"> | Date | string | null
     comments?: StringNullableFilter<"assigned_kpi"> | string | null
+    kpi_value?: FloatNullableFilter<"assigned_kpi"> | number | null
+    kpi_description?: StringNullableFilter<"assigned_kpi"> | string | null
+    form_input?: JsonNullableFilter<"assigned_kpi">
     pillar?: XOR<PillarsScalarRelationFilter, pillarsWhereInput>
   }
 
@@ -8359,6 +8444,9 @@ export namespace Prisma {
     added_date?: SortOrderInput | SortOrder
     resolved_date?: SortOrderInput | SortOrder
     comments?: SortOrderInput | SortOrder
+    kpi_value?: SortOrderInput | SortOrder
+    kpi_description?: SortOrderInput | SortOrder
+    form_input?: SortOrderInput | SortOrder
     pillar?: pillarsOrderByWithRelationInput
   }
 
@@ -8374,6 +8462,9 @@ export namespace Prisma {
     added_date?: DateTimeNullableFilter<"assigned_kpi"> | Date | string | null
     resolved_date?: DateTimeNullableFilter<"assigned_kpi"> | Date | string | null
     comments?: StringNullableFilter<"assigned_kpi"> | string | null
+    kpi_value?: FloatNullableFilter<"assigned_kpi"> | number | null
+    kpi_description?: StringNullableFilter<"assigned_kpi"> | string | null
+    form_input?: JsonNullableFilter<"assigned_kpi">
     pillar?: XOR<PillarsScalarRelationFilter, pillarsWhereInput>
   }, "assigned_kpi_id">
 
@@ -8386,6 +8477,9 @@ export namespace Prisma {
     added_date?: SortOrderInput | SortOrder
     resolved_date?: SortOrderInput | SortOrder
     comments?: SortOrderInput | SortOrder
+    kpi_value?: SortOrderInput | SortOrder
+    kpi_description?: SortOrderInput | SortOrder
+    form_input?: SortOrderInput | SortOrder
     _count?: assigned_kpiCountOrderByAggregateInput
     _avg?: assigned_kpiAvgOrderByAggregateInput
     _max?: assigned_kpiMaxOrderByAggregateInput
@@ -8405,6 +8499,9 @@ export namespace Prisma {
     added_date?: DateTimeNullableWithAggregatesFilter<"assigned_kpi"> | Date | string | null
     resolved_date?: DateTimeNullableWithAggregatesFilter<"assigned_kpi"> | Date | string | null
     comments?: StringNullableWithAggregatesFilter<"assigned_kpi"> | string | null
+    kpi_value?: FloatNullableWithAggregatesFilter<"assigned_kpi"> | number | null
+    kpi_description?: StringNullableWithAggregatesFilter<"assigned_kpi"> | string | null
+    form_input?: JsonNullableWithAggregatesFilter<"assigned_kpi">
   }
 
   export type kpiWhereInput = {
@@ -8416,6 +8513,8 @@ export namespace Prisma {
     kpi_created_at?: DateTimeNullableFilter<"kpi"> | Date | string | null
     kpi_updated_at?: DateTimeNullableFilter<"kpi"> | Date | string | null
     form_data?: JsonFilter<"kpi">
+    kpi_value?: FloatNullableFilter<"kpi"> | number | null
+    kpi_description?: StringNullableFilter<"kpi"> | string | null
   }
 
   export type kpiOrderByWithRelationInput = {
@@ -8424,6 +8523,8 @@ export namespace Prisma {
     kpi_created_at?: SortOrderInput | SortOrder
     kpi_updated_at?: SortOrderInput | SortOrder
     form_data?: SortOrder
+    kpi_value?: SortOrderInput | SortOrder
+    kpi_description?: SortOrderInput | SortOrder
   }
 
   export type kpiWhereUniqueInput = Prisma.AtLeast<{
@@ -8435,6 +8536,8 @@ export namespace Prisma {
     kpi_created_at?: DateTimeNullableFilter<"kpi"> | Date | string | null
     kpi_updated_at?: DateTimeNullableFilter<"kpi"> | Date | string | null
     form_data?: JsonFilter<"kpi">
+    kpi_value?: FloatNullableFilter<"kpi"> | number | null
+    kpi_description?: StringNullableFilter<"kpi"> | string | null
   }, "kpi_id" | "kpi_name">
 
   export type kpiOrderByWithAggregationInput = {
@@ -8443,6 +8546,8 @@ export namespace Prisma {
     kpi_created_at?: SortOrderInput | SortOrder
     kpi_updated_at?: SortOrderInput | SortOrder
     form_data?: SortOrder
+    kpi_value?: SortOrderInput | SortOrder
+    kpi_description?: SortOrderInput | SortOrder
     _count?: kpiCountOrderByAggregateInput
     _avg?: kpiAvgOrderByAggregateInput
     _max?: kpiMaxOrderByAggregateInput
@@ -8459,6 +8564,8 @@ export namespace Prisma {
     kpi_created_at?: DateTimeNullableWithAggregatesFilter<"kpi"> | Date | string | null
     kpi_updated_at?: DateTimeNullableWithAggregatesFilter<"kpi"> | Date | string | null
     form_data?: JsonWithAggregatesFilter<"kpi">
+    kpi_value?: FloatNullableWithAggregatesFilter<"kpi"> | number | null
+    kpi_description?: StringNullableWithAggregatesFilter<"kpi"> | string | null
   }
 
   export type qocWhereInput = {
@@ -8691,6 +8798,9 @@ export namespace Prisma {
     added_date?: Date | string | null
     resolved_date?: Date | string | null
     comments?: string | null
+    kpi_value?: number | null
+    kpi_description?: string | null
+    form_input?: NullableJsonNullValueInput | InputJsonValue
     pillar: pillarsCreateNestedOneWithoutAssigned_kpiInput
   }
 
@@ -8703,6 +8813,9 @@ export namespace Prisma {
     added_date?: Date | string | null
     resolved_date?: Date | string | null
     comments?: string | null
+    kpi_value?: number | null
+    kpi_description?: string | null
+    form_input?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type assigned_kpiUpdateInput = {
@@ -8712,6 +8825,9 @@ export namespace Prisma {
     added_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resolved_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
+    kpi_value?: NullableFloatFieldUpdateOperationsInput | number | null
+    kpi_description?: NullableStringFieldUpdateOperationsInput | string | null
+    form_input?: NullableJsonNullValueInput | InputJsonValue
     pillar?: pillarsUpdateOneRequiredWithoutAssigned_kpiNestedInput
   }
 
@@ -8724,6 +8840,9 @@ export namespace Prisma {
     added_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resolved_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
+    kpi_value?: NullableFloatFieldUpdateOperationsInput | number | null
+    kpi_description?: NullableStringFieldUpdateOperationsInput | string | null
+    form_input?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type assigned_kpiCreateManyInput = {
@@ -8735,6 +8854,9 @@ export namespace Prisma {
     added_date?: Date | string | null
     resolved_date?: Date | string | null
     comments?: string | null
+    kpi_value?: number | null
+    kpi_description?: string | null
+    form_input?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type assigned_kpiUpdateManyMutationInput = {
@@ -8744,6 +8866,9 @@ export namespace Prisma {
     added_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resolved_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
+    kpi_value?: NullableFloatFieldUpdateOperationsInput | number | null
+    kpi_description?: NullableStringFieldUpdateOperationsInput | string | null
+    form_input?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type assigned_kpiUncheckedUpdateManyInput = {
@@ -8755,6 +8880,9 @@ export namespace Prisma {
     added_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resolved_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
+    kpi_value?: NullableFloatFieldUpdateOperationsInput | number | null
+    kpi_description?: NullableStringFieldUpdateOperationsInput | string | null
+    form_input?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type kpiCreateInput = {
@@ -8762,6 +8890,8 @@ export namespace Prisma {
     kpi_created_at?: Date | string | null
     kpi_updated_at?: Date | string | null
     form_data: JsonNullValueInput | InputJsonValue
+    kpi_value?: number | null
+    kpi_description?: string | null
   }
 
   export type kpiUncheckedCreateInput = {
@@ -8770,6 +8900,8 @@ export namespace Prisma {
     kpi_created_at?: Date | string | null
     kpi_updated_at?: Date | string | null
     form_data: JsonNullValueInput | InputJsonValue
+    kpi_value?: number | null
+    kpi_description?: string | null
   }
 
   export type kpiUpdateInput = {
@@ -8777,6 +8909,8 @@ export namespace Prisma {
     kpi_created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kpi_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     form_data?: JsonNullValueInput | InputJsonValue
+    kpi_value?: NullableFloatFieldUpdateOperationsInput | number | null
+    kpi_description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type kpiUncheckedUpdateInput = {
@@ -8785,6 +8919,8 @@ export namespace Prisma {
     kpi_created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kpi_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     form_data?: JsonNullValueInput | InputJsonValue
+    kpi_value?: NullableFloatFieldUpdateOperationsInput | number | null
+    kpi_description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type kpiCreateManyInput = {
@@ -8793,6 +8929,8 @@ export namespace Prisma {
     kpi_created_at?: Date | string | null
     kpi_updated_at?: Date | string | null
     form_data: JsonNullValueInput | InputJsonValue
+    kpi_value?: number | null
+    kpi_description?: string | null
   }
 
   export type kpiUpdateManyMutationInput = {
@@ -8800,6 +8938,8 @@ export namespace Prisma {
     kpi_created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kpi_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     form_data?: JsonNullValueInput | InputJsonValue
+    kpi_value?: NullableFloatFieldUpdateOperationsInput | number | null
+    kpi_description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type kpiUncheckedUpdateManyInput = {
@@ -8808,6 +8948,8 @@ export namespace Prisma {
     kpi_created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kpi_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     form_data?: JsonNullValueInput | InputJsonValue
+    kpi_value?: NullableFloatFieldUpdateOperationsInput | number | null
+    kpi_description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type qocCreateInput = {
@@ -9183,6 +9325,40 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+  export type JsonNullableFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
   export type PillarsScalarRelationFilter = {
     is?: pillarsWhereInput
     isNot?: pillarsWhereInput
@@ -9197,11 +9373,15 @@ export namespace Prisma {
     added_date?: SortOrder
     resolved_date?: SortOrder
     comments?: SortOrder
+    kpi_value?: SortOrder
+    kpi_description?: SortOrder
+    form_input?: SortOrder
   }
 
   export type assigned_kpiAvgOrderByAggregateInput = {
     assigned_kpi_id?: SortOrder
     pillar_id?: SortOrder
+    kpi_value?: SortOrder
   }
 
   export type assigned_kpiMaxOrderByAggregateInput = {
@@ -9212,6 +9392,8 @@ export namespace Prisma {
     added_date?: SortOrder
     resolved_date?: SortOrder
     comments?: SortOrder
+    kpi_value?: SortOrder
+    kpi_description?: SortOrder
   }
 
   export type assigned_kpiMinOrderByAggregateInput = {
@@ -9222,11 +9404,14 @@ export namespace Prisma {
     added_date?: SortOrder
     resolved_date?: SortOrder
     comments?: SortOrder
+    kpi_value?: SortOrder
+    kpi_description?: SortOrder
   }
 
   export type assigned_kpiSumOrderByAggregateInput = {
     assigned_kpi_id?: SortOrder
     pillar_id?: SortOrder
+    kpi_value?: SortOrder
   }
   export type JsonWithAggregatesFilter<$PrismaModel = never> = 
     | PatchUndefined<
@@ -9255,16 +9440,61 @@ export namespace Prisma {
     _max?: NestedJsonFilter<$PrismaModel>
   }
 
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
   export type kpiCountOrderByAggregateInput = {
     kpi_id?: SortOrder
     kpi_name?: SortOrder
     kpi_created_at?: SortOrder
     kpi_updated_at?: SortOrder
     form_data?: SortOrder
+    kpi_value?: SortOrder
+    kpi_description?: SortOrder
   }
 
   export type kpiAvgOrderByAggregateInput = {
     kpi_id?: SortOrder
+    kpi_value?: SortOrder
   }
 
   export type kpiMaxOrderByAggregateInput = {
@@ -9272,6 +9502,8 @@ export namespace Prisma {
     kpi_name?: SortOrder
     kpi_created_at?: SortOrder
     kpi_updated_at?: SortOrder
+    kpi_value?: SortOrder
+    kpi_description?: SortOrder
   }
 
   export type kpiMinOrderByAggregateInput = {
@@ -9279,10 +9511,13 @@ export namespace Prisma {
     kpi_name?: SortOrder
     kpi_created_at?: SortOrder
     kpi_updated_at?: SortOrder
+    kpi_value?: SortOrder
+    kpi_description?: SortOrder
   }
 
   export type kpiSumOrderByAggregateInput = {
     kpi_id?: SortOrder
+    kpi_value?: SortOrder
   }
 
   export type qocCountOrderByAggregateInput = {
@@ -9507,6 +9742,14 @@ export namespace Prisma {
     connect?: pillarsWhereUniqueInput
   }
 
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type pillarsUpdateOneRequiredWithoutAssigned_kpiNestedInput = {
     create?: XOR<pillarsCreateWithoutAssigned_kpiInput, pillarsUncheckedCreateWithoutAssigned_kpiInput>
     connectOrCreate?: pillarsCreateOrConnectWithoutAssigned_kpiInput
@@ -9701,6 +9944,45 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
   export type departmentsCreateWithoutMembersInput = {
     dept_name: string
     hod_id?: number | null
@@ -9860,6 +10142,9 @@ export namespace Prisma {
     added_date?: Date | string | null
     resolved_date?: Date | string | null
     comments?: string | null
+    kpi_value?: number | null
+    kpi_description?: string | null
+    form_input?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type assigned_kpiUncheckedCreateWithoutPillarInput = {
@@ -9870,6 +10155,9 @@ export namespace Prisma {
     added_date?: Date | string | null
     resolved_date?: Date | string | null
     comments?: string | null
+    kpi_value?: number | null
+    kpi_description?: string | null
+    form_input?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type assigned_kpiCreateOrConnectWithoutPillarInput = {
@@ -9932,6 +10220,9 @@ export namespace Prisma {
     added_date?: DateTimeNullableFilter<"assigned_kpi"> | Date | string | null
     resolved_date?: DateTimeNullableFilter<"assigned_kpi"> | Date | string | null
     comments?: StringNullableFilter<"assigned_kpi"> | string | null
+    kpi_value?: FloatNullableFilter<"assigned_kpi"> | number | null
+    kpi_description?: StringNullableFilter<"assigned_kpi"> | string | null
+    form_input?: JsonNullableFilter<"assigned_kpi">
   }
 
   export type departmentsUpsertWithoutPillarsInput = {
@@ -10068,6 +10359,9 @@ export namespace Prisma {
     added_date?: Date | string | null
     resolved_date?: Date | string | null
     comments?: string | null
+    kpi_value?: number | null
+    kpi_description?: string | null
+    form_input?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type assigned_kpiUpdateWithoutPillarInput = {
@@ -10077,6 +10371,9 @@ export namespace Prisma {
     added_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resolved_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
+    kpi_value?: NullableFloatFieldUpdateOperationsInput | number | null
+    kpi_description?: NullableStringFieldUpdateOperationsInput | string | null
+    form_input?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type assigned_kpiUncheckedUpdateWithoutPillarInput = {
@@ -10087,6 +10384,9 @@ export namespace Prisma {
     added_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resolved_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
+    kpi_value?: NullableFloatFieldUpdateOperationsInput | number | null
+    kpi_description?: NullableStringFieldUpdateOperationsInput | string | null
+    form_input?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type assigned_kpiUncheckedUpdateManyWithoutPillarInput = {
@@ -10097,6 +10397,9 @@ export namespace Prisma {
     added_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resolved_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
+    kpi_value?: NullableFloatFieldUpdateOperationsInput | number | null
+    kpi_description?: NullableStringFieldUpdateOperationsInput | string | null
+    form_input?: NullableJsonNullValueInput | InputJsonValue
   }
 
 

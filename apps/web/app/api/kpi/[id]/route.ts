@@ -24,12 +24,14 @@ export async function GET(
     }
 
     // Return KPI with transformed structure for frontend
-    // Instead of including both form_data and elements, only include elements
+    // Include the new fields: kpi_value and kpi_description
     const responseKpi = {
       kpi_id: kpi.kpi_id,
       kpi_name: kpi.kpi_name,
       kpi_created_at: kpi.kpi_created_at,
       kpi_updated_at: kpi.kpi_updated_at,
+      kpi_value: kpi.kpi_value,
+      kpi_description: kpi.kpi_description,
       id: kpi.kpi_name,
       elements: kpi.form_data
     };
@@ -67,7 +69,12 @@ export async function PUT(
       );
     }
     
-    const { elements, updatedAt } = body;
+    const { 
+      elements, 
+      updatedAt, 
+      kpi_value, 
+      kpi_description 
+    } = body;
 
     // Check if elements are provided
     if (!elements || !Array.isArray(elements)) {
@@ -89,16 +96,18 @@ export async function PUT(
       );
     }
 
-    // Update KPI - keep the same kpi_name but update form_data with new elements
+    // Update KPI - include new fields in the update operation
     const updatedKpi = await prisma.kpi.update({
       where: { kpi_id },
       data: {
         form_data: elements,
-        kpi_updated_at: updatedAt ? new Date(updatedAt) : new Date()
+        kpi_updated_at: updatedAt ? new Date(updatedAt) : new Date(),
+        kpi_value: kpi_value !== undefined ? kpi_value : existingKpi.kpi_value,
+        kpi_description: kpi_description !== undefined ? kpi_description : existingKpi.kpi_description
       }
     });
 
-    // Return updated KPI with transformed structure (avoid duplication)
+    // Return updated KPI with transformed structure including new fields
     return NextResponse.json({ 
       success: true, 
       message: 'KPI updated successfully', 
@@ -107,6 +116,8 @@ export async function PUT(
         kpi_name: updatedKpi.kpi_name,
         kpi_created_at: updatedKpi.kpi_created_at,
         kpi_updated_at: updatedKpi.kpi_updated_at,
+        kpi_value: updatedKpi.kpi_value,
+        kpi_description: updatedKpi.kpi_description,
         id: updatedKpi.kpi_name,
         elements: updatedKpi.form_data
       }
@@ -163,7 +174,13 @@ export async function DELETE(
 
     return NextResponse.json({ 
       success: true, 
-      message: 'KPI deleted successfully' 
+      message: 'KPI deleted successfully',
+      deleted: {
+        kpi_id: kpi_id,
+        kpi_name: existingKpi.kpi_name,
+        kpi_value: existingKpi.kpi_value,
+        kpi_description: existingKpi.kpi_description
+      }
     });
   } catch (error) {
     console.error('Error deleting KPI:', error);
