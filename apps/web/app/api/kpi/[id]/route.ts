@@ -139,7 +139,7 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ): Promise<NextResponse> {
   try {
-    const { id } = params;
+    const { id } = await params;
     const kpi_id = Number(id);
 
     // Check if KPI exists

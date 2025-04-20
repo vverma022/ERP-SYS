@@ -20,6 +20,8 @@ import { useRouter } from "next/navigation"
 
 export default function FormBuilder({ initialForm }: { initialForm?: FormConfig }) {
   const [formTitle, setFormTitle] = useState(initialForm?.title || "")
+  const [formDescription, setFormDescription] = useState(initialForm?.description || "")
+  const [formValue, setFormValue] = useState(initialForm?.value || 0)
   const [elements, setElements] = useState<FormElementInstance[]>(initialForm?.elements || [])
   const [activeId, setActiveId] = useState<string | null>(null)
   const [activeElement, setActiveElement] = useState<FormElementInstance | null>(null)
@@ -158,6 +160,8 @@ export default function FormBuilder({ initialForm }: { initialForm?: FormConfig 
         id: `form-${Date.now()}`,
         title: formTitle,
         elements,
+        description: formDescription,
+        value: formValue,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       };
@@ -208,8 +212,9 @@ export default function FormBuilder({ initialForm }: { initialForm?: FormConfig 
     </p>
     <Input
       id="form-description"
-      // value={formDescription}
-      // onChange={(e) => setFormDescription(e.target.value)}
+      value={formDescription}
+      required
+      onChange={(e) => setFormDescription(e.target.value)}
       className="text-lg font-medium"
       placeholder="Enter KPI Description"
     />
@@ -224,8 +229,10 @@ export default function FormBuilder({ initialForm }: { initialForm?: FormConfig 
     <Input
       id="form-value"
       type="number" // Ensure only numeric input
-      // value={formValue}
-      // onChange={(e) => setFormValue(Number(e.target.value))}
+      required
+
+      value={formValue}
+      onChange={(e) => setFormValue(Number(e.target.value))}
       className="text-lg font-medium"
       placeholder="Enter KPI Value"
     />

@@ -16,11 +16,12 @@ import { submitFormData } from "@/lib/actions"
 import { Loader2 } from "lucide-react"
 
 interface FormPreviewProps {
+  // formId: string
   formTitle: string
   elements: FormElementInstance[]
 }
 
-export default function FormPreview({ formTitle, elements }: FormPreviewProps) {
+export default function FormPreview({ formTitle, elements,  }: FormPreviewProps) {
   const [formData, setFormData] = useState<Record<string, any>>({})
   const [files, setFiles] = useState<Record<string, FileList | null>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -89,10 +90,8 @@ export default function FormPreview({ formTitle, elements }: FormPreviewProps) {
       setFiles({})
     } catch (error) {
       console.error("Error submitting form:", error)
-      toast({
-        title: "Error submitting form",
+      toast.error("Error submitting form",{
         description: "There was an error submitting your form. Please try again.",
-        variant: "destructive",
       })
     } finally {
       setIsSubmitting(false)

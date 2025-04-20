@@ -51,6 +51,8 @@ export interface AssignKpiPayload {
 export interface FormConfig {
   id: string
   title: string
+  description: string
+  value: number
   elements: FormElementInstance[]
   createdAt: string
   updatedAt: string

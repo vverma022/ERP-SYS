@@ -18,6 +18,8 @@ export async function POST(request: Request): Promise<NextResponse> {
       data: {
         kpi_name: title || 'Untitled KPI', // Use title as the KPI name
         form_data: elements, // Save the `elements` field as JSON in `form_data`
+        
+
         kpi_created_at: createdAt ? new Date(createdAt) : new Date(), // Use `createdAt` or default to now
       },
     });

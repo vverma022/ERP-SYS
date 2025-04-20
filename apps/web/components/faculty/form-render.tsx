@@ -43,8 +43,10 @@ export default function FormRenderer({ name, elements }: FormRendererProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+
+  console.log("Form Data:", formData);
+  console.log("Uploaded Files:", files);
     
-    // Simulate form submission
     setTimeout(() => {
       setIsSubmitting(false)
       setIsSubmitted(true)
