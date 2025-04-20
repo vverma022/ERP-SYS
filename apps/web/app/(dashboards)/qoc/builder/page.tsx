@@ -3,9 +3,10 @@ import { Button } from "@workspace/ui/components/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@workspace/ui/components/card"
 import { AlertDialog , AlertDialogContent, AlertDialogFooter, AlertDialogDescription, AlertDialogHeader, AlertDialogTitle } from "@workspace/ui/components/alert-dialog"
 import Link from "next/link"
-import { PlusCircle } from "lucide-react"
+import {  PlusCircle } from "lucide-react"
 import { useFetchForms , useDeleteKpi } from "@/hooks/forms"
 import { useState } from "react"
+import { Badge } from "@workspace/ui/components/badge"
 
 export default function FormsPage() {
   const { data: forms, isLoading, error } = useFetchForms();
@@ -13,6 +14,7 @@ export default function FormsPage() {
   const [deletingFormId, setDeletingFormId] = useState<string | null>(null);
   const [formToDelete, setFormToDelete] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
+  console.log("Forms:", forms);
 
   const handleDelete = (formId: string) => {
     const numericId = formId.startsWith("form-") ? formId.split("-")[1]! : formId;
@@ -62,31 +64,40 @@ export default function FormsPage() {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {forms!.map((form) => (
             <Card key={form.id}>
-              <CardHeader>
+            <CardHeader className="flex justify-between items-center">
+              <div>
                 <CardTitle>{form.title}</CardTitle>
                 <CardDescription>
                   Created on {new Date(form.createdAt).toLocaleDateString()}
                 </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm">{form.elements.length} Fields</p>
-              </CardContent>
-              <CardFooter className="flex justify-between">
-                <Link href={`/qoc/builder/form/view/${form.id.replace('form-','')}`}>
-                  <Button>View</Button>
-                </Link>
-                <Link href={`/qoc/builder/form/edit/${form.id.replace('form-','')}`}>
-                  <Button variant="outline">Edit</Button>
-                </Link>
-                <Button 
-                  variant="destructive" 
-                  onClick={() => openDeleteDialog(form.id)} 
-                  disabled={deletingFormId === form.id}
-                >
-                  {deletingFormId === form.id ? 'Deleting...' : 'Delete'}
-                </Button>
-              </CardFooter>
-            </Card>
+              </div>
+              <Badge>{form.value}</Badge>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm">{form.elements.length} Fields</p>
+              <p 
+                className="text-sm text-gray-500 truncate" 
+                title={form.description}
+              >
+                {form.description}
+              </p>
+            </CardContent>
+            <CardFooter className="flex justify-between">
+              <Link href={`/qoc/builder/form/view/${form.id.replace('form-','')}`}>
+                <Button>View</Button>
+              </Link>
+              <Link href={`/qoc/builder/form/edit/${form.id.replace('form-','')}`}>
+                <Button variant="outline">Edit</Button>
+              </Link>
+              <Button 
+                variant="destructive" 
+                onClick={() => openDeleteDialog(form.id)} 
+                disabled={deletingFormId === form.id}
+              >
+                {deletingFormId === form.id ? 'Deleting...' : 'Delete'}
+              </Button>
+            </CardFooter>
+          </Card>
           ))}
         </div>
       )}

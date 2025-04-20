@@ -3,7 +3,6 @@
 import type React from "react"
 
 import type { FormElementInstance } from "@/lib/types"
-import { Button } from "@workspace/ui/components/button"
 import { Checkbox } from "@workspace/ui/components/checkbox"
 import { Input } from "@workspace/ui/components/input"
 import { Label } from "@workspace/ui/components/label"
@@ -11,17 +10,21 @@ import { RadioGroup, RadioGroupItem } from "@workspace/ui/components/radio-group
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@workspace/ui/components/select"
 import { Textarea } from "@workspace/ui/components/textarea"
 import { useState } from "react"
-import { toast } from "sonner"
-import { submitFormData } from "@/lib/actions"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@workspace/ui/components/card"
+import { Button } from "@workspace/ui/components/button"
 import { Loader2 } from "lucide-react"
+import { toast } from "sonner"
+
+
 
 interface FormPreviewProps {
-  // formId: string
   formTitle: string
   elements: FormElementInstance[]
+  description?: string
+  isPreview?: boolean
 }
 
-export default function FormPreview({ formTitle, elements,  }: FormPreviewProps) {
+export default function FormPreview({ formTitle, elements, description, isPreview = false }: FormPreviewProps) {
   const [formData, setFormData] = useState<Record<string, any>>({})
   const [files, setFiles] = useState<Record<string, FileList | null>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -34,69 +37,6 @@ export default function FormPreview({ formTitle, elements,  }: FormPreviewProps)
     setFiles((prev) => ({ ...prev, [id]: fileList }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-
-    // Validate required fields
-    const missingFields = elements
-      .filter(
-        (element) =>
-          element.attributes.required && (element.type === "file" ? !files[element.id] : !formData[element.id]),
-      )
-      .map((element) => element.attributes.label)
-
-    if (missingFields.length > 0) {
-      toast({
-        title: "Missing required fields",
-        description: `Please fill in the following fields: ${missingFields.join(", ")}`,
-        variant: "destructive",
-      })
-      return
-    }
-
-    try {
-      setIsSubmitting(true)
-
-      // Prepare form data for submission
-      const formDataToSubmit = {
-        formTitle,
-        formData,
-        // We don't send the actual files to the backend in this example
-        // In a real app, you'd use FormData to upload files
-        fileInfo: Object.entries(files).reduce(
-          (acc, [id, fileList]) => {
-            if (fileList) {
-              acc[id] = Array.from(fileList).map((file) => ({
-                name: file.name,
-                type: file.type,
-                size: file.size,
-              }))
-            }
-            return acc
-          },
-          {} as Record<string, any>,
-        ),
-      }
-
-      await submitFormData(formDataToSubmit)
-
-      toast({
-        title: "Form submitted successfully",
-        description: "Your form data has been sent to the backend",
-      })
-
-      // Reset form after successful submission
-      setFormData({})
-      setFiles({})
-    } catch (error) {
-      console.error("Error submitting form:", error)
-      toast.error("Error submitting form",{
-        description: "There was an error submitting your form. Please try again.",
-      })
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
 
   const renderFormElement = (element: FormElementInstance) => {
     const { id, type, attributes } = element
@@ -264,6 +204,18 @@ export default function FormPreview({ formTitle, elements,  }: FormPreviewProps)
               required={attributes.required}
               className="cursor-pointer"
             />
+            {files[id] && files[id]!.length > 0 && (
+              <div className="mt-2">
+                <p className="text-sm font-medium">Selected files:</p>
+                <ul className="text-sm text-gray-500 list-disc pl-5">
+                  {Array.from(files[id]!).map((file, index) => (
+                    <li key={index}>
+                      {file.name} ({(file.size / 1024).toFixed(1)} KB)
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         )
       default:
@@ -281,28 +233,20 @@ export default function FormPreview({ formTitle, elements,  }: FormPreviewProps)
   }
 
   return (
-    <form onSubmit={handleSubmit} className="border rounded-md p-6 bg-white">
-      <h2 className="text-xl font-bold mb-6">{formTitle}</h2>
-
-      <div className="space-y-6">
-        {elements.map((element) => (
-          <div key={element.id}>{renderFormElement(element)}</div>
-        ))}
-      </div>
-
-      <div className="mt-8">
-        <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Submitting...
-            </>
-          ) : (
-            "Submit Form"
-          )}
-        </Button>
-      </div>
-    </form>
+    <Card>
+      <CardHeader>
+        <CardTitle>{formTitle}</CardTitle>
+        <CardDescription>
+          {description || "No description available"}
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form className="space-y-6">
+          {elements.map((element) => (
+            <div key={element.id}>{renderFormElement(element)}</div>
+          ))}
+        </form>
+      </CardContent>
+    </Card>
   )
 }
-

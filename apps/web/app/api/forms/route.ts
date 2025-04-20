@@ -11,13 +11,15 @@ export async function POST(request: Request): Promise<NextResponse> {
     console.log('Request body:', body);
 
     // Extract relevant fields from the JSON
-    const { id, title, elements, createdAt } = body;
+    const { id, title, elements, createdAt , value, description  } = body;
 
     // Save the data to the `kpi` table
     const newKpi = await prisma.kpi.create({
       data: {
         kpi_name: title || 'Untitled KPI', // Use title as the KPI name
         form_data: elements, // Save the `elements` field as JSON in `form_data`
+        kpi_description: description || 'No description provided', // Use description or default
+        kpi_value: value || 0, // Use value or default to 0
         
 
         kpi_created_at: createdAt ? new Date(createdAt) : new Date(), // Use `createdAt` or default to now
@@ -43,6 +45,8 @@ export async function GET(): Promise<NextResponse> {
         kpi_id: true,
         kpi_name: true,
         kpi_created_at: true,
+        kpi_description: true,
+        kpi_value: true,
         kpi_updated_at: true,
         form_data: true, // Include the form_data field
       },
@@ -52,12 +56,15 @@ export async function GET(): Promise<NextResponse> {
     const formattedKpis = kpis.map((kpi) => ({
       id: `form-${kpi.kpi_id}`,
       title: kpi.kpi_name,
+      value: kpi.kpi_value,
+      description: kpi.kpi_description,
       elements: kpi.form_data, // Map form_data to elements
       createdAt: kpi.kpi_created_at?.toISOString(),
       updatedAt: kpi.kpi_updated_at?.toISOString(),
     }));
 
     // Return the KPIs as a JSON response
+    console.log('Fetched KPIs:', formattedKpis);
     return NextResponse.json({ message: 'KPIs fetched successfully', kpis: formattedKpis });
   } catch (error) {
     console.error('Error fetching KPIs:', error);

@@ -139,14 +139,14 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ): Promise<NextResponse> {
   try {
-    const { id } = await params;
+    const { id } = params;
     const kpi_id = Number(id);
-
+    
     // Check if KPI exists
     const existingKpi = await prisma.kpi.findUnique({
       where: { kpi_id }
     });
-
+    
     if (!existingKpi) {
       return NextResponse.json(
         { success: false, error: 'KPI not found' },
@@ -154,33 +154,26 @@ export async function DELETE(
       );
     }
     
-    // Check if KPI is in use by any assigned_kpi
-    const assignedKpis = await prisma.assigned_kpi.findMany({
-      where: { kpi_name: existingKpi.kpi_name },
-      take: 1 // We only need to know if there's at least one
+    // First delete all assigned_kpi entries with this KPI name
+    const deletedAssignments = await prisma.assigned_kpi.deleteMany({
+      where: { kpi_name: existingKpi.kpi_name }
     });
     
-    if (assignedKpis.length > 0) {
-      return NextResponse.json(
-        { success: false, error: 'Cannot delete KPI that is in use. Remove all assigned instances first.' },
-        { status: 400 }
-      );
-    }
-
-    // Delete KPI
+    // Then delete the KPI itself
     await prisma.kpi.delete({
       where: { kpi_id }
     });
-
-    return NextResponse.json({ 
-      success: true, 
-      message: 'KPI deleted successfully',
+    
+    return NextResponse.json({
+      success: true,
+      message: 'KPI and all its assignments deleted successfully',
       deleted: {
         kpi_id: kpi_id,
         kpi_name: existingKpi.kpi_name,
         kpi_value: existingKpi.kpi_value,
         kpi_description: existingKpi.kpi_description
-      }
+      },
+      assignmentsDeleted: deletedAssignments.count
     });
   } catch (error) {
     console.error('Error deleting KPI:', error);

@@ -8,14 +8,14 @@ type SidebarConfig = Record<string, { title: string; items: SidebarItem[] }
 
 export function useSidebarConfig(): SidebarConfig {
   const { data, isLoading, error } = useFetchAssignedKPI();
-
+  console.log("Assigned KPI Data:", data);
 
   const kpiSubItems: SidebarItem[] =
   data?.map((kpi: any) => ({
     icon: LineChart,
     label: kpi.kpi_name, 
     id: kpi.assigned_kpi_id, 
-    path: `/faculty/kpi-management/${kpi.kpi_id.toString()}`, // Assuming kpi_id is the ID you want to use
+    path: `/faculty/kpi-management/${kpi.kpi_id}`, // Assuming kpi_id is the ID you want to use
   })) || [];
 
   const HodkpiSubItems: SidebarItem[] =
@@ -23,7 +23,7 @@ export function useSidebarConfig(): SidebarConfig {
     icon: LineChart,
     label: kpi.kpi_name, 
     id: kpi.assigned_kpi_id, 
-    path: `/hod/kpi-management/${kpi.kpi_id.toString()}`, // Assuming kpi_id is the ID you want to use
+    path: `/hod/kpi-management/${kpi.kpi_id}`, // Assuming kpi_id is the ID you want to use
   })) || [];
 
 
