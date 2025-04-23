@@ -118,9 +118,9 @@ export async function POST(request: Request): Promise<NextResponse> {
   try {
     const body = await request.json();
     const {
-      departmentId, // Changed from department_id to match frontend naming
-      pillarId,     // Changed from pillar_id to match frontend naming
-      kpiIds,       // This is now an array of KPI IDs
+      departmentId,
+      pillarId,
+      kpiIds,
       kpi_name,
       kpi_status,
       kpi_value,
@@ -169,6 +169,18 @@ export async function POST(request: Request): Promise<NextResponse> {
       );
     }
     
+    // Get all pillars for this department to check for duplicate KPIs
+    const departmentPillars = await prisma.pillars.findMany({
+      where: {
+        department_id: Number(departmentId)
+      },
+      select: {
+        pillar_id: true
+      }
+    });
+    
+    const departmentPillarIds = departmentPillars.map(p => p.pillar_id);
+    
     // Process each KPI in the array
     const assignedKpis = [];
     
@@ -187,6 +199,29 @@ export async function POST(request: Request): Promise<NextResponse> {
       
       // Use name from template if not provided
       const assignedKpiName = kpi_name || kpiTemplate.kpi_name;
+      
+      // Check if this KPI is already assigned to any pillar in this department
+      const existingKpi = await prisma.assigned_kpi.findFirst({
+        where: {
+          kpi_name: assignedKpiName,
+          pillar_id: {
+            in: departmentPillarIds
+          }
+        },
+        include: {
+          pillar: true
+        }
+      });
+      
+      if (existingKpi) {
+        return NextResponse.json(
+          { 
+            success: false, 
+            error: `KPI "${assignedKpiName}" is already assigned to pillar "${existingKpi.pillar.pillar_name}" in Department ID ${departmentId}` 
+          },
+          { status: 409 } // 409 Conflict is appropriate for duplicate resources
+        );
+      }
       
       // Create the assigned KPI
       const assignedKpi = await prisma.assigned_kpi.create({
