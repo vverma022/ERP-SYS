@@ -1,5 +1,5 @@
 import { useFetchForms } from "@/hooks/forms";
-import { Home, Hammer, Check, Settings, LayoutDashboard, LineChart, User2 } from "lucide-react"; // Icons
+import { Home, Hammer, Check, Settings, LayoutDashboard, LineChart, User2, Eye } from "lucide-react"; // Icons
 import { SidebarItem } from "@/lib/types";
 import { useFetchAssignedKPI } from "@/hooks/faculty";
 
@@ -69,6 +69,12 @@ export function useSidebarConfig(): SidebarConfig {
           label: "Dashboard",
           id: "dashboard",
           path: "/hod/",
+        },
+        { 
+          icon: Eye, 
+          label: "View KPI's", 
+          id: "view-submissions", 
+          path: "/hod/ViewKPI" 
         },
         {
           icon: LineChart,
