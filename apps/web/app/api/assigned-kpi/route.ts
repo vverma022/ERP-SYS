@@ -118,9 +118,9 @@ export async function POST(request: Request): Promise<NextResponse> {
   try {
     const body = await request.json();
     const {
-      department_id,
-      pillar_id,
-      kpi_id,
+      departmentId, // Changed from department_id to match frontend naming
+      pillarId,     // Changed from pillar_id to match frontend naming
+      kpiIds,       // This is now an array of KPI IDs
       kpi_name,
       kpi_status,
       kpi_value,
@@ -130,23 +130,23 @@ export async function POST(request: Request): Promise<NextResponse> {
     } = body;
     
     // Validate required fields
-    if (!department_id) {
+    if (!departmentId) {
       return NextResponse.json(
         { success: false, error: 'Department ID is required' },
         { status: 400 }
       );
     }
     
-    if (!pillar_id) {
+    if (!pillarId) {
       return NextResponse.json(
         { success: false, error: 'Pillar ID is required' },
         { status: 400 }
       );
     }
     
-    if (!kpi_id) {
+    if (!kpiIds || !Array.isArray(kpiIds) || kpiIds.length === 0) {
       return NextResponse.json(
-        { success: false, error: 'KPI ID is required' },
+        { success: false, error: 'At least one KPI ID is required' },
         { status: 400 }
       );
     }
@@ -154,64 +154,65 @@ export async function POST(request: Request): Promise<NextResponse> {
     // Verify that the pillar belongs to the specified department
     const pillar = await prisma.pillars.findFirst({
       where: {
-        pillar_id: Number(pillar_id),
-        department_id: Number(department_id)
+        pillar_id: Number(pillarId),
+        department_id: Number(departmentId)
       }
     });
     
     if (!pillar) {
       return NextResponse.json(
-        { 
-          success: false, 
-          error: `Pillar ID ${pillar_id} does not belong to Department ID ${department_id}` 
+        {
+          success: false,
+          error: `Pillar ID ${pillarId} does not belong to Department ID ${departmentId}`
         },
         { status: 404 }
       );
     }
     
-    // Fetch the KPI template
-    const kpiTemplate = await prisma.kpi.findUnique({
-      where: { kpi_id: Number(kpi_id) }
-    });
+    // Process each KPI in the array
+    const assignedKpis = [];
     
-    if (!kpiTemplate) {
-      return NextResponse.json(
-        { success: false, error: 'KPI template not found' },
-        { status: 404 }
-      );
-    }
-    
-    // Use name from template if not provided
-    const assignedKpiName = kpi_name || kpiTemplate.kpi_name;
-    
-    // Create the assigned KPI
-    const assignedKpi = await prisma.assigned_kpi.create({
-      data: {
-        pillar_id: Number(pillar_id),
-        kpi_name: assignedKpiName,
-        kpi_status: kpi_status || 'Not Started',
-        form_data: kpiTemplate.form_data as unknown as Prisma.InputJsonValue,
-        added_date: new Date(),
-        resolved_date: null,
-        comments: comments || '',
-        kpi_value: kpi_value !== undefined ? kpi_value : kpiTemplate.kpi_value,
-        kpi_description: kpi_description || kpiTemplate.kpi_description || '',
-        form_input: form_input || null
-      },
-      include: {
-        pillar: {
-          include: {
-            department: true
+    for (const kpiId of kpiIds) {
+      // Fetch the KPI template
+      const kpiTemplate = await prisma.kpi.findUnique({
+        where: { kpi_id: Number(kpiId) }
+      });
+      
+      if (!kpiTemplate) {
+        return NextResponse.json(
+          { success: false, error: `KPI template with ID ${kpiId} not found` },
+          { status: 404 }
+        );
+      }
+      
+      // Use name from template if not provided
+      const assignedKpiName = kpi_name || kpiTemplate.kpi_name;
+      
+      // Create the assigned KPI
+      const assignedKpi = await prisma.assigned_kpi.create({
+        data: {
+          pillar_id: Number(pillarId),
+          kpi_name: assignedKpiName,
+          kpi_status: kpi_status || 'Not Started',
+          form_data: kpiTemplate.form_data as unknown as Prisma.InputJsonValue,
+          added_date: new Date(),
+          resolved_date: null,
+          comments: comments || '',
+          kpi_value: kpi_value !== undefined ? kpi_value : kpiTemplate.kpi_value,
+          kpi_description: kpi_description || kpiTemplate.kpi_description || '',
+          form_input: form_input || null
+        },
+        include: {
+          pillar: {
+            include: {
+              department: true
+            }
           }
         }
-      }
-    });
-    
-    // Return with transformed structure
-    return NextResponse.json({
-      success: true,
-      message: 'KPI assigned successfully',
-      assignedKpi: {
+      });
+      
+      // Transform the structure for response
+      assignedKpis.push({
         assigned_kpi_id: assignedKpi.assigned_kpi_id,
         pillar_id: assignedKpi.pillar_id,
         kpi_name: assignedKpi.kpi_name,
@@ -226,20 +227,27 @@ export async function POST(request: Request): Promise<NextResponse> {
         pillar: assignedKpi.pillar,
         id: `assigned-${assignedKpi.assigned_kpi_id}`,
         elements: assignedKpi.form_data
-      }
+      });
+    }
+    
+    // Return success with all assigned KPIs
+    return NextResponse.json({
+      success: true,
+      message: `Successfully assigned ${assignedKpis.length} KPI(s)`,
+      assignedKpis
     });
   } catch (error) {
-    console.error('Error assigning KPI:', error);
+    console.error('Error assigning KPI(s):', error);
     
     if (error instanceof Error) {
       return NextResponse.json(
-        { success: false, error: `Failed to assign KPI: ${error.message}` },
+        { success: false, error: `Failed to assign KPI(s): ${error.message}` },
         { status: 500 }
       );
     }
     
     return NextResponse.json(
-      { success: false, error: 'Failed to assign KPI' },
+      { success: false, error: 'Failed to assign KPI(s)' },
       { status: 500 }
     );
   }

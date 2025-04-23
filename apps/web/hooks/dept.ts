@@ -30,7 +30,9 @@ const fetchDepts = async (): Promise<DeptConfig[]> => {
   export function useAssignKpiToPillar() {
     return useMutation({
       mutationFn: async (payload: AssignKpiPayload) => {
+        console.log(payload);
         const response = await axios.post('/api/assigned-kpi', payload);
+
         return response.data;
       },
       onSuccess: () => {
@@ -43,3 +45,18 @@ const fetchDepts = async (): Promise<DeptConfig[]> => {
       }
     });
   }
+
+  export const useFetchAssignedKpis = (departmentId?: string, pillarId?: string) => {
+    return useQuery({
+      queryKey: ['assignedKpis', departmentId, pillarId],
+      queryFn: async () => {
+        if (!departmentId || !pillarId) return null;
+        const response = await fetch(`/api/assigned-kpi?department_id=${departmentId}&pillar_id=${pillarId}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch assigned KPIs');
+        }
+        return response.json();
+      },
+      enabled: !!departmentId && !!pillarId,
+    });
+  };

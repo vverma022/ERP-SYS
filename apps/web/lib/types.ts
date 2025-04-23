@@ -45,6 +45,7 @@ export interface PillarInstance {
 
 export interface AssignKpiPayload {
   pillarId: string;
+  departmentId: string;
   kpiIds: string[];
 }
 
