@@ -41,14 +41,15 @@ export function Navbar({
 
   return (
     <header className="flex h-14 items-center gap-4 border-b bg-background px-4 lg:h-[60px]">
-      <SidebarTrigger className="lg:hidden" />
-
-      {leftContent}
+      <div className="flex items-center gap-2">
+        {leftContent}
+      </div>
 
       {showSearch && (
-        <div className="w-full flex-1">
+        <div className="w-full flex-1 flex items-center">
+          <SidebarTrigger className="mr-2 hidden md:flex" />
           <form
-            className="hidden md:block"
+            className="hidden md:block flex-1"
             onSubmit={(e) => {
               e.preventDefault()
               const form = e.currentTarget
@@ -63,7 +64,7 @@ export function Navbar({
                 name="search"
                 type="search"
                 placeholder="Search..."
-                className="w-full appearance-none bg-background pl-8 shadow-none md:w-2/3 lg:w-1/3"
+                className="w-full appearance-none bg-background pl-8 shadow-none md:w-full lg:w-1/3"
               />
             </div>
           </form>
