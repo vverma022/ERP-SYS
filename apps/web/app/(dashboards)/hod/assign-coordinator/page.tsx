@@ -5,9 +5,25 @@ import { Button } from "@workspace/ui/components/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@workspace/ui/components/card";
 import { Badge } from "@workspace/ui/components/badge";
 import { UserPlus } from "lucide-react";
+import AssignDialog from "@/components/hod/assign-dialog";
 
 export default function KPICoordinatorsPage() {
-  const [openAssignDialog, setOpenAssignDialog] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const faculties = [
+    { value: "faculty1", label: "John Doe" },
+    { value: "faculty2", label: "Jane Smith" },
+  ];
+
+  const kpis = [
+    { value: "kpi1", label: "KPI 1" },
+    { value: "kpi2", label: "KPI 2" },
+    { value: "kpi3", label: "KPI 3" },
+  ];
+
+  const handleAssignSubmit = (data: { facultyId: string; role: string; kpis: string[] }) => {
+    console.log("Assignment Data:", data);
+  };
 
   return (
     <div className="mx-auto max-w-7xl">
@@ -17,10 +33,17 @@ export default function KPICoordinatorsPage() {
             <CardTitle>KPI Coordinators</CardTitle>
             <CardDescription>Manage and assign KPI coordinators for your department</CardDescription>
           </div>
-          <Button className="ml-auto" onClick={() => setOpenAssignDialog(true)}>
+          <Button className="ml-auto" onClick={() => setIsDialogOpen(true)}>
             <UserPlus className="mr-2 h-4 w-4" />
             Assign Coordinator
           </Button>
+          <AssignDialog
+        isOpen={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+        faculties={faculties}
+        kpis={kpis}
+        onSubmit={handleAssignSubmit}
+       />
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
