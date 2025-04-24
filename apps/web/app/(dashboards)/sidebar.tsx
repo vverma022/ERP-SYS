@@ -41,12 +41,12 @@ export function MainAppSidebar({ activeSection, setActiveSection }: AppSidebarPr
     <Sidebar>
       <SidebarHeader>
         <div className="flex h-14 items-center border-b px-4">
-          <h1 className="text-xl font-bold">{title}</h1>
+          <img src="/MUJ-Logo.png" alt="MUJ Logo" className="h-20 w-auto object-contain" />
         </div>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Main Menu</SidebarGroupLabel>
+          <SidebarGroupLabel><div>{title}</div></SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (

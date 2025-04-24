@@ -1,8 +1,25 @@
+"use client"
+
+import { useState, useEffect, useRef } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@workspace/ui/components/card"
 import { Button } from "@workspace/ui/components/button"
 import { Badge } from "@workspace/ui/components/badge"
 import Link from "next/link"
 import { Eye, Filter } from "lucide-react"
+
+function useOutsideClick(ref: React.RefObject<HTMLDivElement>, callback: () => void) {
+  useEffect(() => {
+    function handleClick(event: MouseEvent) {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        callback()
+      }
+    }
+    document.addEventListener("mousedown", handleClick)
+    return () => {
+      document.removeEventListener("mousedown", handleClick)
+    }
+  }, [ref, callback])
+}
 
 // Mock data for submissions
 const mockSubmissions = [
@@ -41,6 +58,23 @@ const mockSubmissions = [
 ]
 
 export function QOCReview() {
+  const [filter, setFilter] = useState<"all" | "approved" | "rejected" | "pending">("all")
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  // Close dropdown on outside click
+  useOutsideClick(dropdownRef, () => setDropdownOpen(false))
+
+  const filteredSubmissions =
+    filter === "all"
+      ? mockSubmissions
+      : mockSubmissions.filter((submission) => submission.status === filter)
+
+  const handleFilterSelect = (status: "all" | "approved" | "rejected" | "pending") => {
+    setFilter(status)
+    setDropdownOpen(false)
+  }
+
   return (
     <div className="space-y-6">
       <div>
@@ -48,15 +82,64 @@ export function QOCReview() {
         <p className="text-muted-foreground mt-2">Review and analyze KPI submissions from departments</p>
       </div>
 
-      <div className="flex justify-end">
-        <Button variant="outline">
+      <div className="relative flex justify-end">
+        <Button variant="outline" onClick={() => setDropdownOpen(!dropdownOpen)}>
           <Filter className="mr-2 h-4 w-4" />
           Filter
         </Button>
+        {dropdownOpen && (
+          <div
+            ref={dropdownRef}
+            className="absolute right-0 mt-2 w-40 rounded-md border bg-white shadow-lg z-10"
+          >
+            <ul className="py-1 text-sm text-gray-700">
+              <li>
+                <button
+                  className={`block w-full px-4 py-2 text-left hover:bg-gray-100 ${
+                    filter === "all" ? "font-semibold" : ""
+                  }`}
+                  onClick={() => handleFilterSelect("all")}
+                >
+                  All
+                </button>
+              </li>
+              <li>
+                <button
+                  className={`block w-full px-4 py-2 text-left hover:bg-gray-100 ${
+                    filter === "approved" ? "font-semibold" : ""
+                  }`}
+                  onClick={() => handleFilterSelect("approved")}
+                >
+                  Approved
+                </button>
+              </li>
+              <li>
+                <button
+                  className={`block w-full px-4 py-2 text-left hover:bg-gray-100 ${
+                    filter === "rejected" ? "font-semibold" : ""
+                  }`}
+                  onClick={() => handleFilterSelect("rejected")}
+                >
+                  Rejected
+                </button>
+              </li>
+              <li>
+                <button
+                  className={`block w-full px-4 py-2 text-left hover:bg-gray-100 ${
+                    filter === "pending" ? "font-semibold" : ""
+                  }`}
+                  onClick={() => handleFilterSelect("pending")}
+                >
+                  Pending
+                </button>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
 
       <div className="space-y-4">
-        {mockSubmissions.map((submission) => (
+        {filteredSubmissions.map((submission) => (
           <Card key={submission.id}>
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
@@ -64,10 +147,10 @@ export function QOCReview() {
                 <Badge
                   variant={
                     submission.status === "approved"
-                      ? "default"
+                      ? "approved"
                       : submission.status === "rejected"
-                        ? "destructive"
-                        : "outline"
+                        ? "rejected"
+                        : "pending"
                   }
                 >
                   {submission.status.charAt(0).toUpperCase() + submission.status.slice(1)}
@@ -104,4 +187,3 @@ export function QOCReview() {
     </div>
   )
 }
-

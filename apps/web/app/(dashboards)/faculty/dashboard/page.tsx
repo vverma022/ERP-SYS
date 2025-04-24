@@ -9,14 +9,14 @@ export function DashboardContent() {
   return (
     <div className="mx-auto max-w-7xl">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">Dashboard</h1>
+        <h1 className="text-3xl font-bold">Faculty Dashboard</h1>
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm">
-            <FileText className="mr-2 h-4 w-4" />
+            <FileText className="mr-2 h-6 w-6" />
             Export Report
           </Button>
           <Button size="sm">
-            <CalendarIcon className="mr-2 h-4 w-4" />
+            <CalendarIcon className="mr-2 h-6 w-6" />
             Current Session
           </Button>
         </div>
@@ -32,10 +32,10 @@ export function DashboardContent() {
         <TabsContent value="overview" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <Card className="bg-card text-card-foreground">
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium">Total KPI 3 Entries</CardTitle>
-                <LineChart className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
+                <CardHeader className="flex flex-row items-center justify-between pb-2">
+                  <CardTitle className="text-base font-medium">Total KPI 3 Entries</CardTitle>
+                  <LineChart className="h-6 w-6 text-muted-foreground" />
+                </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">24</div>
                 <p className="text-xs text-muted-foreground">+4 from last month</p>
@@ -44,10 +44,10 @@ export function DashboardContent() {
             </Card>
 
             <Card className="bg-card text-card-foreground">
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium">Total KPI 4 Entries</CardTitle>
-                <BarChart3 className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
+                <CardHeader className="flex flex-row items-center justify-between pb-2">
+                  <CardTitle className="text-base font-medium">Total KPI 4 Entries</CardTitle>
+                  <BarChart3 className="h-6 w-6 text-muted-foreground" />
+                </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">18</div>
                 <p className="text-xs text-muted-foreground">+2 from last month</p>
@@ -56,10 +56,10 @@ export function DashboardContent() {
             </Card>
 
             <Card className="bg-card text-card-foreground">
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium">Pending Verification</CardTitle>
-                <PieChart className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
+                <CardHeader className="flex flex-row items-center justify-between pb-2">
+                  <CardTitle className="text-base font-medium">Pending Verification</CardTitle>
+                  <PieChart className="h-6 w-6 text-muted-foreground" />
+                </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">7</div>
                 <p className="text-xs text-muted-foreground">-3 since last week</p>
@@ -68,10 +68,10 @@ export function DashboardContent() {
             </Card>
 
             <Card className="bg-card text-card-foreground">
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium">Completion Rate</CardTitle>
-                <Users className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
+                <CardHeader className="flex flex-row items-center justify-between pb-2">
+                  <CardTitle className="text-base font-medium">Completion Rate</CardTitle>
+                  <Users className="h-6 w-6 text-muted-foreground" />
+                </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">92%</div>
                 <p className="text-xs text-muted-foreground">+5% from last month</p>
@@ -148,8 +148,8 @@ export function DashboardContent() {
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <BookOpen className="h-4 w-4 text-primary" />
-                        <span className="text-sm font-medium">Computer Science</span>
+                        <BookOpen className="h-6 w-6 text-primary" />
+                        <span className="text-base font-medium">Computer Science</span>
                       </div>
                       <span className="text-sm font-medium">95%</span>
                     </div>
@@ -159,8 +159,8 @@ export function DashboardContent() {
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <BookOpen className="h-4 w-4 text-primary" />
-                        <span className="text-sm font-medium">Electrical Engineering</span>
+                        <BookOpen className="h-6 w-6 text-primary" />
+                        <span className="text-base font-medium">Electrical Engineering</span>
                       </div>
                       <span className="text-sm font-medium">85%</span>
                     </div>
@@ -170,8 +170,8 @@ export function DashboardContent() {
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <BookOpen className="h-4 w-4 text-primary" />
-                        <span className="text-sm font-medium">Mechanical Engineering</span>
+                        <BookOpen className="h-6 w-6 text-primary" />
+                        <span className="text-base font-medium">Mechanical Engineering</span>
                       </div>
                       <span className="text-sm font-medium">78%</span>
                     </div>
@@ -181,8 +181,8 @@ export function DashboardContent() {
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <BookOpen className="h-4 w-4 text-primary" />
-                        <span className="text-sm font-medium">Civil Engineering</span>
+                        <BookOpen className="h-6 w-6 text-primary" />
+                        <span className="text-base font-medium">Civil Engineering</span>
                       </div>
                       <span className="text-sm font-medium">65%</span>
                     </div>
@@ -192,8 +192,8 @@ export function DashboardContent() {
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <BookOpen className="h-4 w-4 text-primary" />
-                        <span className="text-sm font-medium">Electronics & Communication</span>
+                        <BookOpen className="h-6 w-6 text-primary" />
+                        <span className="text-base font-medium">Electronics & Communication</span>
                       </div>
                       <span className="text-sm font-medium">90%</span>
                     </div>

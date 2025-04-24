@@ -107,31 +107,49 @@ export function DashboardContent() {
                       <TableCell className="font-medium">Computer Science</TableCell>
                       <TableCell>KPI 3</TableCell>
                       <TableCell>Web Development</TableCell>
-                      <TableCell className="text-right">Verified</TableCell>
+                      <TableCell className="text-right">
+                        <Badge variant="approved">Approved</Badge>
+                      </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">Electrical Engineering</TableCell>
                       <TableCell>KPI 4</TableCell>
                       <TableCell>Power Systems</TableCell>
-                      <TableCell className="text-right">Pending</TableCell>
+                      <TableCell className="text-right">
+                        <Badge variant="rejected">Rejected</Badge>
+                      </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">Mechanical Engineering</TableCell>
                       <TableCell>KPI 3</TableCell>
                       <TableCell>CAD/CAM</TableCell>
-                      <TableCell className="text-right">Verified</TableCell>
+                      <TableCell className="text-right">
+                        <Badge variant="approved">Approved</Badge>
+                      </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">Civil Engineering</TableCell>
                       <TableCell>KPI 4</TableCell>
                       <TableCell>Structural Analysis</TableCell>
-                      <TableCell className="text-right">Pending</TableCell>
+                      <TableCell className="text-right">
+                        <Badge variant="pending">Pending</Badge>
+                      </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">Electronics & Communication</TableCell>
                       <TableCell>KPI 3</TableCell>
                       <TableCell>VLSI Design</TableCell>
-                      <TableCell className="text-right">Verified</TableCell>
+                      <TableCell className="text-right">
+                        <Badge variant="approved">Approved</Badge>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-medium">Chemical Engineering</TableCell>
+                      <TableCell>KPI 4</TableCell>
+                      <TableCell>Thermodynamics</TableCell>
+                      <TableCell className="text-right">
+                        <Badge variant="rejected">Rejected</Badge>
+                      </TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
@@ -242,4 +260,3 @@ export function DashboardContent() {
     </div>
   )
 }
-
