@@ -93,3 +93,27 @@ const fetchAssignedKPIs = async (): Promise<AssignedKPI[]> => {
     );
   }
 
+  type KpiData = {
+    assigned_kpi_id: number;
+    kpi_name: string;
+    kpi_description: string;
+    kpi_status: string;
+    form_input: Record<string, string | number>[] | null;
+  };
+  
+  
+
+  const fetchAssignedKPIByDepartmentId = async (departmentId : string) => {
+    const { data } = await axios.get(`/api/assigned-kpi`, {
+      params: { department_id: departmentId },
+    });
+    return data;
+  };
+  
+  export const useFetchKPISubmisson = (departmentId : string) => {
+    return useQuery({
+      queryKey: ['assigned-kpi', departmentId], // Include departmentId in the query key
+      queryFn: () => fetchAssignedKPIByDepartmentId(departmentId),
+      enabled: !!departmentId, // Only enable the query if departmentId is provided
+    });
+  };
