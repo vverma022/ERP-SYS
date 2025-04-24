@@ -32,15 +32,17 @@ const fetchDepts = async (): Promise<DeptConfig[]> => {
       mutationFn: async (payload: AssignKpiPayload) => {
         console.log(payload);
         const response = await axios.post('/api/assigned-kpi', payload);
-
         return response.data;
       },
       onSuccess: () => {
         toast.success('KPIs successfully assigned!');
       },
-      onError: (error: ProcessError) => {
-        toast.error("Error saving form", {
-          description: error.message,
+      onError: (error: any) => {
+        // Extract the error message from the axios error response
+        const errorMessage = error.response?.data?.error || error.message || "Unknown error occurred";
+        
+        toast.error("Error assigning KPI", {
+          description: errorMessage,
         });
       }
     });
