@@ -15,7 +15,7 @@ export function useSidebarConfig(): SidebarConfig {
     icon: LineChart,
     label: kpi.kpi_name, 
     id: kpi.assigned_kpi_id, 
-    path: `/faculty/kpi-management/${kpi.kpi_id}`, // Assuming kpi_id is the ID you want to use
+    path: `/faculty/kpi-management/${kpi.assigned_kpi_id}`, // Assuming kpi_id is the ID you want to use
   })) || [];
 
   const HodkpiSubItems: SidebarItem[] =

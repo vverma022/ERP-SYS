@@ -49,6 +49,13 @@ export interface AssignKpiPayload {
   kpiIds: string[];
 }
 
+export interface KpiFormData {
+  id: string;
+  formData: {
+    entries: Record<string, any>[];
+  };
+}
+
 export interface FormConfig {
   id: string
   title: string

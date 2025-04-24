@@ -1,6 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery , useMutation, useQueryClient, UseMutationResult } from '@tanstack/react-query';
 import axios from 'axios';
 import { AssignedKPI } from '@/lib/types';
+import { toast } from 'sonner';
+import { ProcessError } from '@/lib/types';
+import { KpiFormData } from '@/lib/types';
 
 
 
@@ -29,7 +32,6 @@ const fetchAssignedKPIs = async (): Promise<AssignedKPI[]> => {
    
     const kpiName = data.assignedKpi.kpi_name;
     const elements = data.assignedKpi.elements;
-    console.log("KPI DATA BY ID", data) // Replace with your API endpoint
     return {kpiName, elements};
   };
   
@@ -41,4 +43,53 @@ const fetchAssignedKPIs = async (): Promise<AssignedKPI[]> => {
     })
   };
 
-  
+  const fetchAssignedKPIById = async (id: string) => {
+    const { data } = await axios.get(`/api/fetch-kpi/${id}`);
+    return data;
+  }
+
+  export const useFetchAssignedKPIById = (id: string) => {
+    return useQuery({
+      queryKey: ['assigned-kpi', id], 
+      queryFn: () => fetchAssignedKPIById(id), 
+      enabled: !!id, 
+    })
+  };
+
+  export const saveDataToBackend = async (formData: KpiFormData): Promise<any> => {
+    try {
+      const response = await axios.put(`/api/assigned-kpi/${formData.id}`, {
+        form_input: formData.formData.entries,
+      });
+      return response.data;
+    } catch (error: any) {
+      throw new ProcessError({
+        name: 'PROCESSING_ERROR',
+        message: error.response?.data?.error || 'Failed to save data',
+        cause: error,
+      });
+    }
+  };
+
+  export function useSaveKpiData(): UseMutationResult<any, ProcessError, KpiFormData> {
+    const queryClient = useQueryClient();
+    return useMutation({
+      mutationFn: async (formData: KpiFormData) => {
+        return saveDataToBackend(formData);
+      },
+      onSuccess: () => {
+          toast.success('KPI data saved successfully', {
+            description: 'Your KPI data has been updated successfully.',
+          });
+          queryClient.invalidateQueries({ queryKey: ['kpiData'] }); // Adjust the queryKey as necessary
+        },
+        onError: (error: ProcessError) => {
+          toast.error('Error saving KPI data', {
+            description: error.message,
+          });
+          console.error('Save KPI data error:', error.name, error.cause);
+        },
+      }
+    );
+  }
+

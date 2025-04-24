@@ -16,6 +16,7 @@ import { Textarea } from "@workspace/ui/components/textarea"
 import { RadioGroup, RadioGroupItem } from "@workspace/ui/components/radio-group"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@workspace/ui/components/card"
 import { ChartLine } from "lucide-react"
+import { useSaveKpiData } from "@/hooks/faculty"
 
 interface TableFormRendererProps {
   name: string
@@ -23,13 +24,14 @@ interface TableFormRendererProps {
   description?: string
   onSuccess?: () => void
   className?: string
-//   id: string
+  id: string
 }
 
 type FormEntry = Record<string, any>
 
-export default function TableFormRenderer({ name, elements,description,onSuccess, className = "" }: TableFormRendererProps) {
+export default function TableFormRenderer({ name, elements, id ,description,onSuccess, className = "" }: TableFormRendererProps) {
   const [entries, setEntries] = useState<FormEntry[]>([{}])
+  const { mutate: saveKpiData } = useSaveKpiData();
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [activeRowIndex, setActiveRowIndex] = useState<number | null>(null)
   const [activeElement, setActiveElement] = useState<FormElementInstance | null>(null)
@@ -102,58 +104,31 @@ export default function TableFormRenderer({ name, elements,description,onSuccess
   }
 
   const handleSubmit = async () => {
-    // Remove completely empty rows
-    const filledEntries = entries.filter((entry) => Object.keys(entry).length > 0)
-
+    const filledEntries = entries.filter((entry) => Object.keys(entry).length > 0);
+    
     if (filledEntries.length === 0) {
-      toast.warning("No data to submit",{
+      toast.warning("No data to submit", {
         description: "Please add at least one entry to the table",
-      })
-      return
+      });
+      return;
     }
-
-    const invalidRows = validateEntries()
+    const invalidRows = validateEntries();
     if (invalidRows.length > 0) {
-      toast.error("Missing required fields",{
+      toast.error("Missing required fields", {
         description: `Please complete all required fields in rows: ${invalidRows.join(", ")}`,
-      })
-      return
+      });
+      return;
     }
+    const formDataToSubmit = {
+      id: id,
+      formData: {
+        entries: filledEntries,
+      },
+    };
+    saveKpiData(formDataToSubmit);
 
-    try {
-      setIsSubmitting(true)
-
-      // Prepare form data for submission
-      const formDataToSubmit = {
-        // kpiId: id,
-        formTitle: name,
-        formData: {
-          entries: filledEntries,
-        },
-      }
-
-    //   await submitKpiFormData(formDataToSubmit)
-
-      toast.success("Data submitted successfully",{
-        description: `${filledEntries.length} entries have been recorded`,
-      })
-
-      // Reset form after successful submission
-      setEntries([{}])
-
-      // Call onSuccess callback if provided
-      if (onSuccess) {
-        onSuccess()
-      }
-    } catch (error) {
-      console.error("Error submitting form:", error)
-      toast.error("Error submitting data",{
-        description: "There was an error submitting your data. Please try again.",
-      })
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
+    setEntries([{}]) // Reset the entries after submission
+  };
 
   const renderComplexElementEditor = () => {
     if (!activeElement) return null
