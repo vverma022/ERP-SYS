@@ -1,5 +1,5 @@
 import { useFetchForms } from "@/hooks/forms";
-import { Home, Hammer, Check, Settings, LayoutDashboard, LineChart, User2, Eye } from "lucide-react"; // Icons
+import { Home, Hammer, Check, Settings, LayoutDashboard, LineChart, User2, Eye, DownloadCloudIcon } from "lucide-react"; // Icons
 import { SidebarItem } from "@/lib/types";
 import { useFetchAssignedKPI } from "@/hooks/faculty";
 
@@ -35,6 +35,7 @@ export function useSidebarConfig(): SidebarConfig {
         { icon: Hammer, label: "Build KPI", id: "form-builder", path: "/qoc/builder" },
         { icon: User2, label:"Assign KPI", id:"assign-kpi", path:"/qoc/assign"},
         { icon: Check, label: "Review KPI's", id: "review-submissions", path: "/qoc/review" },
+        {icon: DownloadCloudIcon , label: "Generate Report", id: "generate-report", path: "/qoc/report"},
         { icon: Settings, label: "Settings", id: "qoc-settings", path: "/qoc/settings" },
       ],
     },

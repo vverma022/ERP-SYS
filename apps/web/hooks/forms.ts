@@ -1,6 +1,6 @@
 import { FormConfig, ProcessError } from '@/lib/types';
 import { useMutation, UseMutationResult, useQuery, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { toast } from 'sonner';
 
 
@@ -96,4 +96,5 @@ export const useFormById = (id : string) => {
     enabled: !!id, 
   });
 };
+
 
