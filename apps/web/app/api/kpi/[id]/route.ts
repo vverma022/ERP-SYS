@@ -6,10 +6,10 @@ import { prisma } from '@repo/db';
  */
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ): Promise<NextResponse> {
   try {
-    const { id } = params;
+    const id = context.params.id;
     const kpi_id = Number(id);
 
     const kpi = await prisma.kpi.findUnique({

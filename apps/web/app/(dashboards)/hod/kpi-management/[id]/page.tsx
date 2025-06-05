@@ -9,21 +9,20 @@ export default function KpiPage({ params }: { params: Promise<{ id: string }> })
   console.log("KPI Data:", data);
 
   if (isLoading) {
-    return <div className="text-center ">Loading...</div>;
+    return <div className="text-center">Loading...</div>;
   }
-
 
   if (error) {
     return <div>Error: {String(error)}</div>;
   }
 
-  if (!data) {
+  if (!data || !data.kpi) {
     return <div>No data found</div>;
   }
 
-  const kpi = data.kpi_name || "Untitled KPI";
-  const description = data.kpi_description || "No description available";
-  const elements = data.form_data || [];
+  const kpi = data.kpi.kpi_name || "Untitled KPI";
+  const description = data.kpi.kpi_description || "No description available";
+  const elements = data.kpi.elements || [];
 
   return (
     <TableFormRenderer
