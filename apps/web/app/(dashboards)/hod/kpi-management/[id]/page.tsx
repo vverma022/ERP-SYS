@@ -1,11 +1,12 @@
 "use client"
 import React from "react";
-import FormRenderer from "@/components/faculty/form-render";
-import { useFormById } from "@/hooks/forms";
+import TableFormRenderer from "@/components/formbuilder/table-rendered";
+import { useFetchAssignedKPIById } from "@/hooks/faculty";
 
 export default function KpiPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = React.use(params);
-  const { data, isLoading, error } = useFormById(id);
+  const { data, isLoading, error } = useFetchAssignedKPIById(id);
+  console.log("KPI Data:", data);
 
   if (isLoading) {
     return <div className="text-center ">Loading...</div>;
@@ -20,13 +21,15 @@ export default function KpiPage({ params }: { params: Promise<{ id: string }> })
     return <div>No data found</div>;
   }
 
-  const kpi = data.kpi;
-  const kpi_name = kpi?.kpi_name || "Untitled KPI";
-  const elements = kpi?.elements || [];
+  const kpi = data.kpi_name || "Untitled KPI";
+  const description = data.kpi_description || "No description available";
+  const elements = data.form_data || [];
 
   return (
-    <FormRenderer
-      name={kpi_name}
+    <TableFormRenderer
+      id={id}
+      description={description}
+      name={kpi}
       elements={elements}
     />
   );
