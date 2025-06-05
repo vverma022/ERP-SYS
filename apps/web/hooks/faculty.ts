@@ -44,7 +44,7 @@ const fetchAssignedKPIs = async (): Promise<AssignedKPI[]> => {
   };
 
   const fetchAssignedKPIById = async (id: string) => {
-    const { data } = await axios.get(`/api/fetch-kpi/${id}`);
+    const { data } = await axios.get(`/api/kpi/${id}`);
     return data;
   }
 
