@@ -7,7 +7,7 @@ type SidebarConfig = Record<string, { title: string; items: SidebarItem[] }
 >;
 
 export function useSidebarConfig(): SidebarConfig {
-  const { data, isLoading, error } = useFetchAssignedKPI();
+  /*const { data, isLoading, error } = useFetchAssignedKPI();
   console.log("Assigned KPI Data:", data);
 
   const kpiSubItems: SidebarItem[] =
@@ -24,7 +24,7 @@ export function useSidebarConfig(): SidebarConfig {
     label: kpi.kpi_name, 
     id: kpi.assigned_kpi_id, 
     path: `/hod/kpi-management/${kpi.kpi_id}`, // Assuming kpi_id is the ID you want to use
-  })) || [];
+  })) || [];*/
 
 
   return {
@@ -52,7 +52,7 @@ export function useSidebarConfig(): SidebarConfig {
           icon: LineChart,
           label: "KPI Management",
           id: "kpi-management",
-          subItems: kpiSubItems, // Nested KPI items with required paths
+          path: "/faculty/kpi-management", // Nested KPI items with required paths
         },
         {
           icon: Settings,
@@ -71,17 +71,17 @@ export function useSidebarConfig(): SidebarConfig {
           id: "dashboard",
           path: "/hod/",
         },
-        { 
+        /*{ 
           icon: Eye, 
           label: "View KPI's", 
           id: "view-submissions", 
           path: "/hod/ViewKPI" 
-        },
+        },*/
         {
           icon: LineChart,
           label: "KPI Management",
           id: "kpi-management",
-          subItems: HodkpiSubItems, // Nested KPI items with required paths
+          path: "/hod/kpi-management", // Nested KPI items with required paths
         },
         {
           icon: User2,
