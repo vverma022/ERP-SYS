@@ -126,7 +126,7 @@ export default function QOCSubmissionReview() {
 
     {/* KPI Review Dialog */}
     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-      <DialogContent className="max-w-3xl">
+      <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{selectedKpi?.kpi_name}</DialogTitle>
           <DialogDescription>{selectedKpi?.kpi_description}</DialogDescription>
