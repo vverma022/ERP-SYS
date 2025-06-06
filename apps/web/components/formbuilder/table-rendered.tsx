@@ -8,7 +8,7 @@ import { Checkbox } from "@workspace/ui/components/checkbox"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@workspace/ui/components/select"
 import { toast } from "sonner"
 // import { submitKpiFormData } from "@/lib/api/kpi"
-import { Loader2, Plus, Trash2, Save, FileUp } from "lucide-react"
+import { Loader2, Plus, Trash2, Save, FileUp, FileDown } from "lucide-react"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@workspace/ui/components/table"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@workspace/ui/components/dialog"
 import { Label } from "@workspace/ui/components/label"
@@ -226,12 +226,23 @@ export default function TableFormRenderer({ name, elements, id ,description,onSu
   return (
     <Card className={className}>
       <CardHeader>
-        <CardTitle className="flex items-center">
-        <ChartLine className="mr-2" />
-          {name}
-        </CardTitle>
-       {description && <p className="text-sm text-muted-foreground">{description}</p>}
-</CardHeader>
+        <div className="flex justify-between items-center">
+          <div>
+            <CardTitle className="flex items-center">
+              <ChartLine className="mr-2" />
+              {name}
+            </CardTitle>
+            {description && <p className="text-sm text-muted-foreground">{description}</p>}
+          </div>
+          <Button variant="outline" onClick={() => {
+            // TODO: Implement Excel download
+            toast.success("Excel template downloaded");
+          }}>
+            <FileDown className="mr-2"/>
+            Download Excel
+          </Button>
+        </div>
+      </CardHeader>
       <CardContent>
         <div className="overflow-x-auto">
           <Table>
@@ -301,10 +312,19 @@ export default function TableFormRenderer({ name, elements, id ,description,onSu
       </CardContent>
 
       <CardFooter className="flex justify-between">
-        <Button variant="outline" onClick={addNewRow} disabled={isSubmitting}>
-          <Plus className="mr-2 h-4 w-4" />
-          Add Row
-        </Button>
+        <div className="flex gap-2">
+          <Button variant="outline" onClick={addNewRow} disabled={isSubmitting}>
+            <Plus className="mr-2 h-4 w-4" />
+            Add Row
+          </Button>
+          <Button variant="outline" onClick={() => {
+            // TODO: Implement Excel upload
+            toast.success("Excel data uploaded");
+          }}>
+            <FileUp className="mr-2 h-4 w-4" />
+            Upload Excel
+          </Button>
+        </div>
 
         <Button onClick={handleSubmit} disabled={isSubmitting}>
           {isSubmitting ? (
