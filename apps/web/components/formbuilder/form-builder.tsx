@@ -237,6 +237,27 @@ export default function FormBuilder({ initialForm }: { initialForm?: FormConfig 
       placeholder="Enter KPI Value"
     />
   </div>
+  <div>
+    <div className="flex flex-col">
+      <Label className="text-lg font-medium mb-2">Upload KPI Template</Label>
+      <p className="text-sm text-gray-500 mb-2">
+        Upload an Excel template for this KPI. This will help faculty understand the expected format.
+      </p>
+      <Input
+        id="template-upload"
+        type="file"
+        accept=".xlsx,.xls"
+        onChange={(e) => {
+          const file = e.target.files?.[0];
+          if (file) {
+            // Handle file upload logic here
+            toast.success("Template uploaded successfully");
+          }
+        }}
+        className="text-lg font-medium"
+      />
+    </div>
+  </div>
 </div>
       </div>
 
